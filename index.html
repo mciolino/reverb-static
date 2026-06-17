@@ -1086,9 +1086,18 @@ img[src*="dzcdn.net"], img[src*="spotifycdn.com"], img[src*="mzstatic"],
   aspect-ratio: 1 / 1;
   height: auto;
 }
-/* JS-injected rails: hold height before hydration */
-.mood-board, .mood-filmstrip, .editorial-gallery, .footer-gallery{ min-height: 240px; }
-.score-ticker, .ticker{ min-height: 44px; }
+/* Hold height of JS-hydrated rails BEFORE cards inject (prevents static->dynamic reflow) */
+.reviews-grid{ min-height: 520px; }
+.ticker-inner, .score-ticker, .ticker{ min-height: 44px; }
+.mood-board, .mood-filmstrip, .editorial-gallery{ min-height: 280px; }
+[data-footer-gallery-stack], .footer-gallery{ min-height: 360px; }
+/* Isolate reflows to their own subtree so a re-render can't shift siblings */
+.reviews-grid, .mood-board, .mood-filmstrip, .editorial-gallery,
+[data-footer-gallery-stack], .ticker-inner{ contain: layout; }
+@media (min-width: 768px){
+  .reviews-grid{ min-height: 420px; }
+  [data-footer-gallery-stack], .footer-gallery{ min-height: 300px; }
+}
 </style>
 </head>
 <body><script>(function(){var d=document.documentElement;if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){d.classList.add('reverb-ready')});}requestAnimationFrame(function(){d.classList.add('reverb-ready')});setTimeout(function(){d.classList.add('reverb-ready')},600);})();</script>
