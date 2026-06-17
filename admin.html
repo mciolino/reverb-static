@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>REVERB Admin — Editorial Desk</title>
   <meta name="description" content="REVERB editorial admin for managing reviews, coverage planning, Spotify draft generation, subscribers, and weekly digests.">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{--bg:#0A0A0A;--surface:#111;--surface-2:#171717;--surface-3:#202020;--border:#2A2A2A;--accent:#E8363A;--gold:#F5C518;--blue:#4A9EFF;--text:#fff;--muted:#A0A0A0;--dim:#5A5A5A;--green:#1DB954;--font-display:'Playfair Display',Georgia,serif;--font-body:'Lora',Georgia,serif;--font-ui:'Inter',system-ui,sans-serif;--font-mono:'DM Mono',monospace}
@@ -230,8 +232,39 @@
 #reverb-loading-screen .load-logo span { color:#E8363A; }
 
   </style>
+
+<style id="reverb-perf-layer">
+/* ── REVERB Perf + Motion Layer ─────────────────────────── */
+:root{
+  --rvb-ease-out: cubic-bezier(.16,1,.3,1);        /* expo-out, premium glide */
+  --rvb-ease-inout: cubic-bezier(.65,0,.35,1);     /* smooth both ends */
+  --rvb-ease-back: cubic-bezier(.34,1.56,.64,1);   /* gentle overshoot */
+}
+/* GPU-promote animated surfaces for buttery 60fps */
+.reveal,.sr7-stagger,.mood-cover,.editorial-card,.review-card,
+.score-chip,[class*="hover"],.hero,.cover,.album-cover{
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+/* Snappier, consistent transitions site-wide */
+a,button,.score-chip,.editorial-card,.review-card,.mood-cover,
+.cover,.album-cover,.tag,.chip{
+  transition-timing-function: var(--rvb-ease-out);
+}
+/* Smooth fade for the whole page once fonts/layout settle */
+html.reverb-ready body{ animation: reverbPageIn .5s var(--rvb-ease-out) both; }
+@keyframes reverbPageIn{ from{opacity:0} to{opacity:1} }
+/* Prevent CLS from late-loading images */
+img{ background:#141414; }
+@media (prefers-reduced-motion: reduce){
+  html.reverb-ready body{ animation:none !important; }
+  *,*::before,*::after{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
+}
+</style>
+
 </head>
-<body>
+<body><script>(function(){var d=document.documentElement;if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){d.classList.add('reverb-ready')});}requestAnimationFrame(function(){d.classList.add('reverb-ready')});setTimeout(function(){d.classList.add('reverb-ready')},600);})();</script>
 <div class="admin-progress" aria-hidden="true"></div>
 <nav>
   <a href="/" class="nav-logo">REVERB<span>.</span></a>
@@ -437,7 +470,7 @@ async function refreshDashboard(){
 function setTab(tab){ document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab)); ['articles','planning','calendar'].forEach(t=>document.getElementById(`tab-${t}`).classList.toggle('hidden', t!==tab)); if(tab==='calendar') renderKanban(); }
 function renderAll(){ renderStats(); renderReviews(); renderPlans(); renderKanban(); }
 function renderStats(){ const s=state.stats||{}; [['s-total','total_reviews'],['s-published','published_reviews'],['s-drafts','drafts'],['s-planned','planned'],['s-urgent','urgent_plans'],['s-scheduled','scheduled']].forEach(([id,k])=>document.getElementById(id).textContent=s[k]??0); }
-function renderReviews(){ const el=document.getElementById('review-list'); const f=document.getElementById('review-filter').value; let rows=[...(state.reviews||[])]; if(f==='published') rows=rows.filter(r=>r.is_published); if(f==='draft') rows=rows.filter(r=>!r.is_published); if(!rows.length){el.innerHTML='<div class="empty">No articles yet.</div>';return;} el.innerHTML=rows.map(r=>`<div class="row" onclick='editReview(${JSON.stringify(r).replace(/'/g,"&#39;")})'><img src="${r.cover_image||''}" onerror="this.style.opacity=.15"><div><div class="row-title">${esc(r.title||r.album||'Untitled')}</div><div class="row-meta"><span>${esc(r.artist||'')}</span><span>${esc(r.album||'')}</span><span>${esc(r.genre||'')}</span><span class="pill ${r.is_published?'live':'draft'}">${r.is_published?'Published':'Draft'}</span>${r.is_best_new_music?'<span class="pill live">BNM</span>':''}</div></div><div class="score">${num(r.rating)}</div></div>`).join(''); }
+function renderReviews(){ const el=document.getElementById('review-list'); const f=document.getElementById('review-filter').value; let rows=[...(state.reviews||[])]; if(f==='published') rows=rows.filter(r=>r.is_published); if(f==='draft') rows=rows.filter(r=>!r.is_published); if(!rows.length){el.innerHTML='<div class="empty">No articles yet.</div>';return;} el.innerHTML=rows.map(r=>`<div class="row" onclick='editReview(${JSON.stringify(r).replace(/'/g,"&#39;")})'><img src="${r.cover_image||''}" onerror="this.style.opacity=.15" decoding="async" loading="lazy"><div><div class="row-title">${esc(r.title||r.album||'Untitled')}</div><div class="row-meta"><span>${esc(r.artist||'')}</span><span>${esc(r.album||'')}</span><span>${esc(r.genre||'')}</span><span class="pill ${r.is_published?'live':'draft'}">${r.is_published?'Published':'Draft'}</span>${r.is_best_new_music?'<span class="pill live">BNM</span>':''}</div></div><div class="score">${num(r.rating)}</div></div>`).join(''); }
 function renderPlans(){ const el=document.getElementById('plan-list'); const f=document.getElementById('plan-filter').value; let rows=[...(state.plans||[])]; if(f!=='all') rows=rows.filter(p=>p.status===f); if(!rows.length){el.innerHTML='<div class="empty">No planned coverage yet.</div>';return;} el.innerHTML=rows.map(p=>`<div class="row plan-row" onclick='editPlan(${JSON.stringify(p).replace(/'/g,"&#39;")})'><div><div class="plan-title">${esc(p.working_title)}</div><div class="row-meta"><span>${esc(p.artist||'')}</span><span>${esc(p.album||'')}</span><span class="pill ${p.priority==='urgent'?'urgent':''}">${esc(p.priority||'medium')}</span><span class="pill">${esc(p.status||'idea')}</span>${p.due_date?`<span>Due ${esc(p.due_date)}</span>`:''}</div>${p.brief?`<div class="plan-brief">${esc(p.brief)}</div>`:''}</div><div class="score">${num(p.target_score)}</div></div>`).join(''); }
 function renderKanban(){ const el=document.getElementById('kanban'); const cols=['idea','assigned','drafting','editing','scheduled','published','killed']; el.innerHTML=cols.map(c=>{ const rows=(state.plans||[]).filter(p=>p.status===c); return `<div class="col"><h3>${c} · ${rows.length}</h3>${rows.map(p=>`<div class="card" onclick='editPlan(${JSON.stringify(p).replace(/'/g,"&#39;")});setTab("planning")'><div class="card-title">${esc(p.working_title)}</div><div class="card-meta"><span>${esc(p.artist||'')}</span><span>${esc(p.priority||'medium')}</span>${p.due_date?`<span>${esc(p.due_date)}</span>`:''}</div></div>`).join('')||'<div class="empty">—</div>'}</div>`; }).join(''); }
 function reviewPayload(publish){ return { id:val('review-id'), title:val('r-title'), artist:val('r-artist'), album:val('r-album'), genre:val('r-genre'), rating:val('r-rating'), author_name:val('r-author')||'REVERB Staff', label:val('r-label'), release_year:val('r-year'), cover_image:val('r-cover'), spotify_album_id:val('r-spotify'), youtube_id:val('r-youtube'), tags:val('r-tags'), mood_tags:val('r-moods'), summary:val('r-summary'), body:val('r-body'), is_published:publish||document.getElementById('r-published').checked, is_featured:document.getElementById('r-featured').checked, is_best_new_music:document.getElementById('r-bnm').checked, published_date:(publish||document.getElementById('r-published').checked)?new Date().toISOString().slice(0,10):'' }; }
@@ -479,7 +512,7 @@ async function spotifyFetch(action) {
       const s = data.spotify || {};
       el.innerHTML = `
         <div class="spotify-preview-card">
-          ${p.cover_image ? `<img src="${p.cover_image}"  />` : ''}
+          ${p.cover_image ? `<img src="${p.cover_image}"  / decoding="async" loading="lazy">` : ''}
           <div style="flex:1">
             <div style="font-family:var(--font-display);font-size:1.2rem;font-weight:700">${p.album || ''}</div>
             <div style="color:var(--muted);margin:.25rem 0">${p.artist || ''} · ${p.release_year || ''} · ${p.label || ''}</div>

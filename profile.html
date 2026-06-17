@@ -21,7 +21,9 @@
   <meta name="twitter:image"       content="https://reverb-music-five.vercel.app/og-default.jpg">
 
   <meta name="description" content="View REVERB critic and community profiles, including reviews, ratings, taste signals, favorite albums, and listening activity.">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;1,400&family=DM+Mono:wght@400;500&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -381,8 +383,39 @@
 #reverb-loading-screen .load-logo span { color:#E8363A; }
 
   </style>
+
+<style id="reverb-perf-layer">
+/* ── REVERB Perf + Motion Layer ─────────────────────────── */
+:root{
+  --rvb-ease-out: cubic-bezier(.16,1,.3,1);        /* expo-out, premium glide */
+  --rvb-ease-inout: cubic-bezier(.65,0,.35,1);     /* smooth both ends */
+  --rvb-ease-back: cubic-bezier(.34,1.56,.64,1);   /* gentle overshoot */
+}
+/* GPU-promote animated surfaces for buttery 60fps */
+.reveal,.sr7-stagger,.mood-cover,.editorial-card,.review-card,
+.score-chip,[class*="hover"],.hero,.cover,.album-cover{
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+/* Snappier, consistent transitions site-wide */
+a,button,.score-chip,.editorial-card,.review-card,.mood-cover,
+.cover,.album-cover,.tag,.chip{
+  transition-timing-function: var(--rvb-ease-out);
+}
+/* Smooth fade for the whole page once fonts/layout settle */
+html.reverb-ready body{ animation: reverbPageIn .5s var(--rvb-ease-out) both; }
+@keyframes reverbPageIn{ from{opacity:0} to{opacity:1} }
+/* Prevent CLS from late-loading images */
+img{ background:#141414; }
+@media (prefers-reduced-motion: reduce){
+  html.reverb-ready body{ animation:none !important; }
+  *,*::before,*::after{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
+}
+</style>
+
 </head>
-<body>
+<body><script>(function(){var d=document.documentElement;if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){d.classList.add('reverb-ready')});}requestAnimationFrame(function(){d.classList.add('reverb-ready')});setTimeout(function(){d.classList.add('reverb-ready')},600);})();</script>
 <div class="profile-progress" aria-hidden="true"></div>
 
 <nav>
@@ -653,7 +686,7 @@ function renderTab(tab) {
       ${reviews.map(r => `
         <a class="review-row signal-review-row" href="${reviewUrl(r.id)}">
           <span class="rr-rank">${String(reviews.indexOf(r)+1).padStart(2,'0')}</span>
-          <img class="rr-img" src="${r.cover_image || coverFor(r.artist)}" alt="" onerror="this.src='${coverFor(r.artist)}'">
+          <img class="rr-img" src="${r.cover_image || coverFor(r.artist)}" alt="" onerror="this.src='${coverFor(r.artist)}'" decoding="async" loading="lazy">
           <div class="rr-body">
             <div class="rr-genre">${escapeHtml(r.genre||'')}</div>
             <div class="rr-artist">${escapeHtml(r.artist||'')}</div>
@@ -674,7 +707,7 @@ function renderTab(tab) {
         const rev = allReviews.find(r => r.id === c.review_id) || {};
         return `<a class="comment-row signal-comment-row" href="${reviewUrl(c.review_id)}">
           <div class="cr-header">
-            <img class="cr-album-img" src="${rev.cover_image||coverFor(rev.artist||'')}" alt="" loading="lazy">
+            <img class="cr-album-img" src="${rev.cover_image||coverFor(rev.artist||'')}" alt="" loading="lazy" decoding="async">
             <div><div class="cr-album-name">${escapeHtml(rev.album||'Unknown Album')}</div><div class="cr-artist-name">${escapeHtml(rev.artist||'')}</div></div>
             ${c.rating ? `<span class="cr-rating">${c.rating}/10</span>` : ''}
             <span class="cr-date">${timeAgo(c.created_date)}</span>
@@ -740,7 +773,7 @@ function renderTab(tab) {
       <div class="fav-grid">
         ${favs.map(r => `
           <a class="fav-cell" href="${reviewUrl(r.id)}">
-            <img src="${r.cover_image||coverFor(r.artist)}" alt="${r.album}" onerror="this.src='${coverFor(r.artist)}'" loading="lazy">
+            <img src="${r.cover_image||coverFor(r.artist)}" alt="${r.album}" onerror="this.src='${coverFor(r.artist)}'" loading="lazy" decoding="async">
             <div class="fav-cell-overlay">
               <div class="fav-cell-album">${escapeHtml(r.album||'')}</div>
               <div class="fav-cell-artist">${escapeHtml(r.artist||'')}</div>
@@ -758,7 +791,7 @@ function renderSidebar() {
   if (latest) {
     document.getElementById('sb-recent').innerHTML = `
       <div class="sb-title">${userReviews.length || isStaffProfile() ? 'Most Recent Review' : 'Latest Rated Album'}</div>
-      <img class="sb-recent-img" src="${latest.cover_image||coverFor(latest.artist)}" alt="" loading="lazy">
+      <img class="sb-recent-img" src="${latest.cover_image||coverFor(latest.artist)}" alt="" loading="lazy" decoding="async">
       <div class="sb-recent-album">${escapeHtml(latest.album||'')}</div>
       <div class="sb-recent-artist">${escapeHtml(latest.artist||'')}</div>
       <div class="sb-score-row">
@@ -987,7 +1020,7 @@ document.addEventListener('DOMContentLoaded', boot);
         var score=Number(r.rating||0).toFixed(1);
         var bnm=r.is_best_new_music?'<span style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:#E8363A;color:#fff;padding:2px 6px;border-radius:2px;flex-shrink:0">BNM</span>':'';
         return '<a href="/review?id='+esc(r.id)+'" style="display:flex;align-items:center;gap:14px;padding:14px 28px;border-bottom:1px solid #1A1A1A;text-decoration:none;transition:background .12s" onmouseover="this.style.background=\'#1A1A1A\'" onmouseout="this.style.background=\'\'">'
-          +'<img src="'+esc(r.cover_image||'')+'" alt="'+esc(r.album)+'" style="width:44px;height:44px;object-fit:cover;border-radius:3px;flex-shrink:0;background:#222" loading="lazy" onerror="this.style.opacity=.15">'
+          +'<img src="'+esc(r.cover_image||'')+'" alt="'+esc(r.album)+'" style="width:44px;height:44px;object-fit:cover;border-radius:3px;flex-shrink:0;background:#222" loading="lazy" onerror="this.style.opacity=.15" decoding="async">'
           +'<div style="flex:1;min-width:0">'
             +'<div style="font-size:.88rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+hi(r.artist||'',q)+' \u2014 '+hi(r.album||r.title||'',q)+'</div>'
             +'<div style="font-size:.75rem;color:#6B6B6B;margin-top:3px;font-family:Inter,sans-serif">'+esc(r.genre||'')+(r.is_best_new_music?' \xb7 Best New Music':'')+'</div>'

@@ -21,7 +21,9 @@
   <meta name="twitter:image"       id="tw-image" content="https://reverb-music-five.vercel.app/og-default.jpg">
 
   <meta name="description" content="Read REVERB long-form album criticism with critic scores, community ratings, comments, and artist context built for close listening.">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -737,8 +739,39 @@
 #reverb-loading-screen .load-logo span { color:#E8363A; }
 
   </style>
+
+<style id="reverb-perf-layer">
+/* ── REVERB Perf + Motion Layer ─────────────────────────── */
+:root{
+  --rvb-ease-out: cubic-bezier(.16,1,.3,1);        /* expo-out, premium glide */
+  --rvb-ease-inout: cubic-bezier(.65,0,.35,1);     /* smooth both ends */
+  --rvb-ease-back: cubic-bezier(.34,1.56,.64,1);   /* gentle overshoot */
+}
+/* GPU-promote animated surfaces for buttery 60fps */
+.reveal,.sr7-stagger,.mood-cover,.editorial-card,.review-card,
+.score-chip,[class*="hover"],.hero,.cover,.album-cover{
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+/* Snappier, consistent transitions site-wide */
+a,button,.score-chip,.editorial-card,.review-card,.mood-cover,
+.cover,.album-cover,.tag,.chip{
+  transition-timing-function: var(--rvb-ease-out);
+}
+/* Smooth fade for the whole page once fonts/layout settle */
+html.reverb-ready body{ animation: reverbPageIn .5s var(--rvb-ease-out) both; }
+@keyframes reverbPageIn{ from{opacity:0} to{opacity:1} }
+/* Prevent CLS from late-loading images */
+img{ background:#141414; }
+@media (prefers-reduced-motion: reduce){
+  html.reverb-ready body{ animation:none !important; }
+  *,*::before,*::after{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
+}
+</style>
+
 </head>
-<body>
+<body><script>(function(){var d=document.documentElement;if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){d.classList.add('reverb-ready')});}requestAnimationFrame(function(){d.classList.add('reverb-ready')});setTimeout(function(){d.classList.add('reverb-ready')},600);})();</script>
   <div class="review-scroll-progress" aria-hidden="true"></div>
 
   <!-- NAV -->
@@ -760,7 +793,7 @@
 
   <!-- HERO -->
   <div class="review-hero">
-    <img class="review-hero-img" src="https://cdn-images.dzcdn.net/images/cover/8ff06016c4666391fcc48ef07cea177e/1000x1000-000000-80-0-0.jpg" alt="Aphex Twin">
+    <img class="review-hero-img" src="https://cdn-images.dzcdn.net/images/cover/8ff06016c4666391fcc48ef07cea177e/1000x1000-000000-80-0-0.jpg" alt="Aphex Twin" decoding="async" fetchpriority="high">
     <div class="review-hero-orbit" aria-hidden="true">
       <div class="hero-orbit-cover"></div>
       <div class="hero-orbit-cover two"></div>
@@ -964,7 +997,7 @@
     <aside class="sidebar">
 
       <div class="sidebar-album-art">
-        <img src="https://cdn-images.dzcdn.net/images/cover/8ff06016c4666391fcc48ef07cea177e/1000x1000-000000-80-0-0.jpg" alt="Blackbox Life Recorder" loading="lazy">
+        <img src="https://cdn-images.dzcdn.net/images/cover/8ff06016c4666391fcc48ef07cea177e/1000x1000-000000-80-0-0.jpg" alt="Blackbox Life Recorder" loading="lazy" decoding="async">
       </div>
 
       <div class="sidebar-info">
@@ -1019,7 +1052,7 @@
       <div class="sidebar-section-title">You Might Also Like</div>
 
       <div class="related-card">
-        <img class="related-img" src="https://cdn-images.dzcdn.net/images/cover/da5256ff8cacfe9ad90521f6e3792259/1000x1000-000000-80-0-0.jpg" alt="" loading="lazy">
+        <img class="related-img" src="https://cdn-images.dzcdn.net/images/cover/da5256ff8cacfe9ad90521f6e3792259/1000x1000-000000-80-0-0.jpg" alt="" loading="lazy" decoding="async">
         <div>
           <div class="related-genre">Hip-Hop</div>
           <div class="related-artist">Kendrick Lamar</div>
@@ -1029,7 +1062,7 @@
       </div>
 
       <div class="related-card">
-        <img class="related-img" src="https://cdn-images.dzcdn.net/images/cover/a3c3b409f0d5bd781821ec0fd79d5b15/1000x1000-000000-80-0-0.jpg" alt="" loading="lazy">
+        <img class="related-img" src="https://cdn-images.dzcdn.net/images/cover/a3c3b409f0d5bd781821ec0fd79d5b15/1000x1000-000000-80-0-0.jpg" alt="" loading="lazy" decoding="async">
         <div>
           <div class="related-genre">R&B</div>
           <div class="related-artist">SZA</div>
@@ -1039,7 +1072,7 @@
       </div>
 
       <div class="related-card">
-        <img class="related-img" src="https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02ec5757cdfeb9a29df135c96d" alt="" loading="lazy">
+        <img class="related-img" src="https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02ec5757cdfeb9a29df135c96d" alt="" loading="lazy" decoding="async">
         <div>
           <div class="related-genre">Alternative</div>
           <div class="related-artist">The Smile</div>
@@ -2195,7 +2228,7 @@ inp.addEventListener('input',function(){
   });
   if(!matches.length){res.innerHTML='<div style="padding:40px;text-align:center;color:#6B6B6B;font-size:.9rem">No results for \"'+inp.value+'\"</div>';return}
   res.innerHTML=matches.map(function(r,i){
-    return `<button type="button" data-idx="${i}" data-search-result="${encodeURIComponent(r.id)}" style="display:flex;align-items:center;gap:16px;width:100%;text-align:left;background:none;border:0;color:inherit;padding:14px 24px;border-bottom:1px solid #1A1A1A;cursor:pointer;transition:background .15s"><img style="width:44px;height:44px;border-radius:4px;object-fit:cover" src="${r.cover_image || ''}" onerror="this.style.background='#1a1a1a'" loading="lazy" alt="Album cover"><div style="flex:1"><div style="font-family:Playfair Display,Georgia,serif;font-size:.95rem;font-weight:700">${r.album || ''}</div><div style="font-size:.75rem;color:#A0A0A0;margin-top:2px">${r.artist || ''} &middot; ${r.genre || ''}${r.is_best_new_music?' &middot; <span style="color:#E8363A">★ BNM</span>':''}</div></div><div style="font-family:DM Mono,monospace;font-size:1rem;color:#F5C518">${Number(r.rating || 0).toFixed(1)}</div></button>`;
+    return `<button type="button" data-idx="${i}" data-search-result="${encodeURIComponent(r.id)}" style="display:flex;align-items:center;gap:16px;width:100%;text-align:left;background:none;border:0;color:inherit;padding:14px 24px;border-bottom:1px solid #1A1A1A;cursor:pointer;transition:background .15s"><img style="width:44px;height:44px;border-radius:4px;object-fit:cover" src="${r.cover_image || ''}" onerror="this.style.background='#1a1a1a'" loading="lazy" alt="Album cover" decoding="async"><div style="flex:1"><div style="font-family:Playfair Display,Georgia,serif;font-size:.95rem;font-weight:700">${r.album || ''}</div><div style="font-size:.75rem;color:#A0A0A0;margin-top:2px">${r.artist || ''} &middot; ${r.genre || ''}${r.is_best_new_music?' &middot; <span style="color:#E8363A">★ BNM</span>':''}</div></div><div style="font-family:DM Mono,monospace;font-size:1rem;color:#F5C518">${Number(r.rating || 0).toFixed(1)}</div></button>`;
   }).join('');
 });
 // Wire up any existing nav search triggers
@@ -2848,7 +2881,7 @@ res.addEventListener('click', function(e){
         var score=Number(r.rating||0).toFixed(1);
         var bnm=r.is_best_new_music?'<span style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:#E8363A;color:#fff;padding:2px 6px;border-radius:2px;flex-shrink:0">BNM</span>':'';
         return '<a href="/review?id='+esc(r.id)+'" style="display:flex;align-items:center;gap:14px;padding:14px 28px;border-bottom:1px solid #1A1A1A;text-decoration:none;transition:background .12s" onmouseover="this.style.background=\'#1A1A1A\'" onmouseout="this.style.background=\'\'">'
-          +'<img src="'+esc(r.cover_image||'')+'" alt="'+esc(r.album)+'" style="width:44px;height:44px;object-fit:cover;border-radius:3px;flex-shrink:0;background:#222" loading="lazy" onerror="this.style.opacity=.15">'
+          +'<img src="'+esc(r.cover_image||'')+'" alt="'+esc(r.album)+'" style="width:44px;height:44px;object-fit:cover;border-radius:3px;flex-shrink:0;background:#222" loading="lazy" onerror="this.style.opacity=.15" decoding="async">'
           +'<div style="flex:1;min-width:0">'
             +'<div style="font-size:.88rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+hi(r.artist||'',q)+' \u2014 '+hi(r.album||r.title||'',q)+'</div>'
             +'<div style="font-size:.75rem;color:#6B6B6B;margin-top:3px;font-family:Inter,sans-serif">'+esc(r.genre||'')+(r.is_best_new_music?' \xb7 Best New Music':'')+'</div>'

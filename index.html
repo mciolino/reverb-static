@@ -21,7 +21,9 @@
   <meta name="twitter:image"       content="https://reverb-music-five.vercel.app/og-default.jpg">
 
   <meta name="description" content="REVERB is a dark, editorial music publication for serious reviews, critic scores, community ratings, and records worth arguing about.">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1042,8 +1044,39 @@
 #reverb-loading-screen .load-logo span { color:#E8363A; }
 
   </style>
+
+<style id="reverb-perf-layer">
+/* ── REVERB Perf + Motion Layer ─────────────────────────── */
+:root{
+  --rvb-ease-out: cubic-bezier(.16,1,.3,1);        /* expo-out, premium glide */
+  --rvb-ease-inout: cubic-bezier(.65,0,.35,1);     /* smooth both ends */
+  --rvb-ease-back: cubic-bezier(.34,1.56,.64,1);   /* gentle overshoot */
+}
+/* GPU-promote animated surfaces for buttery 60fps */
+.reveal,.sr7-stagger,.mood-cover,.editorial-card,.review-card,
+.score-chip,[class*="hover"],.hero,.cover,.album-cover{
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+/* Snappier, consistent transitions site-wide */
+a,button,.score-chip,.editorial-card,.review-card,.mood-cover,
+.cover,.album-cover,.tag,.chip{
+  transition-timing-function: var(--rvb-ease-out);
+}
+/* Smooth fade for the whole page once fonts/layout settle */
+html.reverb-ready body{ animation: reverbPageIn .5s var(--rvb-ease-out) both; }
+@keyframes reverbPageIn{ from{opacity:0} to{opacity:1} }
+/* Prevent CLS from late-loading images */
+img{ background:#141414; }
+@media (prefers-reduced-motion: reduce){
+  html.reverb-ready body{ animation:none !important; }
+  *,*::before,*::after{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
+}
+</style>
+
 </head>
-<body>
+<body><script>(function(){var d=document.documentElement;if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){d.classList.add('reverb-ready')});}requestAnimationFrame(function(){d.classList.add('reverb-ready')});setTimeout(function(){d.classList.add('reverb-ready')},600);})();</script>
 
   <!-- NAV -->
   <nav>
@@ -1108,7 +1141,7 @@
       </div>
     </div>
     <div class="hero-image">
-      <img src="https://cdn-images.dzcdn.net/images/cover/8ff06016c4666391fcc48ef07cea177e/1000x1000-000000-80-0-0.jpg" alt="Aphex Twin — Blackbox Life Recorder">
+      <img src="https://cdn-images.dzcdn.net/images/cover/8ff06016c4666391fcc48ef07cea177e/1000x1000-000000-80-0-0.jpg" alt="Aphex Twin — Blackbox Life Recorder" decoding="async" loading="lazy">
     </div>
   </section>
 
@@ -1176,7 +1209,7 @@
         <!-- SZA -->
         <div class="review-card">
           <div class="card-image">
-            <img src="https://cdn-images.dzcdn.net/images/cover/a3c3b409f0d5bd781821ec0fd79d5b15/1000x1000-000000-80-0-0.jpg" alt="SZA — SOS" loading="lazy">
+            <img src="https://cdn-images.dzcdn.net/images/cover/a3c3b409f0d5bd781821ec0fd79d5b15/1000x1000-000000-80-0-0.jpg" alt="SZA — SOS" loading="lazy" decoding="async">
             <div class="card-scores">
               <div class="card-score critic">9.0</div>
               <div class="card-score community">8.2</div>
@@ -1195,7 +1228,7 @@
         <!-- The Smile -->
         <div class="review-card">
           <div class="card-image">
-            <img src="https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02ec5757cdfeb9a29df135c96d" alt="The Smile — Wall of Eyes" loading="lazy">
+            <img src="https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02ec5757cdfeb9a29df135c96d" alt="The Smile — Wall of Eyes" loading="lazy" decoding="async">
             <div class="card-scores">
               <div class="card-score critic">8.5</div>
               <div class="card-score community">7.9</div>
@@ -1213,7 +1246,7 @@
         <!-- Charli XCX -->
         <div class="review-card">
           <div class="card-image">
-            <img src="https://cdn-images.dzcdn.net/images/cover/de9e79511cda59914de9add50946e43c/1000x1000-000000-80-0-0.jpg" alt="Charli XCX — Brat" loading="lazy">
+            <img src="https://cdn-images.dzcdn.net/images/cover/de9e79511cda59914de9add50946e43c/1000x1000-000000-80-0-0.jpg" alt="Charli XCX — Brat" loading="lazy" decoding="async">
             <div class="card-scores">
               <div class="card-score critic">8.0</div>
               <div class="card-score community">8.6</div>
@@ -1231,7 +1264,7 @@
         <!-- Kendrick -->
         <div class="review-card">
           <div class="card-image">
-            <img src="https://cdn-images.dzcdn.net/images/cover/da5256ff8cacfe9ad90521f6e3792259/1000x1000-000000-80-0-0.jpg" alt="Kendrick Lamar — GNX" loading="lazy">
+            <img src="https://cdn-images.dzcdn.net/images/cover/da5256ff8cacfe9ad90521f6e3792259/1000x1000-000000-80-0-0.jpg" alt="Kendrick Lamar — GNX" loading="lazy" decoding="async">
             <div class="card-scores">
               <div class="card-score critic">9.0</div>
               <div class="card-score community">9.1</div>
@@ -1249,7 +1282,7 @@
         <!-- Sturgill -->
         <div class="review-card">
           <div class="card-image">
-            <img src="https://cdn-images.dzcdn.net/images/cover/056aa3fb4a910b287889205eaa45f9ee/1000x1000-000000-80-0-0.jpg" alt="Johnny Blue Skies" loading="lazy">
+            <img src="https://cdn-images.dzcdn.net/images/cover/056aa3fb4a910b287889205eaa45f9ee/1000x1000-000000-80-0-0.jpg" alt="Johnny Blue Skies" loading="lazy" decoding="async">
             <div class="card-scores">
               <div class="card-score critic">7.5</div>
               <div class="card-score community">7.1</div>
@@ -1267,7 +1300,7 @@
         <!-- Aphex Twin -->
         <div class="review-card">
           <div class="card-image">
-            <img src="https://cdn-images.dzcdn.net/images/cover/8ff06016c4666391fcc48ef07cea177e/1000x1000-000000-80-0-0.jpg" alt="Aphex Twin" loading="lazy">
+            <img src="https://cdn-images.dzcdn.net/images/cover/8ff06016c4666391fcc48ef07cea177e/1000x1000-000000-80-0-0.jpg" alt="Aphex Twin" loading="lazy" decoding="async">
             <div class="card-scores">
               <div class="card-score critic">9.5</div>
               <div class="card-score community">8.7</div>
@@ -1296,7 +1329,7 @@
       </div>
       <div class="best-of-grid" data-sr7-stagger>
         <div class="best-of-item">
-          <img src="https://cdn-images.dzcdn.net/images/cover/8ff06016c4666391fcc48ef07cea177e/1000x1000-000000-80-0-0.jpg" alt="" loading="lazy">
+          <img src="https://cdn-images.dzcdn.net/images/cover/8ff06016c4666391fcc48ef07cea177e/1000x1000-000000-80-0-0.jpg" alt="" loading="lazy" decoding="async">
           <div class="best-of-rank">01</div>
           <div class="best-of-body">
             <div class="best-of-score">9.5</div>
@@ -1305,7 +1338,7 @@
           </div>
         </div>
         <div class="best-of-item">
-          <img src="https://cdn-images.dzcdn.net/images/cover/a3c3b409f0d5bd781821ec0fd79d5b15/1000x1000-000000-80-0-0.jpg" alt="" loading="lazy">
+          <img src="https://cdn-images.dzcdn.net/images/cover/a3c3b409f0d5bd781821ec0fd79d5b15/1000x1000-000000-80-0-0.jpg" alt="" loading="lazy" decoding="async">
           <div class="best-of-rank">02</div>
           <div class="best-of-body">
             <div class="best-of-score">9.0</div>
@@ -1314,7 +1347,7 @@
           </div>
         </div>
         <div class="best-of-item">
-          <img src="https://cdn-images.dzcdn.net/images/cover/da5256ff8cacfe9ad90521f6e3792259/1000x1000-000000-80-0-0.jpg" alt="" loading="lazy">
+          <img src="https://cdn-images.dzcdn.net/images/cover/da5256ff8cacfe9ad90521f6e3792259/1000x1000-000000-80-0-0.jpg" alt="" loading="lazy" decoding="async">
           <div class="best-of-rank">03</div>
           <div class="best-of-body">
             <div class="best-of-score">9.0</div>
@@ -1323,7 +1356,7 @@
           </div>
         </div>
         <div class="best-of-item">
-          <img src="https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02ec5757cdfeb9a29df135c96d" alt="" loading="lazy">
+          <img src="https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02ec5757cdfeb9a29df135c96d" alt="" loading="lazy" decoding="async">
           <div class="best-of-rank">04</div>
           <div class="best-of-body">
             <div class="best-of-score">8.5</div>
@@ -1332,7 +1365,7 @@
           </div>
         </div>
         <div class="best-of-item">
-          <img src="https://cdn-images.dzcdn.net/images/cover/de9e79511cda59914de9add50946e43c/1000x1000-000000-80-0-0.jpg" alt="" loading="lazy">
+          <img src="https://cdn-images.dzcdn.net/images/cover/de9e79511cda59914de9add50946e43c/1000x1000-000000-80-0-0.jpg" alt="" loading="lazy" decoding="async">
           <div class="best-of-rank">05</div>
           <div class="best-of-body">
             <div class="best-of-score">8.0</div>
@@ -1341,7 +1374,7 @@
           </div>
         </div>
         <div class="best-of-item">
-          <img src="https://cdn-images.dzcdn.net/images/cover/056aa3fb4a910b287889205eaa45f9ee/1000x1000-000000-80-0-0.jpg" alt="" loading="lazy">
+          <img src="https://cdn-images.dzcdn.net/images/cover/056aa3fb4a910b287889205eaa45f9ee/1000x1000-000000-80-0-0.jpg" alt="" loading="lazy" decoding="async">
           <div class="best-of-rank">06</div>
           <div class="best-of-body">
             <div class="best-of-score">7.5</div>
@@ -1830,7 +1863,7 @@ function renderFilmstrip(reviews) {
       const label = `${r.artist || 'REVERB'} — ${r.album || r.title || 'Review'}`;
       return `
         <article class="filmstrip-card">
-          <img src="${img}" alt="${escapeHeroHtml(label)}" loading="lazy">
+          <img src="${img}" alt="${escapeHeroHtml(label)}" loading="lazy" decoding="async">
           <a class="filmstrip-link" href="${heroUrl(r)}" aria-label="Read ${escapeHeroHtml(label)}"></a>
           <div class="filmstrip-overlay" aria-hidden="true">
             <div class="filmstrip-meta">
@@ -2473,7 +2506,7 @@ inp.addEventListener('input',function(){
   });
   if(!matches.length){res.innerHTML='<div style="padding:40px;text-align:center;color:#6B6B6B;font-size:.9rem">No results for \"'+inp.value+'\"</div>';return}
   res.innerHTML=matches.map(function(r,i){
-    return `<div data-idx="${i}" onclick="window.location.href='/review?id=${encodeURIComponent(r.id)}';uCloseSearch()" style="display:flex;align-items:center;gap:16px;padding:14px 24px;border-bottom:1px solid #1A1A1A;cursor:pointer;transition:background .15s"><img style="width:44px;height:44px;border-radius:4px;object-fit:cover" src="${r.cover_image || ''}" onerror="this.style.background='#1a1a1a'" loading="lazy" alt="Album cover"><div style="flex:1"><div style="font-family:Playfair Display,Georgia,serif;font-size:.95rem;font-weight:700">${r.album || ''}</div><div style="font-size:.75rem;color:#A0A0A0;margin-top:2px">${r.artist || ''} &middot; ${r.genre || ''}${r.is_best_new_music?' &middot; <span style="color:#E8363A">★ BNM</span>':''}</div></div><div style="font-family:DM Mono,monospace;font-size:1rem;color:#F5C518">${Number(r.rating || 0).toFixed(1)}</div></div>`;
+    return `<div data-idx="${i}" onclick="window.location.href='/review?id=${encodeURIComponent(r.id)}';uCloseSearch()" style="display:flex;align-items:center;gap:16px;padding:14px 24px;border-bottom:1px solid #1A1A1A;cursor:pointer;transition:background .15s"><img style="width:44px;height:44px;border-radius:4px;object-fit:cover" src="${r.cover_image || ''}" onerror="this.style.background='#1a1a1a'" loading="lazy" alt="Album cover" decoding="async"><div style="flex:1"><div style="font-family:Playfair Display,Georgia,serif;font-size:.95rem;font-weight:700">${r.album || ''}</div><div style="font-size:.75rem;color:#A0A0A0;margin-top:2px">${r.artist || ''} &middot; ${r.genre || ''}${r.is_best_new_music?' &middot; <span style="color:#E8363A">★ BNM</span>':''}</div></div><div style="font-family:DM Mono,monospace;font-size:1rem;color:#F5C518">${Number(r.rating || 0).toFixed(1)}</div></div>`;
   }).join('');
 });
 // Wire up any existing nav search triggers
@@ -2576,7 +2609,7 @@ document.querySelectorAll('[id="navSearchTrigger"],[data-search-trigger],.nav-se
         var score=Number(r.rating||0).toFixed(1);
         var bnm=r.is_best_new_music?'<span style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:#E8363A;color:#fff;padding:2px 6px;border-radius:2px;flex-shrink:0">BNM</span>':'';
         return '<a href="/review?id='+esc(r.id)+'" style="display:flex;align-items:center;gap:14px;padding:14px 28px;border-bottom:1px solid #1A1A1A;text-decoration:none;transition:background .12s" onmouseover="this.style.background=\'#1A1A1A\'" onmouseout="this.style.background=\'\'">'
-          +'<img src="'+esc(r.cover_image||'')+'" alt="'+esc(r.album)+'" style="width:44px;height:44px;object-fit:cover;border-radius:3px;flex-shrink:0;background:#222" loading="lazy" onerror="this.style.opacity=.15">'
+          +'<img src="'+esc(r.cover_image||'')+'" alt="'+esc(r.album)+'" style="width:44px;height:44px;object-fit:cover;border-radius:3px;flex-shrink:0;background:#222" loading="lazy" onerror="this.style.opacity=.15" decoding="async">'
           +'<div style="flex:1;min-width:0">'
             +'<div style="font-size:.88rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+hi(r.artist||'',q)+' \u2014 '+hi(r.album||r.title||'',q)+'</div>'
             +'<div style="font-size:.75rem;color:#6B6B6B;margin-top:3px;font-family:Inter,sans-serif">'+esc(r.genre||'')+(r.is_best_new_music?' \xb7 Best New Music':'')+'</div>'

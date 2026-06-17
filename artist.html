@@ -20,7 +20,9 @@
   <meta name="description" content="Explore REVERB artist profiles with reviewed albums, critic scores, discography context, and related artists.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
 <style>
 :root{--bg:#0A0A0A;--bg2:#111;--bg3:#161616;--bg4:#1C1C1C;--accent:#E8363A;--gold:#F5C518;--blue:#4A9EFF;--green:#1DB954;--text:#F0F0F0;--text2:#A0A0A0;--text3:#5A5A5A;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14);--ff-d:"Playfair Display",Georgia,serif;--ff-b:"Lora",Georgia,serif;--ff-u:"Inter",sans-serif;--ff-m:"DM Mono",monospace;}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -342,8 +344,39 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:54px;display:flex;ali
 #reverb-loading-screen .load-logo span { color:#E8363A; }
 
   </style>
+
+<style id="reverb-perf-layer">
+/* ── REVERB Perf + Motion Layer ─────────────────────────── */
+:root{
+  --rvb-ease-out: cubic-bezier(.16,1,.3,1);        /* expo-out, premium glide */
+  --rvb-ease-inout: cubic-bezier(.65,0,.35,1);     /* smooth both ends */
+  --rvb-ease-back: cubic-bezier(.34,1.56,.64,1);   /* gentle overshoot */
+}
+/* GPU-promote animated surfaces for buttery 60fps */
+.reveal,.sr7-stagger,.mood-cover,.editorial-card,.review-card,
+.score-chip,[class*="hover"],.hero,.cover,.album-cover{
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+/* Snappier, consistent transitions site-wide */
+a,button,.score-chip,.editorial-card,.review-card,.mood-cover,
+.cover,.album-cover,.tag,.chip{
+  transition-timing-function: var(--rvb-ease-out);
+}
+/* Smooth fade for the whole page once fonts/layout settle */
+html.reverb-ready body{ animation: reverbPageIn .5s var(--rvb-ease-out) both; }
+@keyframes reverbPageIn{ from{opacity:0} to{opacity:1} }
+/* Prevent CLS from late-loading images */
+img{ background:#141414; }
+@media (prefers-reduced-motion: reduce){
+  html.reverb-ready body{ animation:none !important; }
+  *,*::before,*::after{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
+}
+</style>
+
 </head>
-<body>
+<body><script>(function(){var d=document.documentElement;if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){d.classList.add('reverb-ready')});}requestAnimationFrame(function(){d.classList.add('reverb-ready')});setTimeout(function(){d.classList.add('reverb-ready')},600);})();</script>
 <div class="artist-progress" aria-hidden="true"></div>
 
 <nav>
@@ -366,7 +399,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:54px;display:flex;ali
   <div class="artist-orbit" aria-hidden="true"><div class="artist-orbit-card" id="orbitOne"></div><div class="artist-orbit-card two" id="orbitTwo"></div><div class="artist-orbit-line"></div></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <img class="artist-photo" id="hPhoto" src="" alt="">
+    <img class="artist-photo" id="hPhoto" src="" alt="" decoding="async" loading="lazy">
     <div class="hero-info">
       <div class="hero-eyebrow">Artist Profile</div>
       <h1 class="hero-name" id="hName">—</h1>
@@ -407,7 +440,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;height:54px;display:flex;ali
   <div class="page-grid">
 
     <div class="info-sidebar">
-      <img class="info-photo" id="iPhoto" src="" alt="" loading="lazy">
+      <img class="info-photo" id="iPhoto" src="" alt="" loading="lazy" decoding="async">
       <table class="info-table">
         <tbody>
           <tr><td class="it-label">Active</td><td class="it-val" id="iActive">—</td></tr>
@@ -572,11 +605,11 @@ function buildDisc(){
   function gr(a){if(rm[a.id])return rm[a.id];return aRevs.find(function(r){return r.album&&sn(r.album)===sn(a.name);});}
   g('discGrid').innerHTML=disc.map(function(a){
     var r=gr(a);var href=r?'/review?id='+encodeURIComponent(r.id):a.spotify_url;var tgt=r?'':'target="_blank" rel="noopener"';var cn=a.name.split('(')[0].trim();
-    return '<a class="dc'+(r?' rev':'')+'" href="'+href+'" '+tgt+'>'+(r?'<span class="dc-badge">Reviewed</span><span class="dc-score">'+r.rating.toFixed(1)+'</span>':'')+'<img class="dc-img" src="'+a.cover+'" alt="'+cn+'" loading="lazy" onerror="imgErr(this)"><div class="dc-body"><div class="dc-name">'+cn+'</div><div class="dc-year">'+a.year+'</div></div></a>';
+    return '<a class="dc'+(r?' rev':'')+'" href="'+href+'" '+tgt+'>'+(r?'<span class="dc-badge">Reviewed</span><span class="dc-score">'+r.rating.toFixed(1)+'</span>':'')+'<img class="dc-img" src="'+a.cover+'" alt="'+cn+'" loading="lazy" onerror="imgErr(this)" decoding="async"><div class="dc-body"><div class="dc-name">'+cn+'</div><div class="dc-year">'+a.year+'</div></div></a>';
   }).join('');
   g('discTblBody').innerHTML=disc.map(function(a){
     var r=gr(a);var href=r?'/review?id='+encodeURIComponent(r.id):a.spotify_url;var tgt=r?'':'target="_blank" rel="noopener"';var cn=a.name.split('(')[0].trim();
-    return '<tr><td style="width:50px;padding:8px 10px 8px 0"><a href="'+href+'" '+tgt+'><img class="td-img" src="'+a.cover+'" alt="" onerror="imgErr(this)" loading="lazy"></a></td><td><a href="'+href+'" '+tgt+' class="td-name">'+cn+(r?'<span class="rev-chip">Reviewed</span>':'')+'</a></td><td class="td-yr">'+a.year+'</td><td class="td-sc">'+(r?r.rating.toFixed(1):'<span style="color:var(--text3)">&#8212;</span>')+'</td></tr>';
+    return '<tr><td style="width:50px;padding:8px 10px 8px 0"><a href="'+href+'" '+tgt+'><img class="td-img" src="'+a.cover+'" alt="" onerror="imgErr(this)" loading="lazy" decoding="async"></a></td><td><a href="'+href+'" '+tgt+' class="td-name">'+cn+(r?'<span class="rev-chip">Reviewed</span>':'')+'</a></td><td class="td-yr">'+a.year+'</td><td class="td-sc">'+(r?r.rating.toFixed(1):'<span style="color:var(--text3)">&#8212;</span>')+'</td></tr>';
   }).join('');
 }
 buildDisc();
@@ -586,14 +619,14 @@ function buildRevs(){
   if(!sRevs.length){g('noRev').style.display='block';return;}
   g('revList').innerHTML=sRevs.map(function(r){
     var dt=r.published_date?new Date(r.published_date).toLocaleDateString('en-US',{month:'short',year:'numeric'}):'';
-    return '<a class="rev-row" href="/review?id='+encodeURIComponent(r.id)+'"><img class="rev-cover" src="'+r.cover_image+'" alt="" onerror="imgErr(this)" loading="lazy"><div class="rev-info"><div class="rev-title">'+r.title+'</div><div class="rev-meta"><span>'+(r.album||'')+'</span><span>'+r.genre+'</span>'+(dt?'<span>'+dt+'</span>':'')+(r.author_name?'<span>By '+r.author_name+'</span>':'')+'</div></div>'+(r.is_best_new_music?'<span class="rev-bnm">\u2605 BNM</span>':'')+'<span class="rev-score">'+r.rating.toFixed(1)+'</span></a>';
+    return '<a class="rev-row" href="/review?id='+encodeURIComponent(r.id)+'"><img class="rev-cover" src="'+r.cover_image+'" alt="" onerror="imgErr(this)" loading="lazy" decoding="async"><div class="rev-info"><div class="rev-title">'+r.title+'</div><div class="rev-meta"><span>'+(r.album||'')+'</span><span>'+r.genre+'</span>'+(dt?'<span>'+dt+'</span>':'')+(r.author_name?'<span>By '+r.author_name+'</span>':'')+'</div></div>'+(r.is_best_new_music?'<span class="rev-bnm">\u2605 BNM</span>':'')+'<span class="rev-score">'+r.rating.toFixed(1)+'</span></a>';
   }).join('');
 }
 buildRevs();
 
 function buildRelated(){
   var seen={};var others=REVIEWS.filter(function(r){if(r.artist===ARTIST||seen[r.artist])return false;seen[r.artist]=true;return true;}).sort(function(a,b){return b.rating-a.rating;}).slice(0,6);
-  g('relGrid').innerHTML=others.map(function(r){var p=PROFILES[r.artist]||{};return '<a class="rel-card" href="/artist?name='+encodeURIComponent(r.artist)+'">'+(p.image?'<img class="rel-img" src="'+p.image+'" alt="'+r.artist+'" loading="lazy" onerror="imgErr(this)">':'<div class="rel-img"></div>')+'<div class="rel-body"><div class="rel-name">'+r.artist+'</div><div class="rel-genre">'+r.genre+'</div><div class="rel-score">'+r.rating.toFixed(1)+'</div></div></a>';}).join('');
+  g('relGrid').innerHTML=others.map(function(r){var p=PROFILES[r.artist]||{};return '<a class="rel-card" href="/artist?name='+encodeURIComponent(r.artist)+'">'+(p.image?'<img class="rel-img" src="'+p.image+'" alt="'+r.artist+'" loading="lazy" onerror="imgErr(this)" decoding="async">':'<div class="rel-img"></div>')+'<div class="rel-body"><div class="rel-name">'+r.artist+'</div><div class="rel-genre">'+r.genre+'</div><div class="rel-score">'+r.rating.toFixed(1)+'</div></div></a>';}).join('');
 }
 buildRelated();
 hydrateArtistMotion();
@@ -610,7 +643,7 @@ function doSrch(q){
   var term=(q||'').toLowerCase();
   var hits=term?REVIEWS.filter(function(r){return ((r.artist||'')+(r.title||'')+(r.album||'')+(r.genre||'')).toLowerCase().indexOf(term)>=0;}):REVIEWS.slice(0,8);
   var res=g('soRes');if(!res)return;
-  res.innerHTML=hits.map(function(r){return '<a class="so-item" href="/review?id='+encodeURIComponent(r.id)+'"><img src="'+escapeHtml(r.cover_image||'')+'" alt="" onerror="imgErr(this)" loading="lazy"><div><div class="so-t">'+escapeHtml(r.album||r.title||'Untitled')+'</div><div class="so-s">'+escapeHtml(r.artist||'')+' · '+escapeHtml(r.genre||'')+'</div></div><span class="so-sc">'+Number(r.rating||0).toFixed(1)+'</span></a>';}).join('')||'<p style="color:var(--text3);padding:20px 0;font-size:.85rem">No results.</p>';
+  res.innerHTML=hits.map(function(r){return '<a class="so-item" href="/review?id='+encodeURIComponent(r.id)+'"><img src="'+escapeHtml(r.cover_image||'')+'" alt="" onerror="imgErr(this)" loading="lazy" decoding="async"><div><div class="so-t">'+escapeHtml(r.album||r.title||'Untitled')+'</div><div class="so-s">'+escapeHtml(r.artist||'')+' · '+escapeHtml(r.genre||'')+'</div></div><span class="so-sc">'+Number(r.rating||0).toFixed(1)+'</span></a>';}).join('')||'<p style="color:var(--text3);padding:20px 0;font-size:.85rem">No results.</p>';
 }
 </script>
 
@@ -779,7 +812,7 @@ function doSrch(q){
         var score=Number(r.rating||0).toFixed(1);
         var bnm=r.is_best_new_music?'<span style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:#E8363A;color:#fff;padding:2px 6px;border-radius:2px;flex-shrink:0">BNM</span>':'';
         return '<a href="/review?id='+esc(r.id)+'" style="display:flex;align-items:center;gap:14px;padding:14px 28px;border-bottom:1px solid #1A1A1A;text-decoration:none;transition:background .12s" onmouseover="this.style.background=\'#1A1A1A\'" onmouseout="this.style.background=\'\'">'
-          +'<img src="'+esc(r.cover_image||'')+'" alt="'+esc(r.album)+'" style="width:44px;height:44px;object-fit:cover;border-radius:3px;flex-shrink:0;background:#222" loading="lazy" onerror="this.style.opacity=.15">'
+          +'<img src="'+esc(r.cover_image||'')+'" alt="'+esc(r.album)+'" style="width:44px;height:44px;object-fit:cover;border-radius:3px;flex-shrink:0;background:#222" loading="lazy" onerror="this.style.opacity=.15" decoding="async">'
           +'<div style="flex:1;min-width:0">'
             +'<div style="font-size:.88rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+hi(r.artist||'',q)+' \u2014 '+hi(r.album||r.title||'',q)+'</div>'
             +'<div style="font-size:.75rem;color:#6B6B6B;margin-top:3px;font-family:Inter,sans-serif">'+esc(r.genre||'')+(r.is_best_new_music?' \xb7 Best New Music':'')+'</div>'
@@ -849,7 +882,7 @@ function doSrch(q){
       grid.innerHTML=all.map(function(r){
         var bnm=r.is_best_new_music?'<span class="arc-bnm">&#9733; BNM</span>':'<span class="arc-genre">'+esc(r.genre||'')+'</span>';
         return '<div class="arc" onclick="location.href=\'/review?id='+esc(r.id)+'\'" tabindex="0">'
-          +'<img class="arc-img" src="'+esc(r.cover_image||'')+'" alt="'+esc(r.album||'')+'" loading="lazy" onerror="this.style.opacity=.15">'
+          +'<img class="arc-img" src="'+esc(r.cover_image||'')+'" alt="'+esc(r.album||'')+'" loading="lazy" onerror="this.style.opacity=.15" decoding="async">'
           +'<div class="arc-body">'
             +'<div class="arc-album">'+esc(r.album||r.title||'')+'</div>'
             +'<div class="arc-review-title">'+esc(r.title||'')+'</div>'
