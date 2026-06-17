@@ -665,6 +665,21 @@ img{ background:#141414; }
 }
 </style>
 
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style id="reverb-cls-guard">
+/* Reserve space so covers don't shift layout (CLS killer) */
+img[src*="dzcdn.net"], img[src*="spotifycdn.com"], img[src*="mzstatic"],
+.mood-cover img, .editorial-card img, .review-card img, .cover img, .album-cover img,
+.related-img, .review-hero-img{
+  aspect-ratio: 1 / 1;
+  height: auto;
+}
+/* JS-injected rails: hold height before hydration */
+.mood-board, .mood-filmstrip, .editorial-gallery, .footer-gallery{ min-height: 240px; }
+.score-ticker, .ticker{ min-height: 44px; }
+</style>
 </head>
 <body><script>(function(){var d=document.documentElement;if(document.fonts&&document.fonts.ready){document.fonts.ready.then(function(){d.classList.add('reverb-ready')});}requestAnimationFrame(function(){d.classList.add('reverb-ready')});setTimeout(function(){d.classList.add('reverb-ready')},600);})();</script>
   <div class="browse-progress" aria-hidden="true"></div>
