@@ -1,0 +1,52 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin.html"
+    },
+    {
+      "source": "/new",
+      "destination": "/new.html"
+    },
+    {
+      "source": "/browse",
+      "destination": "/browse.html"
+    },
+    {
+      "source": "/review",
+      "destination": "/review.html"
+    },
+    {
+      "source": "/review/:id",
+      "destination": "/review.html"
+    },
+    {
+      "source": "/artist",
+      "destination": "/artist.html"
+    },
+    {
+      "source": "/artist/:name",
+      "destination": "/artist.html"
+    },
+    {
+      "source": "/community",
+      "destination": "/community.html"
+    },
+    {
+      "source": "/lists",
+      "destination": "/browse.html"
+    },
+    {
+      "source": "/profile",
+      "destination": "/profile.html"
+    },
+    {
+      "source": "/profile/:name",
+      "destination": "/profile.html"
+    }
+  ]
+}

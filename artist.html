@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Artist — REVERB</title>
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="REVERB">
+  <meta property="og:title"       content="Artist — REVERB">
+  <meta property="og:description" content="REVERB artist profiles with reviews, critic scores, and discography context.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/mciolino/REVERB/main/public/og-image.png">
+  <meta property="og:url"         content="https://reverb-music-five.vercel.app/artist">
+  <link rel="canonical" href="https://reverb-music-five.vercel.app/artist">
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:site"        content="@reverbmusic">
+  <meta name="twitter:title"       content="Artist — REVERB">
+  <meta name="twitter:description" content="REVERB artist profiles with reviews, critic scores, and discography context.">
+  <meta name="twitter:image"       content="https://reverb-music-five.vercel.app/og-default.jpg">
+
+  <meta name="description" content="Explore REVERB artist profiles with reviewed albums, critic scores, discography context, and related artists.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0A0A0A;--bg2:#111;--bg3:#161616;--bg4:#1C1C1C;--accent:#E8363A;--gold:#F5C518;--blue:#4A9EFF;--green:#1DB954;--text:#F0F0F0;--text2:#A0A0A0;--text3:#5A5A5A;--border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.14);--ff-d:"Playfair Display",Georgia,serif;--ff-b:"Lora",Georgia,serif;--ff-u:"Inter",sans-serif;--ff-m:"DM Mono",monospace;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--ff-u);-webkit-font-smoothing:antialiased}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(10,10,10,.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--ff-d);font-size:1.35rem;font-weight:900;color:var(--text);text-decoration:none;letter-spacing:-.02em}.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:28px}.nav-links a{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);text-decoration:none;transition:color .15s}.nav-links a:hover{color:var(--text)}
+.nav-right{display:flex;align-items:center;gap:12px}
+.nav-search{background:transparent;font-size:.65rem;color:var(--text3);cursor:pointer;font-family:var(--ff-m);padding:5px 10px;border:1px solid var(--border);transition:all .15s}.nav-search:hover{color:var(--text2);border-color:var(--border2)}
+.nav-cta{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:7px 16px;background:var(--accent);color:#fff;text-decoration:none}
+@media(max-width:768px){nav{padding:0 16px}.nav-links{display:none}}
+.artist-hero{position:relative;height:440px;overflow:hidden;margin-top:54px}
+.hero-bg{position:absolute;inset:0;background-size:cover;background-position:center 20%;filter:blur(50px) brightness(.17) saturate(1.7);transform:scale(1.25)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(150deg,transparent 0%,rgba(10,10,10,.5) 45%,rgba(10,10,10,.92) 78%,#0A0A0A 100%)}
+.hero-content{position:relative;z-index:2;height:100%;display:flex;align-items:flex-end;padding:0 60px 52px;gap:36px}
+.artist-photo{width:152px;height:152px;border-radius:50%;object-fit:cover;object-position:top center;border:2px solid rgba(255,255,255,.13);flex-shrink:0;box-shadow:0 12px 48px rgba(0,0,0,.7),0 0 0 6px rgba(255,255,255,.04)}
+.hero-info{flex:1;min-width:0}
+.hero-eyebrow{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.hero-name{font-family:var(--ff-d);font-size:clamp(2.8rem,6vw,5rem);font-weight:900;line-height:.93;letter-spacing:-.025em;margin-bottom:12px}
+.hero-tagline{font-family:var(--ff-b);font-size:.92rem;font-style:italic;color:var(--text2);margin-bottom:18px;max-width:540px;line-height:1.55}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.btn-spotify{display:inline-flex;align-items:center;gap:7px;padding:8px 16px;background:#1DB954;color:#000;font-size:.65rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;text-decoration:none;border-radius:20px;transition:transform .15s}.btn-spotify:hover{transform:scale(1.03)}
+.btn-spotify svg{width:13px;height:13px;fill:#000}
+.hero-stat{font-size:.7rem;color:var(--text2);font-family:var(--ff-m)}
+.bnm-pill{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;background:rgba(232,54,58,.14);border:1px solid rgba(232,54,58,.38);color:var(--accent)}
+@media(max-width:768px){.hero-content{padding:0 20px 32px;flex-direction:column;align-items:flex-start;justify-content:flex-end}.artist-photo{width:90px;height:90px}.artist-hero{height:500px}}
+.artist-hero{height:min(82vh,760px);min-height:540px;isolation:isolate;--artist-progress:0;background:var(--bg)}
+.artist-hero::before{content:'';position:absolute;inset:-18%;z-index:0;background:radial-gradient(circle at 16% 18%,rgba(232,54,58,.24),transparent 28%),radial-gradient(circle at 78% 58%,rgba(245,197,24,.10),transparent 24%),linear-gradient(125deg,#0A0A0A,rgba(10,10,10,.62));animation:artistAura 14s ease-in-out infinite alternate;pointer-events:none}
+.artist-hero::after{content:'ARTIST';position:absolute;right:-2vw;bottom:-3vw;z-index:2;font-family:var(--ff-d);font-size:clamp(84px,17vw,236px);font-weight:900;letter-spacing:-.08em;color:rgba(255,255,255,.035);pointer-events:none;transform:translateY(calc(var(--artist-progress)*34px))}
+@keyframes artistAura{from{transform:translate3d(-1%,-1%,0) scale(1)}to{transform:translate3d(1%,1%,0) scale(1.04)}}
+.hero-bg{z-index:1;filter:blur(58px) brightness(.2) saturate(1.7);transform:scale(1.28) translateY(calc(var(--artist-progress)*50px));will-change:transform}
+.hero-overlay{z-index:3;background:linear-gradient(90deg,var(--bg) 0%,rgba(10,10,10,.62) 35%,rgba(10,10,10,.24) 68%,rgba(10,10,10,.78) 100%),linear-gradient(to top,var(--bg) 0%,rgba(10,10,10,.42) 58%,rgba(10,10,10,.04) 100%)}
+.hero-content{z-index:6;transform:translateY(calc(var(--artist-progress)*-28px));will-change:transform}
+.artist-photo{border-radius:4px;width:clamp(132px,18vw,230px);height:clamp(132px,18vw,230px);box-shadow:0 30px 90px rgba(0,0,0,.58),0 0 0 1px rgba(255,255,255,.10);transform:rotate(-2deg)}
+.artist-orbit{position:absolute;inset:0;z-index:4;pointer-events:none;overflow:hidden}.artist-orbit-card{position:absolute;right:7vw;top:13vh;width:clamp(140px,20vw,300px);aspect-ratio:1;background-size:cover;background-position:center;border:1px solid rgba(255,255,255,.14);box-shadow:0 32px 90px rgba(0,0,0,.45);opacity:.76;transform:translate3d(calc(var(--artist-progress)*-34px),calc(var(--artist-progress)*82px),0) rotate(calc(5deg + (var(--artist-progress)*-7deg)));will-change:transform}.artist-orbit-card.two{right:2vw;top:38vh;width:clamp(88px,12vw,170px);opacity:.34;filter:saturate(1.18);transform:translate3d(calc(var(--artist-progress)*44px),calc(var(--artist-progress)*-58px),0) rotate(calc(-8deg + (var(--artist-progress)*9deg)))}.artist-orbit-line{position:absolute;left:48px;right:48px;top:52%;height:1px;background:linear-gradient(90deg,transparent,rgba(232,54,58,.5),transparent);opacity:.55;transform:scaleX(calc(.62 + (var(--artist-progress)*.38)))}
+.artist-scorecard{margin-left:auto;min-width:270px;padding:20px;border:1px solid rgba(255,255,255,.14);background:rgba(10,10,10,.50);backdrop-filter:blur(16px);box-shadow:0 24px 80px rgba(0,0,0,.38)}.artist-scorecard-k{font-size:.58rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--text3);margin-bottom:12px}.artist-scorecard-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}.artist-scorecard-label{font-size:.54rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:5px}.artist-scorecard-num{font-family:var(--ff-m);font-size:clamp(1.4rem,3vw,2.4rem);line-height:1;color:var(--gold)}.artist-scorecard-note{font-family:var(--ff-b);font-size:.76rem;line-height:1.5;color:var(--text2);margin-top:14px}
+.artist-progress{position:fixed;left:0;right:0;top:0;z-index:260;height:3px;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,var(--accent),var(--gold),var(--blue));pointer-events:none}
+.artist-album-rail{margin-top:-34px;position:relative;z-index:8;padding:0 40px}.artist-rail-inner{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:18px;align-items:end}.artist-rail-copy{padding:22px;border:1px solid var(--border2);background:rgba(10,10,10,.74);backdrop-filter:blur(18px)}.artist-rail-k{font-size:.58rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}.artist-rail-title{font-family:var(--ff-d);font-size:clamp(1.8rem,4vw,3.3rem);font-weight:900;line-height:.95;letter-spacing:-.04em}.artist-rail-desc{font-family:var(--ff-b);color:var(--text2);font-size:.85rem;line-height:1.55;margin-top:10px}.artist-rail-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.artist-rail-card{position:relative;min-height:180px;overflow:hidden;border:1px solid rgba(255,255,255,.12);background:var(--bg2);text-decoration:none;color:inherit;transition:transform .25s,border-color .25s}.artist-rail-card:hover{transform:translateY(-7px);border-color:rgba(232,54,58,.58)}.artist-rail-cover{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.56) saturate(1.02);transition:transform .45s,filter .3s}.artist-rail-card:hover .artist-rail-cover{transform:scale(1.10);filter:brightness(.38) saturate(1.15)}.artist-rail-card::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.96),rgba(10,10,10,.18) 68%,transparent)}.artist-rail-body{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:13px}.artist-rail-meta{display:flex;justify-content:space-between;gap:8px;margin-bottom:5px;font-family:var(--ff-m);font-size:.68rem;color:var(--gold)}.artist-rail-album{font-family:var(--ff-d);font-size:1rem;font-weight:900;line-height:1.05}.artist-rail-year{font-size:.64rem;color:var(--text2);margin-top:3px}.artist-rail-card.reviewed::before{content:'Reviewed';position:absolute;top:8px;left:8px;z-index:3;font-size:.52rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;padding:3px 7px;background:var(--accent);color:#fff}
+@media(max-width:940px){.artist-scorecard{margin-left:0;max-width:380px}.artist-rail-inner{grid-template-columns:1fr}.artist-rail-cards{grid-template-columns:repeat(2,1fr)}.artist-album-rail{margin-top:18px;padding:0 20px}.artist-photo{border-radius:6px;transform:none}}
+@media(max-width:768px){.artist-hero{height:76vh;min-height:580px}.hero-content{gap:18px}.artist-orbit-card{right:-8vw;opacity:.34}.artist-scorecard{width:100%;padding:16px}.artist-scorecard-grid{grid-template-columns:repeat(3,1fr)}.artist-rail-card{min-height:150px}}
+@media(prefers-reduced-motion:reduce){.artist-hero::before{animation:none}.hero-bg,.hero-content,.artist-orbit-card{transform:none!important}}
+.page-wrap{max-width:1160px;margin:0 auto;padding:0 40px 100px}
+.page-grid{display:grid;grid-template-columns:264px 1fr;gap:0;margin-top:52px}
+@media(max-width:940px){.page-grid{grid-template-columns:1fr}.page-wrap{padding:0 20px 60px}}
+.info-sidebar{padding-right:40px;border-right:1px solid var(--border)}
+.info-photo{width:100%;aspect-ratio:1;object-fit:cover;object-position:top center;display:block;margin-bottom:20px;border:1px solid var(--border)}
+.info-table{width:100%;border-collapse:collapse;margin-bottom:24px}
+.info-table tr{border-bottom:1px solid var(--border)}.info-table tr:last-child{border-bottom:none}
+.it-label{padding:10px 10px 10px 0;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);vertical-align:top;white-space:nowrap;width:72px}
+.it-val{padding:10px 0;font-size:.78rem;color:var(--text2);line-height:1.45;vertical-align:top}
+.tag-wrap{display:flex;flex-wrap:wrap;gap:4px;margin-top:1px}
+.tag{font-size:.6rem;font-weight:600;letter-spacing:.04em;padding:3px 8px;border:1px solid;cursor:default}
+.tag-style{border-color:rgba(232,54,58,.3);color:rgba(232,54,58,.7);background:rgba(232,54,58,.06)}
+.tag-mood{border-color:rgba(74,158,255,.3);color:rgba(74,158,255,.75);background:rgba(74,158,255,.06)}
+.tag-theme{border-color:rgba(245,197,24,.28);color:rgba(245,197,24,.65);background:rgba(245,197,24,.05)}
+.embed-block{margin-top:20px}.embed-block-label{font-size:.58rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
+.s-iframe{width:100%;border:none;border-radius:4px;display:block}
+.main-content{padding-left:52px}
+@media(max-width:940px){.info-sidebar{padding-right:0;border-right:none;padding-bottom:36px;border-bottom:1px solid var(--border);margin-bottom:40px}.main-content{padding-left:0}}
+.sec-eyebrow{font-size:.58rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:5px}
+.sec-h{font-family:var(--ff-d);font-size:1.45rem;font-weight:700;margin-bottom:18px;line-height:1.1}
+.divider{height:1px;background:var(--border);margin:44px 0}
+.bio-body p{font-family:var(--ff-b);font-size:1rem;line-height:1.88;color:rgba(240,240,240,.83);margin-bottom:1.1em}.bio-body p:last-child{margin-bottom:0}.bio-body strong{color:var(--text);font-weight:600}
+.disc-header{display:flex;align-items:center;gap:0;margin-bottom:0}
+.disc-tabs{display:flex;border-bottom:1px solid var(--border);flex:1}
+.disc-tab{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:9px 16px;cursor:pointer;color:var(--text3);border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s,border-color .15s;white-space:nowrap}.disc-tab:hover{color:var(--text2)}.disc-tab.active{color:var(--text);border-bottom-color:var(--accent)}
+.view-btns{display:flex;margin-left:12px;border:1px solid var(--border)}
+.vbtn{width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:none;border:none;color:var(--text3);font-size:.8rem;transition:all .15s}.vbtn:hover{color:var(--text2)}.vbtn.on{background:var(--bg3);color:var(--text)}
+.disc-panel{display:none;padding-top:20px}.disc-panel.on{display:block}
+.disc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:560px){.disc-grid{grid-template-columns:repeat(2,1fr)}}
+.dc{position:relative;background:var(--bg2);border:1px solid var(--border);text-decoration:none;display:block;transition:border-color .18s,transform .18s}.dc:hover{border-color:rgba(255,255,255,.15);transform:translateY(-2px)}.dc.rev{border-color:rgba(232,54,58,.28)}.dc.rev:hover{border-color:var(--accent)}
+.dc-img{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:var(--bg3)}
+.dc-badge{position:absolute;top:8px;left:8px;font-size:.52rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:3px 7px;background:var(--accent);color:#fff;pointer-events:none}
+.dc-score{position:absolute;top:8px;right:8px;font-family:var(--ff-m);font-size:.85rem;font-weight:700;color:var(--gold);background:rgba(0,0,0,.78);padding:2px 6px;backdrop-filter:blur(4px);pointer-events:none}
+.dc-body{padding:9px 11px 11px}.dc-name{font-size:.8rem;font-weight:600;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text);margin-bottom:1px}.dc-year{font-size:.65rem;font-family:var(--ff-m);color:var(--text3)}
+.disc-tbl{width:100%;border-collapse:collapse;font-size:.8rem}
+.disc-tbl th{text-align:left;font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);padding:10px 10px 9px;border-bottom:1px solid var(--border)}
+.disc-tbl td{padding:11px 10px;border-bottom:1px solid var(--border);vertical-align:middle;color:var(--text2)}.disc-tbl tr:last-child td{border-bottom:none}.disc-tbl tr:hover td{background:rgba(255,255,255,.025)}
+.td-img{width:40px;height:40px;object-fit:cover;display:block;background:var(--bg3)}.td-name{color:var(--text);font-weight:600}.disc-tbl a{color:inherit;text-decoration:none}
+.td-sc{font-family:var(--ff-m);color:var(--gold);font-weight:700;white-space:nowrap}.td-yr{font-family:var(--ff-m);color:var(--text3);white-space:nowrap}
+.rev-chip{display:inline-block;font-size:.52rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:2px 6px;background:var(--accent);color:#fff;margin-left:7px;vertical-align:middle}
+.rev-row{display:flex;gap:14px;align-items:center;padding:13px 0;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;cursor:pointer;transition:background .12s}.rev-row:hover{background:rgba(255,255,255,.026)}.rev-row:hover .rev-title{color:var(--accent)}
+.rev-cover{width:52px;height:52px;object-fit:cover;flex-shrink:0;border:1px solid var(--border);background:var(--bg3)}
+.rev-info{flex:1;min-width:0}.rev-title{font-size:.88rem;font-weight:600;line-height:1.3;margin-bottom:2px;transition:color .15s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rev-meta{font-size:.68rem;color:var(--text3);display:flex;gap:8px;flex-wrap:wrap}
+.rev-score{font-family:var(--ff-m);font-size:1.05rem;font-weight:700;color:var(--gold);flex-shrink:0}
+.rev-bnm{font-size:.55rem;font-weight:700;letter-spacing:.08em;padding:2px 6px;background:var(--accent);color:#fff;flex-shrink:0;white-space:nowrap}
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:4px}
+@media(max-width:560px){.related-grid{grid-template-columns:repeat(2,1fr)}}
+.rel-card{background:var(--bg2);border:1px solid var(--border);text-decoration:none;display:block;color:inherit;transition:border-color .15s}.rel-card:hover{border-color:var(--border2)}
+.rel-img{width:100%;aspect-ratio:1;object-fit:cover;object-position:top;background:var(--bg3)}.rel-body{padding:10px 12px 12px}
+.rel-name{font-size:.8rem;font-weight:600;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rel-genre{font-size:.65rem;color:var(--text3)}.rel-score{font-family:var(--ff-m);font-size:.75rem;color:var(--gold);margin-top:4px}
+.so{position:fixed;inset:0;z-index:500;background:rgba(10,10,10,.97);display:flex;flex-direction:column;align-items:center;padding-top:100px;opacity:0;pointer-events:none;transition:opacity .18s}.so.open{opacity:1;pointer-events:all}
+.so-box{width:100%;max-width:600px;padding:0 24px}.so-row{display:flex;align-items:center;gap:10px;border-bottom:2px solid var(--accent);padding-bottom:10px}
+.so-inp{flex:1;background:none;border:none;outline:none;font-size:1.35rem;color:var(--text);font-family:var(--ff-d)}.so-esc{font-size:.65rem;color:var(--text3);font-family:var(--ff-m)}
+.so-res{margin-top:18px;max-height:54vh;overflow-y:auto}
+.so-item{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);text-decoration:none;color:inherit}.so-item:hover{background:rgba(255,255,255,.03)}
+.so-item img{width:40px;height:40px;object-fit:cover;flex-shrink:0}.so-t{font-size:.85rem;font-weight:600}.so-s{font-size:.7rem;color:var(--text2)}.so-sc{font-family:var(--ff-m);font-size:.82rem;color:var(--gold);margin-left:auto;flex-shrink:0}
+.so-x{position:absolute;top:18px;right:26px;cursor:pointer;color:var(--text3);font-size:1.3rem;background:transparent;border:0;font-family:var(--ff-u);line-height:1}.so-x:hover{color:var(--text)}
+.no-reviews{padding:32px 0;color:var(--text3);font-size:.85rem;font-style:italic}
+
+    .artist-revs{max-width:1100px;margin:0 auto;padding:60px 48px 80px;}
+    .artist-revs-hdr{display:flex;align-items:baseline;gap:14px;margin-bottom:28px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+    .artist-revs-title{font-family:var(--font-display);font-size:22px;font-weight:900;}
+    .artist-revs-count{font-family:var(--font-mono);font-size:12px;color:var(--text-muted);}
+    .artist-revs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:22px;}
+    .arc{background:var(--surface);border:1px solid var(--border);border-radius:4px;overflow:hidden;cursor:pointer;transition:transform .18s,border-color .18s;display:flex;flex-direction:column;}
+    .arc:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.12);}
+    .arc-img{width:100%;aspect-ratio:1;object-fit:cover;background:var(--surface-mid);}
+    .arc-body{padding:14px;flex:1;display:flex;flex-direction:column;gap:5px;}
+    .arc-album{font-size:13px;font-weight:800;}
+    .arc-review-title{font-size:11px;color:var(--text-muted);font-style:italic;}
+    .arc-meta{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:8px;}
+    .arc-score{font-family:var(--font-mono);font-size:19px;font-weight:700;color:var(--score-critic);}
+    .arc-bnm{font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:var(--accent);color:#fff;padding:2px 6px;border-radius:2px;}
+    .arc-genre{font-size:10px;color:var(--text-muted);}
+    .artist-revs-empty{font-size:14px;color:var(--text-muted);text-align:center;padding:60px 0;}
+    @media(max-width:768px){.artist-revs{padding:36px 20px 60px;}.artist-revs-grid{grid-template-columns:repeat(2,1fr);gap:12px;}}
+</style>
+
+<style id="reverb-global-footer-style">
+  .reverb-footer { background: #111111; border-top: 1px solid rgba(255,255,255,.10); margin-top: 72px; color: #fff; font-family: Inter, system-ui, sans-serif; }
+  .reverb-footer * { box-sizing: border-box; }
+  .reverb-footer a { color: inherit; text-decoration: none; }
+  .reverb-footer-inner { width: min(1180px, calc(100% - 40px)); margin: 0 auto; padding: 56px 0 28px; }
+  .reverb-footer-newsletter { display: grid; grid-template-columns: 1.15fr .85fr; gap: 28px; align-items: end; padding: 0 0 44px; margin-bottom: 42px; border-bottom: 1px solid rgba(255,255,255,.10); }
+  .reverb-footer-kicker { color: #E8363A; font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 10px; }
+  .reverb-footer-title { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(30px, 4vw, 52px); line-height: .98; font-weight: 900; letter-spacing: -.03em; margin: 0 0 12px; color: #fff; }
+  .reverb-footer-desc { font-family: Lora, Georgia, serif; color: #A0A0A0; line-height: 1.65; max-width: 620px; margin: 0; font-size: 15px; }
+  .reverb-footer-form { display: flex; gap: 0; width: 100%; max-width: 440px; margin-left: auto; }
+  .reverb-footer-input { flex: 1; min-width: 0; background: #0A0A0A; border: 1px solid #2A2A2A; border-right: 0; color: #fff; padding: 15px 16px; font: 500 14px Inter, system-ui, sans-serif; border-radius: 2px 0 0 2px; }
+  .reverb-footer-input:focus { outline: none; border-color: #E8363A; }
+  .reverb-footer-input::placeholder { color: #5A5A5A; }
+  .reverb-footer-button { background: #E8363A; border: 0; color: #fff; padding: 0 22px; border-radius: 0 2px 2px 0; font: 800 12px Inter, system-ui, sans-serif; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: background .2s ease, opacity .2s ease; }
+  .reverb-footer-button:hover { background: #B22327; }
+  .reverb-footer-button:disabled { opacity: .65; cursor: wait; }
+  .reverb-footer-note { margin: 10px 0 0; color: #5A5A5A; font-size: 12px; line-height: 1.5; text-align: right; }
+  .reverb-footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
+  .reverb-footer-logo { font-family: 'Playfair Display', Georgia, serif; font-size: 32px; font-weight: 900; letter-spacing: -.02em; margin-bottom: 12px; color: #fff; }
+  .reverb-footer-logo span { color: #E8363A; }
+  .reverb-footer-tagline { font-family: Lora, Georgia, serif; font-style: italic; color: #A0A0A0; font-size: 14px; line-height: 1.6; max-width: 280px; margin: 0; }
+  .reverb-footer-heading { color: #5A5A5A; font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 15px; }
+  .reverb-footer-links { display: grid; gap: 10px; list-style: none; padding: 0; margin: 0; }
+  .reverb-footer-links a { color: #A0A0A0; font-size: 14px; transition: color .2s ease; }
+  .reverb-footer-links a:hover { color: #fff; }
+  .reverb-footer-bottom { display: flex; justify-content: space-between; gap: 20px; align-items: center; border-top: 1px solid rgba(255,255,255,.10); margin-top: 42px; padding-top: 24px; }
+  .reverb-footer-copy { color: #5A5A5A; font-size: 12px; }
+  .reverb-footer-social { display: flex; gap: 18px; flex-wrap: wrap; }
+  .reverb-footer-social a { color: #5A5A5A; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; transition: color .2s ease; }
+  .reverb-footer-social a:hover { color: #E8363A; }
+  @media (max-width: 860px) {
+    .reverb-footer { margin-top: 48px; }
+    .reverb-footer-inner { width: min(100% - 28px, 1180px); padding-top: 42px; }
+    .reverb-footer-newsletter, .reverb-footer-grid { grid-template-columns: 1fr; }
+    .reverb-footer-form { margin-left: 0; max-width: none; }
+    .reverb-footer-note { text-align: left; }
+    .reverb-footer-bottom { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 520px) {
+    .reverb-footer-form { flex-direction: column; gap: 10px; }
+    .reverb-footer-input { border-right: 1px solid #2A2A2A; border-radius: 2px; }
+    .reverb-footer-button { min-height: 46px; border-radius: 2px; }
+  }
+</style>
+
+
+  <!-- REVERB × SR7 Motion Layer -->
+  <style id="reverb-sr7-css">
+/* ============================================================
+   REVERB × Slider Revolution 7 — Native Motion Layer
+   Extracted from revslider/public/ — adapted for static deploy
+   ============================================================ */
+
+/* ── 1. SR7 KEYFRAMES ──────────────────────────────────────── */
+@keyframes sr7-ani-mouse{0%{opacity:1;top:29%}15%{opacity:1;top:70%}50%{opacity:0;top:70%}100%{opacity:0;top:29%}}
+@keyframes tp-rotateplane{0%{transform:perspective(120px) rotateX(0deg) rotateY(0deg)}50%{transform:perspective(120px) rotateX(-180.1deg) rotateY(0deg)}100%{transform:perspective(120px) rotateX(-180deg) rotateY(-179.9deg)}}
+@keyframes tp-fade-in{0%{opacity:0}20%{opacity:0}100%{opacity:1}}
+@keyframes tp-rotate{100%{transform:rotate(360deg)}}
+@keyframes sr--anim--rotate{0%{transform:rotate(0deg)}50%{transform:rotate(180deg)}100%{transform:rotate(360deg)}}
+@keyframes sr-pop{0%{transform:scale(0.7);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes sr-elastic-pop{0%{transform:scale(0.7)}60%{transform:scale(1.1)}80%{transform:scale(0.95)}100%{transform:scale(1)}}
+@keyframes shimmer{from{background-position:200% 0}to{background-position:0% 0}}
+@keyframes tp-scaleout{0%{transform:scale(0)}100%{transform:scale(1);opacity:0}}
+@keyframes tp-bouncedelay{0%,80%,100%{transform:scale(0)}40%{transform:scale(1)}}
+@keyframes tp-bounce{0%,100%{transform:scale(0)}50%{transform:scale(1)}}
+@keyframes rs-revealer-6{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes rs-revealer-8{0%{transform:scale(0,0);opacity:.5}100%{transform:scale(1,1);opacity:0}}
+@keyframes rs-revealer-9{0%,100%{transform:scale(0)}50%{transform:scale(1)}}
+@keyframes rs-revealer-10{0%,100%,40%{transform:scaleY(.4)}20%{transform:scaleY(1)}}
+@keyframes rs-revealer-11{0%,100%,70%{transform:scale3D(1,1,1)}35%{transform:scale3D(0,0,1)}}
+@keyframes rs-revealer-12{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+@keyframes rs-revealer-13{0%,100%{transform:translate(0)}25%{transform:translate(160%)}50%{transform:translate(160%,160%)}75%{transform:translate(0,160%)}}
+@keyframes rs-revealer-15{25%{transform:translateX(30px) rotate(-90deg) scale(.5)}50%{transform:translateX(30px) translateY(30px) rotate(-179deg)}75%{transform:translateX(0) translateY(30px) rotate(-270deg) scale(.5)}100%{transform:rotate(-360deg)}}
+
+/* ── 2. SR7 PRELOADER SKINS (REVERB-themed) ────────────────── */
+/* tp-bouncedelay: 3-dot bounce (used for data loading) */
+.reverb-loader { display:flex; gap:6px; align-items:center; justify-content:center; padding:24px; }
+.reverb-loader span {
+  width:10px; height:10px; border-radius:50%;
+  background: #E8363A;
+  display:inline-block;
+  animation: tp-bouncedelay 1.4s infinite ease-in-out both;
+}
+.reverb-loader span:nth-child(1){animation-delay:-0.32s}
+.reverb-loader span:nth-child(2){animation-delay:-0.16s}
+
+/* tp-rotateplane: spinning square (score loading) */
+.reverb-score-loader {
+  width:20px; height:20px;
+  background: #F5C518;
+  animation: tp-rotateplane 1.2s infinite ease-in-out;
+  border-radius:2px;
+  display:inline-block;
+}
+
+/* shimmer: skeleton loading on cards */
+.reverb-shimmer {
+  background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* ── 3. SR7 INSTAGRAM-STYLE PHOTO FILTERS ──────────────────── */
+/* Applied to album cover art via .cover-filter-{name} */
+.cover-filter-inkwell  { filter:sepia(.3) contrast(1.1) brightness(1.1) grayscale(1) }
+.cover-filter-moon     { filter:grayscale(1) contrast(1.1) brightness(1.1) }
+.cover-filter-lofi     { filter:saturate(1.1) contrast(1.5) }
+.cover-filter-clarendon{ filter:contrast(1.2) saturate(1.35) }
+.cover-filter-toaster  { filter:contrast(1.5) brightness(.9) }
+.cover-filter-mayfair  { filter:contrast(1.1) saturate(1.1) }
+.cover-filter-reyes    { filter:sepia(.22) brightness(1.1) contrast(.85) saturate(.75) }
+.cover-filter-walden   { filter:brightness(1.1) hue-rotate(-10deg) sepia(.3) saturate(1.6) }
+.cover-filter-nashville{ filter:sepia(.2) contrast(1.2) brightness(1.05) saturate(1.2) }
+.cover-filter-lark     { filter:contrast(.9) }
+.cover-filter-willow   { filter:grayscale(.5) contrast(.95) brightness(.9) }
+.cover-filter-rise     { filter:brightness(1.05) sepia(.2) contrast(.9) saturate(.9) }
+.cover-filter-slumber  { filter:saturate(.66) brightness(1.05) }
+.cover-filter-brooklyn { filter:contrast(.9) brightness(1.1) }
+.cover-filter-hudson   { filter:brightness(1.2) contrast(.9) saturate(1.1) }
+.cover-filter-aden     { filter:hue-rotate(-20deg) contrast(.9) saturate(.85) brightness(1.2) }
+
+/* Transition on filter change */
+[class*="cover-filter-"] { transition: filter 0.4s ease; }
+
+/* ── 4. SR7 ENTRY ANIMATIONS (utility classes) ─────────────── */
+/* Slide-in from directions */
+.sr7-enter-up    { animation: sr7-enter-up 0.6s cubic-bezier(.16,1,.3,1) both }
+.sr7-enter-down  { animation: sr7-enter-down 0.6s cubic-bezier(.16,1,.3,1) both }
+.sr7-enter-left  { animation: sr7-enter-left 0.6s cubic-bezier(.16,1,.3,1) both }
+.sr7-enter-right { animation: sr7-enter-right 0.6s cubic-bezier(.16,1,.3,1) both }
+.sr7-pop         { animation: sr-pop 0.4s cubic-bezier(.16,1,.3,1) both }
+.sr7-elastic-pop { animation: sr-elastic-pop 0.5s cubic-bezier(.16,1,.3,1) both }
+.sr7-fade-in     { animation: tp-fade-in 0.5s ease both }
+
+@keyframes sr7-enter-up    { from{transform:translateY(30px);opacity:0} to{transform:none;opacity:1} }
+@keyframes sr7-enter-down  { from{transform:translateY(-30px);opacity:0} to{transform:none;opacity:1} }
+@keyframes sr7-enter-left  { from{transform:translateX(40px);opacity:0} to{transform:none;opacity:1} }
+@keyframes sr7-enter-right { from{transform:translateX(-40px);opacity:0} to{transform:none;opacity:1} }
+
+/* Stagger delays */
+.sr7-delay-1 { animation-delay:.1s }
+.sr7-delay-2 { animation-delay:.2s }
+.sr7-delay-3 { animation-delay:.3s }
+.sr7-delay-4 { animation-delay:.4s }
+.sr7-delay-5 { animation-delay:.5s }
+.sr7-delay-6 { animation-delay:.6s }
+
+/* ── 5. SCORE CHIP — elastic pop on load ──────────────────── */
+.score-chip, .score-badge, [class*="rating"] {
+  animation: sr-elastic-pop 0.5s cubic-bezier(.16,1,.3,1) both;
+  animation-delay: 0.3s;
+}
+
+/* ── 6. HERO SLIDE WIPE TRANSITIONS (rs-revealer style) ─────── */
+/* Overlay that wipes out between hero slides */
+.hero-wipe {
+  position:absolute; inset:0; z-index:10; pointer-events:none;
+  background: #0A0A0A;
+  transform-origin: left;
+}
+.hero-wipe.wipe-enter  { animation: hero-wipe-in  0.7s cubic-bezier(.77,0,.18,1) forwards }
+.hero-wipe.wipe-exit   { animation: hero-wipe-out 0.7s cubic-bezier(.77,0,.18,1) forwards }
+
+@keyframes hero-wipe-in  { from{transform:scaleX(0)} to{transform:scaleX(1)} }
+@keyframes hero-wipe-out { from{transform:scaleX(1)} to{transform:scaleX(0); transform-origin:right} }
+
+/* ── 7. MOOD FILMSTRIP — rs-revealer hover pulse ────────────── */
+.mood-card:hover .mood-score {
+  animation: sr-elastic-pop 0.35s cubic-bezier(.16,1,.3,1);
+}
+
+/* ── 8. SCROLL-REVEAL (IntersectionObserver hook) ───────────── */
+.sr7-reveal {
+  opacity:0; transform:translateY(24px);
+  transition: opacity 0.6s cubic-bezier(.16,1,.3,1), transform 0.6s cubic-bezier(.16,1,.3,1);
+}
+.sr7-reveal.is-visible {
+  opacity:1; transform:none;
+}
+
+/* ── 9. REVERB LOADING SCREEN (tp-bouncedelay branded) ──────── */
+#reverb-loading-screen {
+  position:fixed; inset:0; z-index:9999;
+  background:#0A0A0A;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:20px;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+#reverb-loading-screen.hidden { opacity:0; visibility:hidden; pointer-events:none; }
+#reverb-loading-screen .reverb-loader span { background:#E8363A; width:14px; height:14px; }
+#reverb-loading-screen .load-logo {
+  font-family:'Playfair Display', serif;
+  font-size:2rem; font-weight:700; letter-spacing:0.15em;
+  color:#fff;
+}
+#reverb-loading-screen .load-logo span { color:#E8363A; }
+
+  </style>
+</head>
+<body>
+<div class="artist-progress" aria-hidden="true"></div>
+
+<nav>
+  <a class="nav-logo" href="/">REVERB<span>.</span></a>
+  <div class="nav-links">
+    <a href="/new">New</a>
+    <a href="/browse" class="active">Reviews</a>
+    <a href="/browse">Browse</a>
+    <a href="/browse?view=lists">Lists</a>
+    <a href="/community">Community</a>
+  </div>
+  <div class="nav-right">
+    <button class="nav-search" type="button" data-search-trigger data-artist-search-trigger aria-label="Open search">&#8984;K Search</button>
+    <a class="nav-cta" href="/profile">Sign In</a>
+  </div>
+</nav>
+
+<div class="artist-hero">
+  <div class="hero-bg" id="hBg"></div>
+  <div class="artist-orbit" aria-hidden="true"><div class="artist-orbit-card" id="orbitOne"></div><div class="artist-orbit-card two" id="orbitTwo"></div><div class="artist-orbit-line"></div></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <img class="artist-photo" id="hPhoto" src="" alt="">
+    <div class="hero-info">
+      <div class="hero-eyebrow">Artist Profile</div>
+      <h1 class="hero-name" id="hName">—</h1>
+      <p class="hero-tagline" id="hTagline"></p>
+      <div class="hero-actions">
+        <a class="btn-spotify" id="hSpot" href="#" target="_blank" style="display:none">
+          <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+          Open on Spotify
+        </a>
+        <span class="hero-stat" id="hStat"></span>
+        <span class="bnm-pill" id="hBnm" style="display:none">★ Best New Music</span>
+      </div>
+    </div>
+    <aside class="artist-scorecard" aria-label="Artist REVERB stats">
+      <div class="artist-scorecard-k">REVERB Index</div>
+      <div class="artist-scorecard-grid">
+        <div><div class="artist-scorecard-label">Reviews</div><div class="artist-scorecard-num" id="scReviews">0</div></div>
+        <div><div class="artist-scorecard-label">Average</div><div class="artist-scorecard-num" id="scAverage">—</div></div>
+        <div><div class="artist-scorecard-label">BNM</div><div class="artist-scorecard-num" id="scBnm">0</div></div>
+      </div>
+      <p class="artist-scorecard-note" id="scNote">Critic coverage, catalog context, and community-era discovery in one profile.</p>
+    </aside>
+  </div>
+</div>
+
+<section class="artist-album-rail" aria-label="Artist album highlights">
+  <div class="artist-rail-inner">
+    <div class="artist-rail-copy">
+      <div class="artist-rail-k">Catalog in motion</div>
+      <h2 class="artist-rail-title">Essential records,<br>review context.</h2>
+      <p class="artist-rail-desc" id="artistRailDesc">A visual rail of key albums and REVERB-reviewed releases.</p>
+    </div>
+    <div class="artist-rail-cards" id="artistRailCards"></div>
+  </div>
+</section>
+
+<div class="page-wrap">
+  <div class="page-grid">
+
+    <div class="info-sidebar">
+      <img class="info-photo" id="iPhoto" src="" alt="" loading="lazy">
+      <table class="info-table">
+        <tbody>
+          <tr><td class="it-label">Active</td><td class="it-val" id="iActive">—</td></tr>
+          <tr><td class="it-label">Origin</td><td class="it-val" id="iOrigin">—</td></tr>
+          <tr><td class="it-label">Born</td><td class="it-val" id="iBorn">—</td></tr>
+          <tr><td class="it-label">Label</td><td class="it-val" id="iLabel">—</td></tr>
+          <tr id="rowAka"><td class="it-label">A.K.A.</td><td class="it-val"><div id="iAka"></div></td></tr>
+          <tr id="rowStyles"><td class="it-label" style="padding-top:14px;padding-bottom:6px">Styles</td><td class="it-val" style="padding-top:14px;padding-bottom:6px"><div class="tag-wrap" id="iStyles"></div></td></tr>
+          <tr id="rowMoods"><td class="it-label" style="padding-bottom:6px">Moods</td><td class="it-val" style="padding-bottom:6px"><div class="tag-wrap" id="iMoods"></div></td></tr>
+          <tr id="rowThemes" style="border:none"><td class="it-label" style="border:none">Themes</td><td class="it-val" style="border:none"><div class="tag-wrap" id="iThemes"></div></td></tr>
+        </tbody>
+      </table>
+      <div class="embed-block" id="embedBlock" style="display:none">
+        <div class="embed-block-label">Listen — Top Album</div>
+        <iframe class="s-iframe" id="sEmbed" height="152" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <div class="sec-eyebrow">Biography</div>
+      <div class="bio-body" id="bioBody"><p style="color:var(--text3)">Loading…</p></div>
+
+      <div class="divider"></div>
+
+      <div class="sec-eyebrow">Discography</div>
+      <div class="disc-header">
+        <div class="disc-tabs">
+          <span class="disc-tab active">Albums <span id="albumCt"></span></span>
+        </div>
+        <div class="view-btns">
+          <button class="vbtn on" id="vGrid" onclick="setView('grid')" title="Grid">&#9638;</button>
+          <button class="vbtn" id="vList" onclick="setView('list')" title="List">&#9776;</button>
+        </div>
+      </div>
+      <div class="disc-panel on" id="panel-albums">
+        <div class="disc-grid" data-sr7-stagger id="discGrid"></div>
+        <div id="discTbl" style="display:none">
+          <table class="disc-tbl">
+            <thead><tr><th></th><th>Album</th><th>Year</th><th>Score</th></tr></thead>
+            <tbody id="discTblBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="sec-eyebrow">REVERB Coverage</div>
+      <div class="sec-h" id="revTitle">Reviews</div>
+      <div id="revList"></div>
+      <div class="no-reviews" id="noRev" style="display:none">No reviews yet for this artist.</div>
+
+      <div class="divider"></div>
+
+      <div class="sec-eyebrow">Also on REVERB</div>
+      <div class="sec-h">Other Artists</div>
+      <div class="related-grid" id="relGrid"></div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+function g(id){return document.getElementById(id);}
+function imgErr(el){el.style.background='#161616';}
+const PROFILES={"Aphex Twin": {"id": "6kBDZFXuLrZgHnvmPu9NsG", "image": "https://i.scdn.co/image/ab6761610000e5ebaa3c91d792eb520a5d58daa5", "spotify_url": "https://open.spotify.com/artist/6kBDZFXuLrZgHnvmPu9NsG", "bio": "Richard D. James — the man behind Aphex Twin — has spent four decades warping electronic music into shapes nobody else would dare attempt. Born in Cornwall, England, James began releasing music under a constellation of aliases in the early 1990s, but it was Aphex Twin that became his defining moniker. From the glacial beauty of Selected Ambient Works Volume II to the percussive violence of Drukqs, his catalog refuses categorization. He operates outside industry norms entirely, surfacing with new material on his own schedule, speaking rarely, and letting the music generate its own mythology. His influence on IDM, ambient, and experimental electronic music is immeasurable.", "origin": "Cornwall, England", "active": "1989 – present", "label": "Warp Records", "born": "1971, Limerick, Ireland (raised Cornwall, England)", "also_known_as": ["Richard D. James", "AFX", "The Tuss", "Polygon Window", "Caustic Window"], "styles": ["IDM", "Ambient Techno", "Drill n Bass", "Acid House"], "moods": ["Cerebral", "Hypnotic", "Aggressive", "Otherworldly"], "themes": ["Machine Intelligence", "Surrealism", "Texture", "Dissonance"], "discography": [{"id": "72pxRHG1VNIcIibziKpH03", "name": "Music From The Merch Desk (2016 - 2023)", "year": "2024", "cover": "https://i.scdn.co/image/ab67616d0000b273654c638796d5eb9b53c1bad8", "spotify_url": "https://open.spotify.com/album/72pxRHG1VNIcIibziKpH03"}, {"id": "7gpblNxStuPCUouPvlyf2i", "name": "Selected Ambient Works Volume II (Expanded Edition)", "year": "2024", "cover": "https://i.scdn.co/image/ab67616d0000b273b0cdf32bc53b002541d03b91", "spotify_url": "https://open.spotify.com/album/7gpblNxStuPCUouPvlyf2i"}, {"id": "58H1ArDcd3bUzOK0cn31lD", "name": "Digeridoo (Expanded Edition)", "year": "2024", "cover": "https://i.scdn.co/image/ab67616d0000b2735a34ce0b88925626b4db194f", "spotify_url": "https://open.spotify.com/album/58H1ArDcd3bUzOK0cn31lD"}, {"id": "4mwrMLVKo940qLFXEIef4w", "name": "Syro", "year": "2014", "cover": "https://i.scdn.co/image/ab67616d0000b2736ea96ba633bead24af562890", "spotify_url": "https://open.spotify.com/album/4mwrMLVKo940qLFXEIef4w"}, {"id": "0Zq8j2h7rkgctkJe94aNF7", "name": "Acoustica", "year": "2011", "cover": "https://i.scdn.co/image/ab67616d0000b273fd6614647eca4a32ada01935", "spotify_url": "https://open.spotify.com/album/0Zq8j2h7rkgctkJe94aNF7"}, {"id": "2oJo7cB45gMVuRsaWNwDq2", "name": "Drukqs", "year": "2001", "cover": "https://i.scdn.co/image/ab67616d0000b2732e261a0b1b19d0ff95e346b3", "spotify_url": "https://open.spotify.com/album/2oJo7cB45gMVuRsaWNwDq2"}]}, "SZA": {"id": "7tYKF4w9nC0nq9CsPZTHyP", "image": "https://i.scdn.co/image/ab6761610000e5ebfd0a9fb6c252a3ba44079acf", "spotify_url": "https://open.spotify.com/artist/7tYKF4w9nC0nq9CsPZTHyP", "bio": "Solána Imani Rowe, known as SZA, is one of the most emotionally honest voices in contemporary R&B. Raised in Maplewood, New Jersey, she spent years quietly building her artistry before breaking through with Ctrl in 2017 — an album that redefined what vulnerability could sound like in pop music. Her sophomore album SOS became a cultural phenomenon in late 2022, spending an unprecedented 10 weeks at number one and proving that slow-burn, introspective R&B could dominate the mainstream. Her voice is a marvel: conversational one moment, devastating the next.", "origin": "Maplewood, New Jersey", "active": "2012 – present", "label": "Top Dawg Entertainment / RCA Records", "born": "1989, Maplewood, New Jersey", "also_known_as": ["Solána Imani Rowe"], "styles": ["Alternative R&B", "Indie Soul", "Neo-Soul", "Art Pop"], "moods": ["Vulnerable", "Introspective", "Sensual", "Melancholic"], "themes": ["Self-Worth", "Romantic Complexity", "Identity", "Black Womanhood"], "discography": [{"id": "1Q5WON8dw2JFLP5JVQXu1e", "name": "SOS Deluxe: LANA", "year": "2025", "cover": "https://i.scdn.co/image/ab67616d0000b2735623d454ad0ffa8d0ebfd4ad", "spotify_url": "https://open.spotify.com/album/1Q5WON8dw2JFLP5JVQXu1e"}, {"id": "07w0rG5TETcyihsEIZR3qG", "name": "SOS", "year": "2022", "cover": "https://i.scdn.co/image/ab67616d0000b273bc18bdade69ec5ef0bb25b17", "spotify_url": "https://open.spotify.com/album/07w0rG5TETcyihsEIZR3qG"}, {"id": "6FKP2O0oOvZlDkF0gyTjiJ", "name": "Ctrl (Deluxe)", "year": "2022", "cover": "https://i.scdn.co/image/ab67616d0000b273e44bcbfd5aa9f2300d2ee63e", "spotify_url": "https://open.spotify.com/album/6FKP2O0oOvZlDkF0gyTjiJ"}, {"id": "0yURloAyqmXCjQ1rmX0ltA", "name": "Dear Evan Hansen (Original Motion Picture Soundtrack)", "year": "2021", "cover": "https://i.scdn.co/image/ab67616d0000b273a7a9d81575b10a3bc8b69914", "spotify_url": "https://open.spotify.com/album/0yURloAyqmXCjQ1rmX0ltA"}, {"id": "3pLdWdkj83EYfDN6H2N8MR", "name": "Black Panther The Album Music From And Inspired By", "year": "2018", "cover": "https://i.scdn.co/image/ab67616d0000b273c027ad28821777b00dcaa888", "spotify_url": "https://open.spotify.com/album/3pLdWdkj83EYfDN6H2N8MR"}, {"id": "76290XdXVF9rPzGdNRWdCh", "name": "Ctrl", "year": "2017", "cover": "https://i.scdn.co/image/ab67616d0000b27306d56b057cce5797538a16d5", "spotify_url": "https://open.spotify.com/album/76290XdXVF9rPzGdNRWdCh"}]}, "Kendrick Lamar": {"id": "2YZyLoL8N0Wb9xBt1NhZWg", "image": "https://i.scdn.co/image/ab6761610000e5eb39ba6dcd4355c03de0b50918", "spotify_url": "https://open.spotify.com/artist/2YZyLoL8N0Wb9xBt1NhZWg", "bio": "Kendrick Lamar Duckworth grew up in Compton, California, and channeled that upbringing into one of the most critically lauded bodies of work in hip-hop history. From the raw street narratives of Section.80 to the jazz-infused concept album To Pimp a Butterfly, Lamar has consistently pushed the form further than his peers thought possible. His 2017 album DAMN. won the Pulitzer Prize for Music — the first non-classical, non-jazz work to do so — cementing his place as one of the defining American artists of his generation. His 2024 feud with Drake became a cultural flashpoint, producing the Grammy-winning diss track Not Like Us.", "origin": "Compton, California", "active": "2003 – present", "label": "pgLang / Interscope Records", "born": "1987, Compton, California", "also_known_as": ["K-Dot", "Kendrick Duckworth"], "styles": ["Conscious Rap", "West Coast Hip-Hop", "Jazz Rap", "Hardcore Rap"], "moods": ["Intense", "Political", "Poetic", "Confrontational"], "themes": ["Black America", "Systemic Racism", "Fame", "Morality"], "discography": [{"id": "0hvT3yIEysuuvkK73vgdcW", "name": "GNX", "year": "2024", "cover": "https://i.scdn.co/image/ab67616d0000b273e2a0a166493a2bde5480a420", "spotify_url": "https://open.spotify.com/album/0hvT3yIEysuuvkK73vgdcW"}, {"id": "79ONNoS4M9tfIA1mYLBYVX", "name": "Mr. Morale & The Big Steppers", "year": "2022", "cover": "https://i.scdn.co/image/ab67616d0000b2732e02117d76426a08ac7c174f", "spotify_url": "https://open.spotify.com/album/79ONNoS4M9tfIA1mYLBYVX"}, {"id": "3pLdWdkj83EYfDN6H2N8MR", "name": "Black Panther The Album Music From And Inspired By", "year": "2018", "cover": "https://i.scdn.co/image/ab67616d0000b273c027ad28821777b00dcaa888", "spotify_url": "https://open.spotify.com/album/3pLdWdkj83EYfDN6H2N8MR"}, {"id": "4alcGHjstaALJHHiljfy3H", "name": "DAMN. COLLECTORS EDITION.", "year": "2017", "cover": "https://i.scdn.co/image/ab67616d0000b273add9eb25744782c3717c9368", "spotify_url": "https://open.spotify.com/album/4alcGHjstaALJHHiljfy3H"}, {"id": "4eLPsYPBmXABThSJ821sqY", "name": "DAMN.", "year": "2017", "cover": "https://i.scdn.co/image/ab67616d0000b2738b52c6b9bc4e43d873869699", "spotify_url": "https://open.spotify.com/album/4eLPsYPBmXABThSJ821sqY"}, {"id": "0kL3TYRsSXnu0iJvFO3rud", "name": "untitled unmastered.", "year": "2016", "cover": "https://i.scdn.co/image/ab67616d0000b2738c697f553a46006a5d8886b2", "spotify_url": "https://open.spotify.com/album/0kL3TYRsSXnu0iJvFO3rud"}]}, "Charli XCX": {"id": "25uiPmTg16RbhZWAqwLBy5", "image": "https://i.scdn.co/image/ab6761610000e5eb6fa76436a2bba83b9f1d6fd1", "spotify_url": "https://open.spotify.com/artist/25uiPmTg16RbhZWAqwLBy5", "bio": "Charlotte Emma Anning — Charli XCX — spent years as pop music's most interesting outsider before Brat made her its most interesting insider. Raised in Essex, England, she signed to a major label as a teenager and spent the next decade writing hits for other artists while releasing her own increasingly experimental material. The tension between pop instinct and avant-garde impulse defines her work. Brat, released in 2024, became both a critical sensation and a genuine cultural moment — the word entering common usage as a signifier of a specific kind of confident, messy, unbothered femininity.", "origin": "Cambridge, England", "active": "2008 – present", "label": "Atlantic Records", "born": "1992, Cambridge, England", "also_known_as": ["Charlotte Anning"], "styles": ["Hyperpop", "Electropop", "Art Pop", "PC Music"], "moods": ["Euphoric", "Abrasive", "Playful", "Chaotic"], "themes": ["Femininity", "Fame", "Technology", "Alienation"], "discography": [{"id": "4oniyB3TRFhjglVSqVgy9e", "name": "Wuthering Heights", "year": "2026", "cover": "https://i.scdn.co/image/ab67616d0000b2735048960108f204f627b294b4", "spotify_url": "https://open.spotify.com/album/4oniyB3TRFhjglVSqVgy9e"}, {"id": "0W5woeQnfOZmVLSbggRRlR", "name": "Brat and it’s completely different but also still brat", "year": "2024", "cover": "https://i.scdn.co/image/ab67616d0000b273927ee510cae02a0334d3207c", "spotify_url": "https://open.spotify.com/album/0W5woeQnfOZmVLSbggRRlR"}, {"id": "316O0Xetgx2NJLRgJBw4uq", "name": "Brat and it’s the same but there’s three more songs so it’s not", "year": "2024", "cover": "https://i.scdn.co/image/ab67616d0000b273fa1fb2582857abf6fbc01248", "spotify_url": "https://open.spotify.com/album/316O0Xetgx2NJLRgJBw4uq"}, {"id": "2lIZef4lzdvZkiiCzvPKj7", "name": "BRAT", "year": "2024", "cover": "https://i.scdn.co/image/ab67616d0000b273f88b43d15fd14e9525338b59", "spotify_url": "https://open.spotify.com/album/2lIZef4lzdvZkiiCzvPKj7"}, {"id": "3lb7EyEcWhZOK0SpZ2dNpn", "name": "CRASH (Deluxe)", "year": "2022", "cover": "https://i.scdn.co/image/ab67616d0000b2735e10fcdabafe6513fa7f601a", "spotify_url": "https://open.spotify.com/album/3lb7EyEcWhZOK0SpZ2dNpn"}, {"id": "1QqipMXWzJhr6yfcNKTp8B", "name": "CRASH", "year": "2022", "cover": "https://i.scdn.co/image/ab67616d0000b273eefcaa4f481bb1c3b3b53743", "spotify_url": "https://open.spotify.com/album/1QqipMXWzJhr6yfcNKTp8B"}]}, "The Smile": {"id": "6styCzc1Ej4NxISL0LiigM", "image": "https://i.scdn.co/image/ab6761610000e5ebb43db49ce029948457972352", "spotify_url": "https://open.spotify.com/artist/6styCzc1Ej4NxISL0LiigM", "bio": "The Smile emerged in 2021 as a side project from Thom Yorke and Jonny Greenwood of Radiohead, paired with jazz drummer Tom Skinner. What began as a lockdown experiment quickly became something more substantial: a band with its own distinct identity, angular and nervous where Radiohead could be expansive. Their debut A Light for Attracting Attention (2022) announced them as a genuine creative force. Wall of Eyes (2024) deepened that vision, trading some of the debut's urgency for something more atmospheric and unsettling. They exist in the shadow of Radiohead inevitably, but the music insists on its own terms.", "origin": "Oxford / London, England", "active": "2021 – present", "label": "XL Recordings", "born": "Oxford / London, England", "also_known_as": ["Radiohead side project"], "styles": ["Post-Punk", "Art Rock", "Jazz Fusion", "Experimental Rock"], "moods": ["Tense", "Unsettling", "Atmospheric", "Cerebral"], "themes": ["Anxiety", "Political Disillusionment", "Time", "Structure"], "discography": [{"id": "1wOiuWSlK5pQdpQP8VgH6F", "name": "Cutouts", "year": "2024", "cover": "https://i.scdn.co/image/ab67616d0000b2736613d3127feee7ee948412f9", "spotify_url": "https://open.spotify.com/album/1wOiuWSlK5pQdpQP8VgH6F"}, {"id": "6PdPOv5ybKZ9ZuGMk5iGZd", "name": "Wall Of Eyes", "year": "2024", "cover": "https://i.scdn.co/image/ab67616d0000b273ec5757cdfeb9a29df135c96d", "spotify_url": "https://open.spotify.com/album/6PdPOv5ybKZ9ZuGMk5iGZd"}, {"id": "6x4C6uMJqQnnp4V39p2CeO", "name": "The Smile (Live at Montreux Jazz Festival, July 2022)", "year": "2022", "cover": "https://i.scdn.co/image/ab67616d0000b273f2df8144919390bcf629c60b", "spotify_url": "https://open.spotify.com/album/6x4C6uMJqQnnp4V39p2CeO"}, {"id": "009EjjwUjtdjvH7UP0wHzi", "name": "A Light for Attracting Attention", "year": "2022", "cover": "https://i.scdn.co/image/ab67616d0000b273423ac018d0ec2301e40948a0", "spotify_url": "https://open.spotify.com/album/009EjjwUjtdjvH7UP0wHzi"}]}, "Sufjan Stevens": {"id": "4MXUO7sVCaFgFjoTI5ox5c", "image": "https://i.scdn.co/image/ab6761610000e5ebe70700c1329d2f26971c3914", "spotify_url": "https://open.spotify.com/artist/4MXUO7sVCaFgFjoTI5ox5c", "bio": "Sufjan Stevens is one of American music's great mystics — an artist for whom beauty and grief have always been inseparable. Born in Detroit, Stevens came to wide attention with his sweeping state albums (Michigan, Illinois) before expanding his scope to encompass electronic music (The Age of Adz), orchestral song cycles (Carrie & Lowell), and transcendent ambient work (Aporia). His 2023 album Javelin, released as his partner Evans Richardson was dying, is one of the most devastating records in his catalog — an act of love rendered in music. He remains one of the few artists capable of making listeners feel genuinely held by a record.", "origin": "Detroit, Michigan", "active": "1999 – present", "label": "Asthmatic Kitty Records", "born": "1975, Detroit, Michigan", "also_known_as": ["Sufjan"], "styles": ["Chamber Folk", "Indie Folk", "Electronic", "Orchestral Pop"], "moods": ["Tender", "Spiritual", "Meditative", "Grief-Stricken"], "themes": ["Faith", "Death", "Americana", "Memory"], "discography": [{"id": "0n7HLjx45Y2LD4WyHGDMf3", "name": "Carrie & Lowell (10th Anniversary Edition)", "year": "2025", "cover": "https://i.scdn.co/image/ab67616d0000b27336ca50e8eac665cff77ac36d", "spotify_url": "https://open.spotify.com/album/0n7HLjx45Y2LD4WyHGDMf3"}, {"id": "42lnsCNSZUkPBgFhvSOHwa", "name": "Seven Swans (Deluxe Edition)", "year": "2024", "cover": "https://i.scdn.co/image/ab67616d0000b2732ac70f60ca01950ecef67ab0", "spotify_url": "https://open.spotify.com/album/42lnsCNSZUkPBgFhvSOHwa"}, {"id": "2KqSL3vLfyVO7rrZJL9tUs", "name": "Javelin", "year": "2023", "cover": "https://i.scdn.co/image/ab67616d0000b27332a8498ea892ccd4fcf3f6cf", "spotify_url": "https://open.spotify.com/album/2KqSL3vLfyVO7rrZJL9tUs"}, {"id": "5VHkiYllmLhZ2ZJ6fzJg21", "name": "Reflections", "year": "2023", "cover": "https://i.scdn.co/image/ab67616d0000b273a5a0b7e70bfa5f20ca51ea9c", "spotify_url": "https://open.spotify.com/album/5VHkiYllmLhZ2ZJ6fzJg21"}, {"id": "7AS9VaIdnYSR13T3vkVtu9", "name": "A Beginner's Mind", "year": "2021", "cover": "https://i.scdn.co/image/ab67616d0000b2736bcb85aafb151f6d43a46106", "spotify_url": "https://open.spotify.com/album/7AS9VaIdnYSR13T3vkVtu9"}, {"id": "1VSVlgMLuUyNGf6WFRwC12", "name": "Convocations", "year": "2021", "cover": "https://i.scdn.co/image/ab67616d0000b273cd894227cda568f71fec8f1b", "spotify_url": "https://open.spotify.com/album/1VSVlgMLuUyNGf6WFRwC12"}]}, "Mitski": {"id": "2uYWxilOVlUdk4oV9DvwqK", "image": "https://i.scdn.co/image/ab6761610000e5eb16eec86fff40fa5ef0b57cef", "spotify_url": "https://open.spotify.com/artist/2uYWxilOVlUdk4oV9DvwqK", "bio": "Mitski Miyawaki was born in Japan and raised across the world — a peripatetic childhood that surfaces in music of restless, searching intensity. After self-releasing several albums, her signing to Dead Oceans and the release of Puberty 2 (2016) brought her to widespread attention. Be the Cowboy (2018) and Laurel Hell (2022) established her as one of indie rock's essential voices: someone who writes about loneliness, desire, and Americanness with a precision that feels almost surgical. Her live performances are legendary for their physical intensity. She announced a hiatus in 2022, returned, and has continued evolving on her own terms.", "origin": "Japan / raised globally", "active": "2012 – present", "label": "Dead Oceans", "born": "1990, Japan (raised globally)", "also_known_as": ["Mitski Miyawaki"], "styles": ["Indie Rock", "Art Rock", "Chamber Pop", "Dream Pop"], "moods": ["Lonely", "Yearning", "Cathartic", "Raw"], "themes": ["Belonging", "Desire", "Americanness", "Identity"], "discography": [{"id": "1HgxS3QtHoYbHvmjtHnsci", "name": "Puberty 2 (10th Anniversary Deluxe Edition)", "year": "2026", "cover": "https://i.scdn.co/image/ab67616d0000b2736c8064f2e044745bcc352983", "spotify_url": "https://open.spotify.com/album/1HgxS3QtHoYbHvmjtHnsci"}, {"id": "2M9F3AsbWy7n4LwmJ8pqEu", "name": "Nothing's About to Happen to Me", "year": "2026", "cover": "https://i.scdn.co/image/ab67616d0000b273be1cdc30c83c5822adac15a9", "spotify_url": "https://open.spotify.com/album/2M9F3AsbWy7n4LwmJ8pqEu"}, {"id": "2Cn1d2KgbkAqbZCJ1RzdkA", "name": "The Land Is Inhospitable and So Are We", "year": "2023", "cover": "https://i.scdn.co/image/ab67616d0000b27334f21d3047d85440dfa37f10", "spotify_url": "https://open.spotify.com/album/2Cn1d2KgbkAqbZCJ1RzdkA"}, {"id": "4rcinMUHEWOxpIwJo2sf22", "name": "Laurel Hell", "year": "2022", "cover": "https://i.scdn.co/image/ab67616d0000b273d8041a531487d0e0e4cfb41f", "spotify_url": "https://open.spotify.com/album/4rcinMUHEWOxpIwJo2sf22"}, {"id": "42cH7mrkfljkqkxA2Ip9Xq", "name": "Be the Cowboy", "year": "2018", "cover": "https://i.scdn.co/image/ab67616d0000b273c428f67b4a9b7e1114dfc117", "spotify_url": "https://open.spotify.com/album/42cH7mrkfljkqkxA2Ip9Xq"}, {"id": "4Coa8Eb9SzjrkwWEom963Q", "name": "Puberty 2", "year": "2016", "cover": "https://i.scdn.co/image/ab67616d0000b27342cb382726e956058bf73ed3", "spotify_url": "https://open.spotify.com/album/4Coa8Eb9SzjrkwWEom963Q"}]}, "Fred Again..": {"id": "4oLeXFyACqeem2VImYeBFe", "image": "https://i.scdn.co/image/ab6761610000e5eb01b452c9ac75fbf1ae1e5256", "spotify_url": "https://open.spotify.com/artist/4oLeXFyACqeem2VImYeBFe", "bio": "Frederick John Philip Gibson — Fred again.. — made his name as a producer and songwriter for artists including Ed Sheeran and BTS before emerging as a solo artist with a style entirely his own. His Actual Life trilogy documented real people and real moments, sampling voice notes and conversations to create dance music with an unusual emotional intimacy. His DJ sets became legendary in 2022-23, with impromptu shows announced hours in advance drawing thousands. He represents a generation of producers who learned to make music for rooms, then figured out how to make it feel personal.", "origin": "London, England", "active": "2014 – present", "label": "Atlantic Records", "born": "1993, London, England", "also_known_as": ["Frederick John Philip Gibson", "Fred Gibson"], "styles": ["UK Dance", "Electronic", "House", "Ambient Pop"], "moods": ["Euphoric", "Intimate", "Nostalgic", "Bittersweet"], "themes": ["Memory", "Community", "Grief", "Everyday Life"], "discography": [{"id": "2ClZ9xWAYg1BH8zkR96dJo", "name": "USB", "year": "2026", "cover": "https://i.scdn.co/image/ab67616d0000b2734018b70099d433d9c8aabb12", "spotify_url": "https://open.spotify.com/album/2ClZ9xWAYg1BH8zkR96dJo"}, {"id": "7x9gF8DtACwxkejv2xBndT", "name": "Skepta .. Fred", "year": "2025", "cover": "https://i.scdn.co/image/ab67616d0000b273096a7117356251107f00c8d8", "spotify_url": "https://open.spotify.com/album/7x9gF8DtACwxkejv2xBndT"}, {"id": "3DQueEd1Ft9PHWgovDzPKh", "name": "ten days", "year": "2024", "cover": "https://i.scdn.co/image/ab67616d0000b2739574df129a4a2f4fa4990286", "spotify_url": "https://open.spotify.com/album/3DQueEd1Ft9PHWgovDzPKh"}, {"id": "1FJVbtVFLARPKbn1HepNh1", "name": "Secret Life", "year": "2023", "cover": "https://i.scdn.co/image/ab67616d0000b273a9b0cf4827dd4bc73f2f0699", "spotify_url": "https://open.spotify.com/album/1FJVbtVFLARPKbn1HepNh1"}, {"id": "5q2iMctlDvEMYVIawF6Vop", "name": "Actual Life 3 (January 1 - September 9 2022)", "year": "2022", "cover": "https://i.scdn.co/image/ab67616d0000b2737f8859341a395010424f106b", "spotify_url": "https://open.spotify.com/album/5q2iMctlDvEMYVIawF6Vop"}, {"id": "0SFtIrRytNI4kcf93Tbhdf", "name": "Actual Life 2 (February 2 - October 15 2021)", "year": "2021", "cover": "https://i.scdn.co/image/ab67616d0000b273c506dbc3f05d3ce4daf355c4", "spotify_url": "https://open.spotify.com/album/0SFtIrRytNI4kcf93Tbhdf"}]}, "Zach Bryan": {"id": "40ZNYROS4zLfyyBSs2PGe2", "image": "https://i.scdn.co/image/ab6761610000e5ebc742fbc057bdbc64834a6cdc", "spotify_url": "https://open.spotify.com/artist/40ZNYROS4zLfyyBSs2PGe2", "bio": "Zach Bryan was a US Navy petty officer recording songs in his barracks when a video of him performing went viral in 2019. What followed was one of country music's most rapid ascents — from self-releases to a major label deal to stadium tours without ever softening his sound to chase radio. His approach is deliberately unpolished: long albums, narrative songs, acoustic arrangements that foreground his voice and whatever story he's telling. He represents a strand of country that draws more from Townes Van Zandt and John Prine than from Nashville pop — and he's brought that tradition to an audience that might never have found it otherwise.", "origin": "Okinawa, Japan / raised in Oklahoma", "active": "2017 – present", "label": "Warner Records", "born": "1996, Okinawa, Japan (raised Oklahoma)", "also_known_as": ["Zach Lane Bryan"], "styles": ["Americana", "Folk Country", "Outlaw Country", "Singer-Songwriter"], "moods": ["Raw", "Honest", "Melancholic", "Warm"], "themes": ["Heartbreak", "Small-Town Life", "War", "Working Class"], "discography": [{"id": "2LREH0sp8eGkpbqSKzjZ0n", "name": "With Heaven On Top (Acoustic)", "year": "2026", "cover": "https://i.scdn.co/image/ab67616d0000b27398f2e949e0ce156508f8fcee", "spotify_url": "https://open.spotify.com/album/2LREH0sp8eGkpbqSKzjZ0n"}, {"id": "4NvMwUFmY1dcDEgD8KoQjG", "name": "With Heaven On Top", "year": "2026", "cover": "https://i.scdn.co/image/ab67616d0000b2736addb951ebfd51d72b42123f", "spotify_url": "https://open.spotify.com/album/4NvMwUFmY1dcDEgD8KoQjG"}, {"id": "45X4bjgXE86wQamRz6ihLE", "name": "24 (Live)", "year": "2024", "cover": "https://i.scdn.co/image/ab67616d0000b2734522288f308f67bb5b712fe5", "spotify_url": "https://open.spotify.com/album/45X4bjgXE86wQamRz6ihLE"}, {"id": "3w7pEn5Ai1DCRG2FqFNIbB", "name": "The Great American Bar Scene", "year": "2024", "cover": "https://i.scdn.co/image/ab67616d0000b2732bcbc6c38c3e8a35b32223c2", "spotify_url": "https://open.spotify.com/album/3w7pEn5Ai1DCRG2FqFNIbB"}, {"id": "6PbnGueEO6LGodPfvNldYf", "name": "Zach Bryan", "year": "2023", "cover": "https://i.scdn.co/image/ab67616d0000b2733bd1de7368f5f1efd1d787b3", "spotify_url": "https://open.spotify.com/album/6PbnGueEO6LGodPfvNldYf"}, {"id": "5hVCiOPye3IDJG4rbO44UH", "name": "All My Homies Hate Ticketmaster (Live from Red Rocks)", "year": "2022", "cover": "https://i.scdn.co/image/ab67616d0000b2739eab514a9400ed0aea2d5850", "spotify_url": "https://open.spotify.com/album/5hVCiOPye3IDJG4rbO44UH"}]}, "Johnny Blue Skies": {"id": "5R55ruC73ANyzDSOzIZjNc", "image": "https://i.scdn.co/image/ab6761610000e5ebf69a05334162fa60d57f6349", "spotify_url": "https://open.spotify.com/artist/5R55ruC73ANyzDSOzIZjNc", "bio": "Johnny Blue Skies is the alias Sturgill Simpson adopted for his 2024 album Passage du Desir, a surprise release that found the Kentucky-born artist in a characteristically restless mood. As Sturgill Simpson, he had already refused to stay still — moving from neotraditional country (Metamodern Sounds in Country Music) to psychedelic rock (A Sailor's Guide to Earth) to outlaw country (SOUND & FURY) and bluegrass (Cuttin' Grass). The alias itself is a statement of intent: a clean start, a new character, a different vantage point on the same restless creative intelligence.", "origin": "Jackson, Kentucky", "active": "2004 – present", "label": "High Top Mountain Records", "born": "1984, Jackson, Kentucky", "also_known_as": ["Sturgill Simpson"], "styles": ["Outlaw Country", "Psychedelic Country", "Bluegrass", "Southern Rock"], "moods": ["Wry", "Searching", "Melancholic", "Restless"], "themes": ["Identity", "Reinvention", "Southern Gothic", "Existence"], "discography": [{"id": "3YdXVCzqT98v7pMbxVvOL0", "name": "Mutiny After Midnight (Extended Edition)", "year": "2026", "cover": "https://i.scdn.co/image/ab67616d0000b27393fc0d07a15d2a4e8c5c9647", "spotify_url": "https://open.spotify.com/album/3YdXVCzqT98v7pMbxVvOL0"}, {"id": "6PULRlOfIMPCUpO12PQNne", "name": "Passage Du Desir", "year": "2024", "cover": "https://i.scdn.co/image/ab67616d0000b273e5a12d559b320ef3b917db63", "spotify_url": "https://open.spotify.com/album/6PULRlOfIMPCUpO12PQNne"}]}, "Yo-Yo Ma": {"id": "5Dl3HXZjG6ZOWT5cV375lk", "image": "https://i.scdn.co/image/ab6761610000e5ebfb0fcd51414e7bbe85e00b6f", "spotify_url": "https://open.spotify.com/artist/5Dl3HXZjG6ZOWT5cV375lk", "bio": "Yo-Yo Ma is among the most celebrated cellists in history, and also one of classical music's most restless and generous spirits. Born in Paris to Chinese parents, raised in New York, he has spent five decades building bridges — between classical and folk (Appalachia Waltz), between West and East (Silk Road Project), between concert hall and community. His technique is the baseline: extraordinary, complete, taken as given. What distinguishes him is his curiosity and his commitment to the idea that music is not a precious object to be guarded but a living thing to be shared. Few artists at his level of mastery have remained so open.", "origin": "Paris, France / raised in New York", "active": "1960s – present", "label": "Sony Classical", "born": "1955, Paris, France (raised New York)", "also_known_as": ["Yo Yo Ma"], "styles": ["Classical Cello", "Contemporary Classical", "World Music", "Crossover"], "moods": ["Contemplative", "Joyful", "Spiritual", "Profound"], "themes": ["Cultural Exchange", "Tradition", "Community", "Human Connection"], "discography": [{"id": "6XsOq8yWYhsgx7Z2viZut6", "name": "Beethoven for Three: Symphony No. 1 / Op. 70, No. 1 \"Ghost\" / Op. 11 \"Gassenhauer\"", "year": "2025", "cover": "https://i.scdn.co/image/ab67616d0000b273a07db11ee898687fdb562ba3", "spotify_url": "https://open.spotify.com/album/6XsOq8yWYhsgx7Z2viZut6"}, {"id": "4yrklVxIP1Rr5iQTKYxAba", "name": "Shostakovich: The Cello Concertos", "year": "2025", "cover": "https://i.scdn.co/image/ab67616d0000b273d10b54b0b646c25bebcb5479", "spotify_url": "https://open.spotify.com/album/4yrklVxIP1Rr5iQTKYxAba"}, {"id": "7CREZmKkA28IN0Ql6MSAtL", "name": "Shostakovich: Symphonies; Concertos; Lady Macbeth of Mtsensk District", "year": "2025", "cover": "https://i.scdn.co/image/ab67616d0000b273ec8e9e14e3aef25dfc5be642", "spotify_url": "https://open.spotify.com/album/7CREZmKkA28IN0Ql6MSAtL"}, {"id": "6elZDCjnrPGBvIVfdKYLDw", "name": "Merci", "year": "2024", "cover": "https://i.scdn.co/image/ab67616d0000b2731984fe70e7ec6c54d02d8456", "spotify_url": "https://open.spotify.com/album/6elZDCjnrPGBvIVfdKYLDw"}, {"id": "66A95B2hOyckzsR5sZ4FrK", "name": "Beethoven for Three: Symphony No. 4 and Op. 97 \"Archduke\"", "year": "2024", "cover": "https://i.scdn.co/image/ab67616d0000b273f8b2248e6dbe83fcd3d3e80c", "spotify_url": "https://open.spotify.com/album/66A95B2hOyckzsR5sZ4FrK"}, {"id": "5ezojM5Z8lU0RPyS52MTlV", "name": "Beethoven for Three: Symphony No. 6 \"Pastorale\" and Op. 1, No. 3", "year": "2022", "cover": "https://i.scdn.co/image/ab67616d0000b27379405ca68f7a87e5b1debb68", "spotify_url": "https://open.spotify.com/album/5ezojM5Z8lU0RPyS52MTlV"}]}, "Billy Woods": {"id": "39vtb2iiz3079nqfL5nfFc", "image": "https://i.scdn.co/image/ab6761610000e5eb5175bd62c4f1c1d8436a0a16", "spotify_url": "https://open.spotify.com/artist/39vtb2iiz3079nqfL5nfFc", "bio": "Billy Woods is the most acclaimed underground rapper of his generation, and also the most deliberately obscure. Born in Washington D.C. and raised partly in Zimbabwe and Jamaica, he studied political science before committing to music. His writing is dense, allusive, and rewards sustained attention — collaging personal history, political observation, and literary reference in ways that rarely resolve into easy meaning. His production collaborations (with Elucid as Armand Hammer, with Kenny Segal, with Preservation) have produced some of the most significant hip-hop records of the 2020s. He performs masked, maintains minimal social media presence, and is celebrated precisely because he refuses to make any of it easier.", "origin": "Washington D.C.", "active": "2000s – present", "label": "Backwoodz Studioz", "born": "Washington D.C.", "also_known_as": ["Armand Hammer (with Elucid)"], "styles": ["Abstract Hip-Hop", "Underground Rap", "Experimental Hip-Hop", "Jazz Rap"], "moods": ["Dense", "Cryptic", "Intense", "Melancholic"], "themes": ["Politics", "Diaspora", "History", "Violence"], "discography": [{"id": "71RjBvPDD4U19ZeMermdUi", "name": "Mercy", "year": "2025", "cover": "https://i.scdn.co/image/ab67616d0000b273f94ada5696d156c286bddc6e", "spotify_url": "https://open.spotify.com/album/71RjBvPDD4U19ZeMermdUi"}, {"id": "6YjoANrjcsf17p1OmWESfo", "name": "GOLLIWOG", "year": "2025", "cover": "https://i.scdn.co/image/ab67616d0000b273d4982c9de464beb7561e5087", "spotify_url": "https://open.spotify.com/album/6YjoANrjcsf17p1OmWESfo"}, {"id": "74vN8W3NHvyM69AnrL5Arp", "name": "We Buy Diabetic Test Strips", "year": "2024", "cover": "https://i.scdn.co/image/ab67616d0000b273e1d0067ee82182b2264c3783", "spotify_url": "https://open.spotify.com/album/74vN8W3NHvyM69AnrL5Arp"}, {"id": "3VoX4iyvy7et6Qt47e2XwS", "name": "Maps", "year": "2023", "cover": "https://i.scdn.co/image/ab67616d0000b27327d7f624645c825dd17e016d", "spotify_url": "https://open.spotify.com/album/3VoX4iyvy7et6Qt47e2XwS"}, {"id": "6QB3btiMI2K8GuFL2G7fXr", "name": "Church", "year": "2022", "cover": "https://i.scdn.co/image/ab67616d0000b273fa5f010e638d1badcf4cedba", "spotify_url": "https://open.spotify.com/album/6QB3btiMI2K8GuFL2G7fXr"}, {"id": "5wTUw3RhMlfZhiejI3qmFq", "name": "Aethiopes", "year": "2022", "cover": "https://i.scdn.co/image/ab67616d0000b2734f8a28641c1969557280ef9f", "spotify_url": "https://open.spotify.com/album/5wTUw3RhMlfZhiejI3qmFq"}]}, "Show Me the Body": {"id": "5jh7sgXW2njALiIh0aPXjB", "image": "https://i.scdn.co/image/ab6761610000e5eb6e6854212e74ee0c5af68d07", "spotify_url": "https://open.spotify.com/artist/5jh7sgXW2njALiIh0aPXjB", "bio": "Show Me the Body formed in New York City and built their following the old way — relentless touring, word of mouth, a sound too abrasive for any obvious commercial lane. Their music pulls from hardcore, noise rock, and hip-hop, anchored by Julian Cashwan Pratt's banjo (tuned and played as a weapon rather than an instrument) and Daniel传 Rice's distorted bass. They represent a specific kind of New York energy: confrontational, community-oriented, suspicious of institutional validation. Their album Endure (2022) was one of the most viscerally exciting records of that year, and they've only gotten more focused since.", "origin": "New York City, New York", "active": "2009 – present", "label": "Loma Vista Recordings", "born": "New York City, New York", "also_known_as": ["SMTB"], "styles": ["Hardcore", "Noise Rock", "Post-Punk", "Industrial Hip-Hop"], "moods": ["Aggressive", "Urgent", "Confrontational", "Raw"], "themes": ["Community", "Urban Decay", "Resistance", "Youth"], "discography": [{"id": "24u1Z5loy8yAJFszGlfAo1", "name": "CORPUS II", "year": "2024", "cover": "https://i.scdn.co/image/ab67616d0000b273143f2cc13557043b4bcbf383", "spotify_url": "https://open.spotify.com/album/24u1Z5loy8yAJFszGlfAo1"}, {"id": "3u6NpAc0eBfKW4QBaCJ0Tg", "name": "Live & Loose In The USA", "year": "2023", "cover": "https://i.scdn.co/image/ab67616d0000b2731f06dd115da3ad7ae5caf61c", "spotify_url": "https://open.spotify.com/album/3u6NpAc0eBfKW4QBaCJ0Tg"}, {"id": "1sgYQT8SDu5pjb0MPPqs3t", "name": "Trouble The Water", "year": "2022", "cover": "https://i.scdn.co/image/ab67616d0000b2737b59db5f73b7cdefa2559ee5", "spotify_url": "https://open.spotify.com/album/1sgYQT8SDu5pjb0MPPqs3t"}, {"id": "4osZNJ2yO18sYtqJIFvMFy", "name": "Dog Whistle", "year": "2019", "cover": "https://i.scdn.co/image/ab67616d0000b273dec62246b3568d62f54a74c8", "spotify_url": "https://open.spotify.com/album/4osZNJ2yO18sYtqJIFvMFy"}, {"id": "3sR99ifBBjElpRmIGkstcm", "name": "Corpus I", "year": "2017", "cover": "https://i.scdn.co/image/ab67616d0000b2731beab4fdacfa28f4f92b5488", "spotify_url": "https://open.spotify.com/album/3sR99ifBBjElpRmIGkstcm"}, {"id": "44byRkiG5AmHjfrBuodMzp", "name": "Body War", "year": "2016", "cover": "https://i.scdn.co/image/ab67616d0000b273fc5b945694542a289fd416b5", "spotify_url": "https://open.spotify.com/album/44byRkiG5AmHjfrBuodMzp"}]}, "Caroline Polachek": {"id": "4Ge8xMJNwt6EEXOzVXju9a", "image": "https://i.scdn.co/image/ab6761610000e5eb5da901a1dd949436f2377f72", "spotify_url": "https://open.spotify.com/artist/4Ge8xMJNwt6EEXOzVXju9a", "bio": "Caroline Polachek first came to wide attention as the frontwoman of Chairlift, the Brooklyn art-pop band whose song Bruises became an Apple commercial touchstone in 2008. After Chairlift dissolved, she spent time as a songwriter and producer for others before releasing Pang in 2019 under her own name — an album that established her as a singular presence in contemporary pop. Her voice is one of its generation's most technically accomplished: capable of extraordinary range, unusual intervals, and a kind of keening emotional directness that cuts through even the most elaborate production. Desire, I Want to Turn Into You (2023) confirmed everything Pang had promised.", "origin": "New York City, New York", "active": "2007 – present", "label": "Perpetual Novice", "born": "1982, New York City, New York", "also_known_as": ["Chairlift (former)", "CEP"], "styles": ["Art Pop", "Avant-Pop", "Experimental Pop", "Baroque Pop"], "moods": ["Ethereal", "Dramatic", "Intense", "Sensual"], "themes": ["Desire", "Transformation", "Mythology", "Femininity"], "discography": [{"id": "25ktFe8igqIwv9aRbkdnTS", "name": "Desire, I Want To Turn Into You: Everasking Edition", "year": "2024", "cover": "https://i.scdn.co/image/ab67616d0000b27387858817af31c6329252c8c4", "spotify_url": "https://open.spotify.com/album/25ktFe8igqIwv9aRbkdnTS"}, {"id": "22PkV1Le9P3X4RY4xtmK0q", "name": "Desire, I Want To Turn Into You", "year": "2023", "cover": "https://i.scdn.co/image/ab67616d0000b273de17893c581b6f4fbeba51e1", "spotify_url": "https://open.spotify.com/album/22PkV1Le9P3X4RY4xtmK0q"}, {"id": "4ClyeVlAKJJViIyfVW0yQD", "name": "Pang", "year": "2019", "cover": "https://i.scdn.co/image/ab67616d0000b273bd87b166ce7b295e477a64c0", "spotify_url": "https://open.spotify.com/album/4ClyeVlAKJJViIyfVW0yQD"}]}};
+const REVIEWS=[
+  {id:'6a2fa073942706375ccb2dae',artist:'Aphex Twin',title:'The Future Sounds Like This',album:'Blackbox Life Recorder',rating:9.5,community_score:8.7,is_best_new_music:true,cover_image:'https://cdn-images.dzcdn.net/images/cover/8ff06016c4666391fcc48ef07cea177e/1000x1000-000000-80-0-0.jpg',genre:'Electronic',spotify_album_id:'2dIGnmEIy1WZIcZCFSj6i8',published_date:'2026-05-10',author_name:'James Rowe'},
+  {id:'6a2fa073942706375ccb2daf',artist:'SZA',title:'A Masterclass in Vulnerability and Sound',album:'SOS',rating:9.0,community_score:8.4,is_best_new_music:true,cover_image:'https://cdn-images.dzcdn.net/images/cover/a3c3b409f0d5bd781821ec0fd79d5b15/1000x1000-000000-80-0-0.jpg',genre:'R&B',spotify_album_id:'4OOeIhm9LBBuFTDRb2Mvfd',published_date:'2026-04-22',author_name:'Sofia Reyes'},
+  {id:'6a2fa073942706375ccb2db0',artist:'Kendrick Lamar',title:'Raw Power, Refined Vision',album:'GNX',rating:9.0,community_score:8.6,is_best_new_music:false,cover_image:'https://cdn-images.dzcdn.net/images/cover/da5256ff8cacfe9ad90521f6e3792259/1000x1000-000000-80-0-0.jpg',genre:'Hip-Hop',spotify_album_id:'3XC5V4Yg3CtUJBTxDwKGPu',published_date:'2026-04-01',author_name:'Marcus Hill'},
+  {id:'6a2fa073942706375ccb2db1',artist:'The Smile',title:'The Sound of a Band Reborn',album:'Wall of Eyes',rating:8.5,community_score:7.9,is_best_new_music:false,cover_image:'https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02ec5757cdfeb9a29df135c96d',genre:'Alternative',spotify_album_id:'6PdPOv5ybKZ9ZuGMk5iGZd',published_date:'2026-03-15',author_name:'Priya Nair'},
+  {id:'6a2fa073942706375ccb2db2',artist:'Charli XCX',title:'Neon Nights and Digital Dreams',album:'Brat',rating:8.0,community_score:7.5,is_best_new_music:false,cover_image:'https://cdn-images.dzcdn.net/images/cover/de9e79511cda59914de9add50946e43c/1000x1000-000000-80-0-0.jpg',genre:'Pop',spotify_album_id:'2lIZef4lzdvZkiiCzvPKj7',published_date:'2026-03-01',author_name:'James Rowe'},
+  {id:'6a2fa073942706375ccb2db3',artist:'Johnny Blue Skies',title:'Southern Gothic at Its Finest',album:'Passage du Desir',rating:7.5,community_score:7.1,is_best_new_music:false,cover_image:'https://cdn-images.dzcdn.net/images/cover/056aa3fb4a910b287889205eaa45f9ee/1000x1000-000000-80-0-0.jpg',genre:'Country',spotify_album_id:'71On7h3S7yH5D0Td6YNw1t',published_date:'2026-02-18',author_name:'Sofia Reyes'},
+  {id:'6a2fd4d47ba31d7baa22fcfb',artist:'Sufjan Stevens',title:'Maximalism as Tenderness',album:'Javelin',rating:9.3,community_score:8.9,is_best_new_music:true,cover_image:'https://cdn-images.dzcdn.net/images/cover/e27baa7ae983b626fc5434e3175e32c6/1000x1000-000000-80-0-0.jpg',genre:'Folk',spotify_album_id:'1mCFCLuCHqoRqQHlHgDR4J',published_date:'2026-05-28',author_name:'Priya Nair'},
+  {id:'6a2fd4d47ba31d7baa22fcfc',artist:'Show Me the Body',title:'Noise as Prayer',album:'Endure',rating:8.3,community_score:7.7,is_best_new_music:false,cover_image:'https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/32/0e/cb/320ecbe4-b530-a00a-5ff0-afe746c22b50/00888072089433.rgb.jpg/1000x1000bb.jpg',genre:'Punk',spotify_album_id:'6JbbRxbEHOFqx6oKAFxNS4',published_date:'2026-02-05',author_name:'Marcus Hill'},
+  {id:'6a2fd4d47ba31d7baa22fcfd',artist:'Caroline Polachek',title:'The Internet Never Sleeps',album:'Desire I Want to Turn Into You',rating:9.4,community_score:8.8,is_best_new_music:true,cover_image:'https://cdn-images.dzcdn.net/images/cover/67e9a8272d715c88adf400c554f68f33/1000x1000-000000-80-0-0.jpg',genre:'Art Pop',spotify_album_id:'5LCnhSfbRlTlFWnJw5KAiZ',published_date:'2026-06-01',author_name:'James Rowe'},
+  {id:'6a2fd4d47ba31d7baa22fcfe',artist:'Yo-Yo Ma',title:'The Silence Between Notes',album:'Silk Road Ensemble',rating:10.0,community_score:9.5,is_best_new_music:true,cover_image:'https://cdn-images.dzcdn.net/images/cover/8b69cdda334c287b93acb0aefad12b0d/1000x1000-000000-80-0-0.jpg',genre:'Classical',spotify_album_id:'4BsT2BKNEbBKcU5QcalE4j',published_date:'2026-05-01',author_name:'Priya Nair'},
+  {id:'6a2fd4d47ba31d7baa22fcff',artist:'Billy Woods',title:'Rap Is Still Alive',album:'Maps',rating:9.1,community_score:8.3,is_best_new_music:true,cover_image:'https://cdn-images.dzcdn.net/images/cover/bcafcc7b293eeb0cdb59720b33cba541/1000x1000-000000-80-0-0.jpg',genre:'Hip-Hop',spotify_album_id:'4tBQS8DXm5pS5LBqWfvKPC',published_date:'2026-04-10',author_name:'Marcus Hill'},
+  {id:'6a2fd4d47ba31d7baa22fd00',artist:'Fred Again..',title:'Grief and the Dance Floor',album:'Actual Life 3',rating:8.6,community_score:8.0,is_best_new_music:false,cover_image:'https://cdn-images.dzcdn.net/images/cover/0c79babffc5400d88fc40db5806858a6/1000x1000-000000-80-0-0.jpg',genre:'Electronic',spotify_album_id:'2I2bGLX7wy3VFmRpBenQXA',published_date:'2026-03-20',author_name:'Sofia Reyes'},
+  {id:'6a2fd4d47ba31d7baa22fd01',artist:'Zach Bryan',title:'Country Music Is Not What You Think',album:'Zach Bryan',rating:8.1,community_score:7.8,is_best_new_music:false,cover_image:'https://cdn-images.dzcdn.net/images/cover/6c6a9089cda16da7f524b9ef1f965270/1000x1000-000000-80-0-0.jpg',genre:'Country',spotify_album_id:'6UywHjQ8kOOAqvnMVkULel',published_date:'2026-01-15',author_name:'Marcus Hill'},
+  {id:'6a2fd4d47ba31d7baa22fcfa',artist:'Mitski',title:'The Weight of Everything',album:'The Land Is Inhospitable and So Are We',rating:9.2,community_score:8.7,is_best_new_music:true,cover_image:'https://cdn-images.dzcdn.net/images/cover/db69f7d3ea280f1155256705735648cd/1000x1000-000000-80-0-0.jpg',genre:'Indie Rock',spotify_album_id:'0U28BCxdqtUjHvEMqHBtNB',published_date:'2026-05-15',author_name:'Priya Nair'}
+];
+
+var P=new URLSearchParams(location.search);
+var ARTIST=P.get('name')||P.get('artist')||'Aphex Twin';
+var prof=PROFILES[ARTIST]||{};
+var aRevs=REVIEWS.filter(function(r){return r.artist===ARTIST;});
+
+document.title=ARTIST+' \u2014 REVERB';
+
+g('hName').textContent=ARTIST;
+if(prof.image){g('hPhoto').src=prof.image;g('iPhoto').src=prof.image;g('hBg').style.backgroundImage='url('+prof.image+')';}
+if(prof.spotify_url){var b=g('hSpot');b.href=prof.spotify_url;b.style.display='inline-flex';}
+if(prof.bio){var tl=prof.bio.trim();var cut=tl.length>140?tl.slice(0,140):tl;var lastP=Math.max(cut.lastIndexOf('. '),cut.lastIndexOf('! '),cut.lastIndexOf('? '));if(tl.length>140&&lastP>60)cut=tl.slice(0,lastP+1);else if(tl.length>140)cut=cut.replace(/\s+\S*$/,'')+'\u2026';g('hTagline').textContent=cut;}
+var bnmN=aRevs.filter(function(r){return r.is_best_new_music;}).length;
+var avgSc=aRevs.length?(aRevs.reduce(function(s,r){return s+r.rating;},0)/aRevs.length).toFixed(1):null;
+if(aRevs.length){g('hStat').innerHTML='<strong style="color:var(--gold)">'+aRevs.length+'</strong> review'+(aRevs.length>1?'s':'')+' \xb7 Avg <strong style="color:var(--gold)">'+avgSc+'</strong>';}
+if(bnmN>0)g('hBnm').style.display='inline-flex';
+
+function setEl(id,v){if(v&&g(id))g(id).textContent=v;}
+setEl('iActive',prof.active);setEl('iOrigin',prof.origin);setEl('iBorn',prof.born);setEl('iLabel',prof.label);
+if(prof.also_known_as&&prof.also_known_as.length){g('iAka').textContent=prof.also_known_as.slice(0,3).join(', ');}
+else{var ra=g('rowAka');if(ra)ra.style.display='none';}
+
+function renderTags(id,arr,cls){
+  var el=g(id);if(!el)return;
+  if(!arr||!arr.length){var row=el.closest('tr');if(row)row.style.display='none';return;}
+  el.innerHTML=arr.map(function(t){return '<span class="tag tag-'+cls+'">'+t+'</span>';}).join('');
+}
+renderTags('iStyles',prof.styles,'style');
+renderTags('iMoods',prof.moods,'mood');
+renderTags('iThemes',prof.themes,'theme');
+
+var sRevs=[].concat(aRevs).sort(function(a,b){return b.rating-a.rating;});
+var best=sRevs[0];
+if(best&&best.spotify_album_id){g('embedBlock').style.display='block';g('sEmbed').src='https://open.spotify.com/embed/album/'+best.spotify_album_id+'?utm_source=generator&theme=0';}
+
+if(prof.bio){
+  var paras=prof.bio.split('\n\n').filter(function(s){return s.trim();});
+  if(paras.length<2)paras=prof.bio.split('\n').filter(function(s){return s.trim();});
+  g('bioBody').innerHTML=paras.map(function(p,i){
+    if(i===0){var d=p.indexOf('. ');if(d>0)return '<p><strong>'+p.slice(0,d+1)+'</strong> '+p.slice(d+2)+'</p>';return '<p><strong>'+p+'</strong></p>';}
+    return '<p>'+p+'</p>';
+  }).join('');
+}
+
+function artistUrlReview(id){return '/review?id='+encodeURIComponent(id);}
+function initArtistParallax(){
+  var hero=document.querySelector('.artist-hero');var prog=document.querySelector('.artist-progress');
+  if(!hero||hero.dataset.parallaxWired==='1')return;hero.dataset.parallaxWired='1';
+  function upd(){var rect=hero.getBoundingClientRect();var hp=Math.min(1,Math.max(0,-rect.top/Math.max(1,hero.offsetHeight)));hero.style.setProperty('--artist-progress',hp.toFixed(4));if(prog){var d=document.documentElement;var max=Math.max(1,d.scrollHeight-window.innerHeight);prog.style.transform='scaleX('+Math.min(1,Math.max(0,window.scrollY/max)).toFixed(4)+')';}}
+  upd();window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd);
+}
+function hydrateArtistMotion(){
+  var disc=prof.discography||[];var covers=disc.filter(function(a){return a.cover;});var primary=(aRevs[0]&&aRevs[0].cover_image)||(covers[0]&&covers[0].cover)||prof.image||'';var secondary=(covers[1]&&covers[1].cover)||primary;
+  if(primary&&g('orbitOne'))g('orbitOne').style.backgroundImage='url('+primary+')';
+  if(secondary&&g('orbitTwo'))g('orbitTwo').style.backgroundImage='url('+secondary+')';
+  if(g('scReviews'))g('scReviews').textContent=aRevs.length;
+  var avg=aRevs.length?(aRevs.reduce(function(sum,r){return sum+Number(r.rating||0);},0)/aRevs.length).toFixed(1):'—';
+  if(g('scAverage'))g('scAverage').textContent=avg;
+  var bnm=aRevs.filter(function(r){return r.is_best_new_music;}).length;
+  if(g('scBnm'))g('scBnm').textContent=bnm;
+  if(g('scNote'))g('scNote').textContent=(prof.styles&&prof.styles[0]?prof.styles[0]:'Artist')+' · '+(prof.label||'REVERB profile')+' · '+(disc.length||0)+' catalog entries';
+  if(g('artistRailDesc'))g('artistRailDesc').textContent='A visual rail through '+ARTIST+'\'s catalog, pairing Spotify metadata with REVERB-reviewed releases.';
+  renderArtistRail();initArtistParallax();
+}
+function renderArtistRail(){
+  var el=g('artistRailCards');if(!el)return;var disc=(prof.discography||[]).slice(0,4);var rm={};aRevs.forEach(function(r){if(r.spotify_album_id)rm[r.spotify_album_id]=r;});
+  function snr(n){return String(n||'').split('(')[0].trim().toLowerCase().slice(0,14);}
+  function findRev(a){return rm[a.id]||aRevs.find(function(r){return r.album&&snr(r.album)===snr(a.name);});}
+  el.innerHTML=disc.map(function(a,i){var r=findRev(a)||null;var href=r?artistUrlReview(r.id):(a.spotify_url||'#');var tgt=r?'':' target="_blank" rel="noopener"';var name=String(a.name||'Album').split('(')[0].trim();var score=r?Number(r.rating||0).toFixed(1):'SP';return '<a class="artist-rail-card '+(r?'reviewed':'')+'" href="'+href+'"'+tgt+'><div class="artist-rail-cover" style="background-image:url('+a.cover+')"></div><div class="artist-rail-body"><div class="artist-rail-meta"><span>'+String(i+1).padStart(2,'0')+'</span><span>'+score+'</span></div><div class="artist-rail-album">'+name+'</div><div class="artist-rail-year">'+(a.year||'')+'</div></div></a>';}).join('');
+}
+
+function setView(v){g('vGrid').classList.toggle('on',v==='grid');g('vList').classList.toggle('on',v==='list');g('discGrid').style.display=v==='grid'?'grid':'none';g('discTbl').style.display=v==='list'?'block':'none';}
+function sn(n){return n.split('(')[0].trim().toLowerCase().slice(0,14);}
+
+function buildDisc(){
+  var disc=prof.discography||[];
+  if(!disc.length)return;
+  g('albumCt').textContent='('+disc.length+')';
+  var rm={};aRevs.forEach(function(r){if(r.spotify_album_id)rm[r.spotify_album_id]=r;});
+  function gr(a){if(rm[a.id])return rm[a.id];return aRevs.find(function(r){return r.album&&sn(r.album)===sn(a.name);});}
+  g('discGrid').innerHTML=disc.map(function(a){
+    var r=gr(a);var href=r?'/review?id='+encodeURIComponent(r.id):a.spotify_url;var tgt=r?'':'target="_blank" rel="noopener"';var cn=a.name.split('(')[0].trim();
+    return '<a class="dc'+(r?' rev':'')+'" href="'+href+'" '+tgt+'>'+(r?'<span class="dc-badge">Reviewed</span><span class="dc-score">'+r.rating.toFixed(1)+'</span>':'')+'<img class="dc-img" src="'+a.cover+'" alt="'+cn+'" loading="lazy" onerror="imgErr(this)"><div class="dc-body"><div class="dc-name">'+cn+'</div><div class="dc-year">'+a.year+'</div></div></a>';
+  }).join('');
+  g('discTblBody').innerHTML=disc.map(function(a){
+    var r=gr(a);var href=r?'/review?id='+encodeURIComponent(r.id):a.spotify_url;var tgt=r?'':'target="_blank" rel="noopener"';var cn=a.name.split('(')[0].trim();
+    return '<tr><td style="width:50px;padding:8px 10px 8px 0"><a href="'+href+'" '+tgt+'><img class="td-img" src="'+a.cover+'" alt="" onerror="imgErr(this)" loading="lazy"></a></td><td><a href="'+href+'" '+tgt+' class="td-name">'+cn+(r?'<span class="rev-chip">Reviewed</span>':'')+'</a></td><td class="td-yr">'+a.year+'</td><td class="td-sc">'+(r?r.rating.toFixed(1):'<span style="color:var(--text3)">&#8212;</span>')+'</td></tr>';
+  }).join('');
+}
+buildDisc();
+
+function buildRevs(){
+  g('revTitle').textContent=sRevs.length+' Review'+(sRevs.length!==1?'s':'');
+  if(!sRevs.length){g('noRev').style.display='block';return;}
+  g('revList').innerHTML=sRevs.map(function(r){
+    var dt=r.published_date?new Date(r.published_date).toLocaleDateString('en-US',{month:'short',year:'numeric'}):'';
+    return '<a class="rev-row" href="/review?id='+encodeURIComponent(r.id)+'"><img class="rev-cover" src="'+r.cover_image+'" alt="" onerror="imgErr(this)" loading="lazy"><div class="rev-info"><div class="rev-title">'+r.title+'</div><div class="rev-meta"><span>'+(r.album||'')+'</span><span>'+r.genre+'</span>'+(dt?'<span>'+dt+'</span>':'')+(r.author_name?'<span>By '+r.author_name+'</span>':'')+'</div></div>'+(r.is_best_new_music?'<span class="rev-bnm">\u2605 BNM</span>':'')+'<span class="rev-score">'+r.rating.toFixed(1)+'</span></a>';
+  }).join('');
+}
+buildRevs();
+
+function buildRelated(){
+  var seen={};var others=REVIEWS.filter(function(r){if(r.artist===ARTIST||seen[r.artist])return false;seen[r.artist]=true;return true;}).sort(function(a,b){return b.rating-a.rating;}).slice(0,6);
+  g('relGrid').innerHTML=others.map(function(r){var p=PROFILES[r.artist]||{};return '<a class="rel-card" href="/artist?name='+encodeURIComponent(r.artist)+'">'+(p.image?'<img class="rel-img" src="'+p.image+'" alt="'+r.artist+'" loading="lazy" onerror="imgErr(this)">':'<div class="rel-img"></div>')+'<div class="rel-body"><div class="rel-name">'+r.artist+'</div><div class="rel-genre">'+r.genre+'</div><div class="rel-score">'+r.rating.toFixed(1)+'</div></div></a>';}).join('');
+}
+buildRelated();
+hydrateArtistMotion();
+
+function escapeHtml(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+function oSrch(){var overlay=g('so');var input=g('soInp');if(!overlay||!input)return;overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');input.focus();doSrch(input.value||'');}
+function cSrch(){var overlay=g('so');if(!overlay)return;overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');}
+document.querySelectorAll('[data-artist-search-trigger]').forEach(function(el){el.addEventListener('click',function(e){e.preventDefault();oSrch();});});
+document.querySelectorAll('[data-artist-search-close]').forEach(function(el){el.addEventListener('click',function(e){e.preventDefault();cSrch();});});
+var artistSearchInput=g('soInp');
+if(artistSearchInput){artistSearchInput.addEventListener('input',function(){doSrch(this.value);});}
+document.addEventListener('keydown',function(e){if((e.metaKey||e.ctrlKey)&&String(e.key).toLowerCase()==='k'){e.preventDefault();oSrch();}if(e.key==='Escape')cSrch();});
+function doSrch(q){
+  var term=(q||'').toLowerCase();
+  var hits=term?REVIEWS.filter(function(r){return ((r.artist||'')+(r.title||'')+(r.album||'')+(r.genre||'')).toLowerCase().indexOf(term)>=0;}):REVIEWS.slice(0,8);
+  var res=g('soRes');if(!res)return;
+  res.innerHTML=hits.map(function(r){return '<a class="so-item" href="/review?id='+encodeURIComponent(r.id)+'"><img src="'+escapeHtml(r.cover_image||'')+'" alt="" onerror="imgErr(this)" loading="lazy"><div><div class="so-t">'+escapeHtml(r.album||r.title||'Untitled')+'</div><div class="so-s">'+escapeHtml(r.artist||'')+' · '+escapeHtml(r.genre||'')+'</div></div><span class="so-sc">'+Number(r.rating||0).toFixed(1)+'</span></a>';}).join('')||'<p style="color:var(--text3);padding:20px 0;font-size:.85rem">No results.</p>';
+}
+</script>
+
+<section class="artist-revs" id="artistReviewsSection" style="display:none">
+  <div class="artist-revs-hdr">
+    <div class="artist-revs-title">REVERB Reviews</div>
+    <div class="artist-revs-count" id="artistReviewsCount"></div>
+  </div>
+  <div class="artist-revs-grid" data-sr7-stagger id="artistReviewsGrid"><div class="artist-revs-empty">Loading&hellip;</div></div>
+</section>
+<footer class="reverb-footer" aria-label="REVERB footer">
+  <div class="reverb-footer-inner">
+    <section class="reverb-footer-newsletter" id="digest-signup">
+      <div>
+        <div class="reverb-footer-kicker">The REVERB Digest</div>
+        <h2 class="reverb-footer-title">Music that stays<br>in your inbox.</h2>
+        <p class="reverb-footer-desc">Monday mornings. The week’s best reviews, the albums you can’t miss, and one sharp editorial read. No noise. No ads. Just music.</p>
+      </div>
+      <div>
+        <form class="reverb-footer-form" data-digest-form novalidate>
+          <input class="reverb-footer-input" name="email" type="email" placeholder="your@email.com" autocomplete="email" required aria-label="Email address">
+          <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;height:0;width:0" aria-hidden="true">
+          <button class="reverb-footer-button" type="submit">Subscribe</button>
+        </form>
+        <p class="reverb-footer-note" data-digest-note>Unsubscribe anytime. We hate spam as much as a 3/10 album.</p>
+      </div>
+    </section>
+
+    <div class="reverb-footer-grid">
+      <div>
+        <div class="reverb-footer-logo">REVERB<span>.</span></div>
+        <p class="reverb-footer-tagline">“Music that stays with you.” Serious criticism, community ratings, and records worth arguing about.</p>
+      </div>
+      <nav aria-label="Review links">
+        <div class="reverb-footer-heading">Reviews</div>
+        <ul class="reverb-footer-links">
+          <li><a href="/browse">Latest Reviews</a></li>
+          <li><a href="/new">Best New Music</a></li>
+          <li><a href="/browse?min=8">8.0+ Reviews</a></li>
+          <li><a href="/browse?view=lists">Lists</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Browse links">
+        <div class="reverb-footer-heading">Browse</div>
+        <ul class="reverb-footer-links">
+          <li><a href="/browse?genre=Hip-Hop">Hip-Hop</a></li>
+          <li><a href="/browse?genre=Electronic">Electronic</a></li>
+          <li><a href="/browse?genre=Indie">Indie</a></li>
+          <li><a href="/community">Community</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Community links">
+        <div class="reverb-footer-heading">Community</div>
+        <ul class="reverb-footer-links">
+          <li><a href="/community">User Reviews</a></li>
+          <li><a href="/profile">Profile</a></li>
+          <li><a href="/admin">Editorial Admin</a></li>
+          <li><a href="#digest-signup">Newsletter</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="reverb-footer-bottom">
+      <span class="reverb-footer-copy">© 2026 REVERB. All rights reserved.</span>
+      <div class="reverb-footer-social" aria-label="Social links">
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://x.com/" target="_blank" rel="noopener">Twitter/X</a>
+        <a href="https://www.tiktok.com/" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://open.spotify.com/" target="_blank" rel="noopener">Spotify</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script id="reverb-global-footer-script">
+(function(){
+  function wireDigestForm(form){
+    if (!form || form.dataset.digestWired === '1') return;
+    form.dataset.digestWired = '1';
+    const email = form.querySelector('input[name="email"]');
+    const hp = form.querySelector('input[name="website"]');
+    const btn = form.querySelector('button[type="submit"], button');
+    const note = form.parentElement ? form.parentElement.querySelector('[data-digest-note], .newsletter-note') : null;
+    function setNote(msg, color){ if(note){ note.textContent = msg; note.style.color = color || ''; } }
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+      const value = (email && email.value || '').trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+        setNote('Drop in a valid email and we’ll add you to Monday’s digest.', '#E8363A');
+        if(email) email.focus();
+        return;
+      }
+      const oldText = btn ? btn.textContent : '';
+      if(btn){ btn.disabled = true; btn.textContent = 'Subscribing…'; }
+      try {
+        const res = await fetch('/api/reverbSubscribers?endpoint=subscribe', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: value, website: hp ? hp.value || '' : '', source: location.pathname === '/' ? 'homepage' : location.pathname.replace(/^\//,'') || 'homepage' })
+        });
+        const data = await res.json();
+        if (data.ok) { if(email) email.value = ''; setNote(data.message || 'You’re subscribed to The REVERB Digest. See you Monday.', '#4A9EFF'); }
+        else setNote(data.error || 'Could not subscribe right now. Try again in a minute.', '#E8363A');
+      } catch(err) { setNote('Network hiccup. Try again in a minute.', '#E8363A'); }
+      finally { if(btn){ btn.disabled = false; btn.textContent = oldText || 'Subscribe'; } }
+    });
+  }
+  document.querySelectorAll('[data-digest-form], #newsletterForm').forEach(wireDigestForm);
+})();
+</script>
+
+
+<!-- ⌘K SEARCH OVERLAY -->
+<div id="reverbSearchOverlay" role="dialog" aria-modal="true" aria-label="Search REVERB" style="position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.88);backdrop-filter:blur(14px);display:none;align-items:flex-start;justify-content:center;padding-top:100px">
+  <div style="width:100%;max-width:700px;background:#111;border:1px solid #2A2A2A;border-radius:12px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.8)">
+    <div style="display:flex;align-items:center;gap:14px;padding:22px 28px;border-bottom:1px solid #2A2A2A">
+      <svg width="18" height="18" fill="none" stroke="#6B6B6B" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input id="reverbSearchInput" autocomplete="off" spellcheck="false" style="flex:1;background:none;border:none;color:#fff;font-size:1.15rem;font-family:Inter,system-ui,sans-serif;outline:none" placeholder="Search albums, artists, genres…" aria-label="Search">
+      <span id="reverbSearchEsc" style="font-family:DM Mono,monospace;font-size:.65rem;color:#6B6B6B;background:#1A1A1A;padding:3px 8px;border-radius:3px;cursor:pointer;user-select:none">ESC</span>
+    </div>
+    <div id="reverbSearchHints" style="padding:14px 28px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid #1A1A1A">
+      <span style="font-size:.68rem;color:#5A5A5A;width:100%;margin-bottom:2px;font-family:Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase">Quick filters</span>
+      <button type="button" onclick="reverbSearch('hip-hop')" style="font-size:.7rem;font-weight:700;letter-spacing:.06em;color:#A0A0A0;background:#1A1A1A;border:1px solid #2A2A2A;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif">Hip-Hop</button>
+      <button type="button" onclick="reverbSearch('electronic')" style="font-size:.7rem;font-weight:700;letter-spacing:.06em;color:#A0A0A0;background:#1A1A1A;border:1px solid #2A2A2A;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif">Electronic</button>
+      <button type="button" onclick="reverbSearch('folk')" style="font-size:.7rem;font-weight:700;letter-spacing:.06em;color:#A0A0A0;background:#1A1A1A;border:1px solid #2A2A2A;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif">Folk</button>
+      <button type="button" onclick="reverbSearch('r&b')" style="font-size:.7rem;font-weight:700;letter-spacing:.06em;color:#A0A0A0;background:#1A1A1A;border:1px solid #2A2A2A;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif">R&amp;B</button>
+      <button type="button" onclick="reverbSearch('best new')" style="font-size:.7rem;font-weight:700;letter-spacing:.06em;color:#A0A0A0;background:#1A1A1A;border:1px solid #2A2A2A;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif">&#9733; BNM</button>
+      <button type="button" onclick="reverbSearch('9')" style="font-size:.7rem;font-weight:700;letter-spacing:.06em;color:#A0A0A0;background:#1A1A1A;border:1px solid #2A2A2A;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif">Score 9+</button>
+    </div>
+    <div id="reverbSearchResults" style="max-height:460px;overflow-y:auto"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var DATA_API='https://shopify-copy-f62a1de4.base44.app/functions/reverbData';
+  var _idx=null,_open=false;
+  function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function ensureIdx(){
+    if(_idx)return Promise.resolve(_idx);
+    return fetch(DATA_API+'?endpoint=browse&limit=50').then(function(r){return r.json();}).then(function(d){_idx=d.reviews||[];return _idx;}).catch(function(){_idx=[];return _idx;});
+  }
+  function hi(s,q){
+    if(!q)return esc(s);
+    return esc(s).replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark style="background:rgba(232,54,58,.35);color:#fff;border-radius:2px">$1</mark>');
+  }
+  window.reverbSearch=function(q){
+    var inp=document.getElementById('reverbSearchInput');
+    var res=document.getElementById('reverbSearchResults');
+    var hints=document.getElementById('reverbSearchHints');
+    if(inp&&q&&inp.value!==q)inp.value=q;
+    q=((q||(inp&&inp.value)||'').trim()).toLowerCase();
+    if(!res)return;
+    if(!q){res.innerHTML='';if(hints)hints.style.display='';return;}
+    if(hints)hints.style.display='none';
+    res.innerHTML='<div style="padding:28px;text-align:center;color:#5A5A5A;font-family:Inter,sans-serif;font-size:.85rem">Searching\u2026</div>';
+    ensureIdx().then(function(idx){
+      var hits=idx.filter(function(r){
+        var hay=[r.artist,r.album,r.title,r.genre].concat(r.mood_tags||[]).concat(r.tags||[]).join(' ').toLowerCase();
+        if(q==='best new')return r.is_best_new_music;
+        if(q==='9')return(r.rating||0)>=9;
+        return hay.indexOf(q)>=0;
+      }).slice(0,10);
+      if(!hits.length){res.innerHTML='<div style="padding:40px 28px;text-align:center;color:#5A5A5A;font-family:Inter,sans-serif;font-size:.9rem">No results for &ldquo;<strong style=\'color:#A0A0A0\'>'+esc(q)+'</strong>&rdquo;</div>';return;}
+      res.innerHTML=hits.map(function(r){
+        var score=Number(r.rating||0).toFixed(1);
+        var bnm=r.is_best_new_music?'<span style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:#E8363A;color:#fff;padding:2px 6px;border-radius:2px;flex-shrink:0">BNM</span>':'';
+        return '<a href="/review?id='+esc(r.id)+'" style="display:flex;align-items:center;gap:14px;padding:14px 28px;border-bottom:1px solid #1A1A1A;text-decoration:none;transition:background .12s" onmouseover="this.style.background=\'#1A1A1A\'" onmouseout="this.style.background=\'\'">'
+          +'<img src="'+esc(r.cover_image||'')+'" alt="'+esc(r.album)+'" style="width:44px;height:44px;object-fit:cover;border-radius:3px;flex-shrink:0;background:#222" loading="lazy" onerror="this.style.opacity=.15">'
+          +'<div style="flex:1;min-width:0">'
+            +'<div style="font-size:.88rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+hi(r.artist||'',q)+' \u2014 '+hi(r.album||r.title||'',q)+'</div>'
+            +'<div style="font-size:.75rem;color:#6B6B6B;margin-top:3px;font-family:Inter,sans-serif">'+esc(r.genre||'')+(r.is_best_new_music?' \xb7 Best New Music':'')+'</div>'
+          +'</div>'
+          +'<span style="font-family:\'DM Mono\',monospace;font-size:1rem;font-weight:700;color:#F5C518;flex-shrink:0">'+score+'</span>'
+          +bnm+'</a>';
+      }).join('');
+    });
+  };
+  window.openReverbSearch=function(){
+    var o=document.getElementById('reverbSearchOverlay');
+    if(!o)return;
+    o.style.display='flex';_open=true;document.body.style.overflow='hidden';
+    setTimeout(function(){var i=document.getElementById('reverbSearchInput');if(i){i.focus();i.select();}},60);
+    ensureIdx();
+  };
+  window.closeReverbSearch=function(){
+    var o=document.getElementById('reverbSearchOverlay');
+    if(!o)return;
+    o.style.display='none';_open=false;document.body.style.overflow='';
+    var r=document.getElementById('reverbSearchResults');
+    var h=document.getElementById('reverbSearchHints');
+    var i=document.getElementById('reverbSearchInput');
+    if(r)r.innerHTML='';if(h)h.style.display='';if(i)i.value='';
+  };
+  function boot(){
+    var o=document.getElementById('reverbSearchOverlay');
+    if(!o)return;
+    o.addEventListener('click',function(e){if(e.target===o)window.closeReverbSearch();});
+    var eb=document.getElementById('reverbSearchEsc');
+    if(eb)eb.addEventListener('click',window.closeReverbSearch);
+    var inp=document.getElementById('reverbSearchInput');
+    if(inp){
+      inp.addEventListener('input',function(){window.reverbSearch(this.value);});
+      inp.addEventListener('keydown',function(e){
+        if(e.key==='Escape')window.closeReverbSearch();
+        if(e.key==='Enter'){var f=document.querySelector('#reverbSearchResults a');if(f){window.closeReverbSearch();location.href=f.href;}}
+      });
+    }
+    document.querySelectorAll('[data-search-trigger],[data-reverb-search],[id="navSearchTrigger"]').forEach(function(el){
+      var fresh=el.cloneNode(true);
+      if(el.parentNode)el.parentNode.replaceChild(fresh,el);
+      fresh.addEventListener('click',function(e){e.preventDefault();window.openReverbSearch();});
+    });
+    document.addEventListener('keydown',function(e){
+      if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();_open?window.closeReverbSearch():window.openReverbSearch();}
+      if(e.key==='Escape'&&_open)window.closeReverbSearch();
+    });
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',boot);}else{boot();}
+})();
+</script>
+<script>
+(function(){
+  var DATA_API='https://shopify-copy-f62a1de4.base44.app/functions/reverbData';
+  function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function load(name){
+    if(!name)return;
+    var sec=document.getElementById('artistReviewsSection');
+    var grid=document.getElementById('artistReviewsGrid');
+    var cnt=document.getElementById('artistReviewsCount');
+    if(!sec||!grid)return;
+    fetch(DATA_API+'?endpoint=browse&limit=50').then(function(r){return r.json();}).then(function(d){
+      var all=(d.reviews||[]).filter(function(r){return (r.artist||'').toLowerCase().trim()===(name||'').toLowerCase().trim();});
+      if(!all.length){grid.innerHTML='<div class="artist-revs-empty">No REVERB reviews for '+esc(name)+' yet.</div>';sec.style.display='';return;}
+      if(cnt)cnt.textContent=all.length+' review'+(all.length!==1?'s':'');
+      grid.innerHTML=all.map(function(r){
+        var bnm=r.is_best_new_music?'<span class="arc-bnm">&#9733; BNM</span>':'<span class="arc-genre">'+esc(r.genre||'')+'</span>';
+        return '<div class="arc" onclick="location.href=\'/review?id='+esc(r.id)+'\'" tabindex="0">'
+          +'<img class="arc-img" src="'+esc(r.cover_image||'')+'" alt="'+esc(r.album||'')+'" loading="lazy" onerror="this.style.opacity=.15">'
+          +'<div class="arc-body">'
+            +'<div class="arc-album">'+esc(r.album||r.title||'')+'</div>'
+            +'<div class="arc-review-title">'+esc(r.title||'')+'</div>'
+            +'<div class="arc-meta"><span class="arc-score">'+Number(r.rating||0).toFixed(1)+'</span>'+bnm+'</div>'
+          +'</div></div>';
+      }).join('');
+      sec.style.display='';
+    }).catch(function(e){console.warn('Artist reviews error',e);});
+  }
+  function boot(){
+    var name=new URLSearchParams(location.search).get('name')||'';
+    if(name){load(name);return;}
+    var tries=0;
+    var poll=setInterval(function(){
+      var h=document.querySelector('.artist-name,h1');
+      if(h&&h.textContent&&h.textContent.trim()&&h.textContent!=='Unknown Artist'){clearInterval(poll);load(h.textContent.trim());}
+      if(++tries>20)clearInterval(poll);
+    },300);
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',boot);}else{boot();}
+})();
+</script>
+
+  <!-- REVERB × SR7 Motion System -->
+  <script>
+/* ============================================================
+   REVERB × SR7 — Motion System JS
+   Scroll-reveal + filter cycling + loading screen
+   ============================================================ */
+(function() {
+  'use strict';
+
+  /* ── 1. Loading screen ──────────────────────────────────── */
+  function initLoadingScreen() {
+    const screen = document.getElementById('reverb-loading-screen');
+    if (!screen) return;
+    window.addEventListener('load', () => {
+      setTimeout(() => screen.classList.add('hidden'), 400);
+    });
+    // Safety fallback
+    setTimeout(() => screen && screen.classList.add('hidden'), 2500);
+  }
+
+  /* ── 2. Scroll-reveal (IntersectionObserver) ────────────── */
+  function initScrollReveal() {
+    const els = document.querySelectorAll('.sr7-reveal');
+    if (!els.length) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(el => io.observe(el));
+  }
+
+  /* ── 3. Album cover filter cycling ─────────────────────── */
+  // Applies a genre-appropriate SR7 filter to each album cover
+  const GENRE_FILTERS = {
+    'hip-hop':    'cover-filter-lofi',
+    'rap':        'cover-filter-lofi',
+    'electronic': 'cover-filter-clarendon',
+    'dance':      'cover-filter-walden',
+    'indie':      'cover-filter-lark',
+    'indie rock': 'cover-filter-lark',
+    'alternative':'cover-filter-reyes',
+    'folk':       'cover-filter-inkwell',
+    'classical':  'cover-filter-moon',
+    'r&b':        'cover-filter-slumber',
+    'soul':       'cover-filter-slumber',
+    'pop':        'cover-filter-nashville',
+    'country':    'cover-filter-rise',
+    'punk':       'cover-filter-toaster',
+    'metal':      'cover-filter-toaster',
+    'jazz':       'cover-filter-mayfair',
+    'default':    'cover-filter-clarendon'
+  };
+
+  function applyGenreFilter(imgEl, genre) {
+    const key = (genre || '').toLowerCase();
+    const filter = GENRE_FILTERS[key] || GENRE_FILTERS['default'];
+    // Apply to parent wrapper so ::after pseudo works
+    const wrap = imgEl.closest('.album-art-wrap, .cover-wrap, .mood-img-wrap, .hero-cover-wrap') || imgEl.parentElement;
+    if (wrap) {
+      wrap.classList.add(filter);
+      wrap.dataset.srFilter = filter;
+    }
+  }
+
+  function initCoverFilters() {
+    // Hook into hydrated review cards
+    document.querySelectorAll('[data-genre]').forEach(card => {
+      const img = card.querySelector('img');
+      if (img) applyGenreFilter(img, card.dataset.genre);
+    });
+    // Also hook mood filmstrip items
+    document.querySelectorAll('.mood-card[data-genre] img').forEach(img => {
+      applyGenreFilter(img, img.closest('[data-genre]').dataset.genre);
+    });
+  }
+
+  /* ── 4. Hero wipe transition (between slides) ───────────── */
+  window.REVERB_SR7 = {
+    wipe: function(container) {
+      if (!container) return;
+      const wipe = document.createElement('div');
+      wipe.className = 'hero-wipe';
+      container.style.position = 'relative';
+      container.appendChild(wipe);
+      wipe.classList.add('wipe-enter');
+      setTimeout(() => {
+        wipe.classList.remove('wipe-enter');
+        wipe.classList.add('wipe-exit');
+        setTimeout(() => wipe.remove(), 700);
+      }, 700);
+    },
+
+    // Apply filter to any img by genre
+    applyFilter: applyGenreFilter,
+
+    // Shimmer placeholder on any element
+    shimmer: function(el) {
+      if (!el) return;
+      el.classList.add('reverb-shimmer');
+      return { done: () => el.classList.remove('reverb-shimmer') };
+    }
+  };
+
+  /* ── 5. Score chips — elastic pop on intersect ──────────── */
+  function initScorePop() {
+    const chips = document.querySelectorAll('.score-display, .rating-badge, .community-score, .score-chip');
+    if (!chips.length) return;
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.animation = 'none';
+          requestAnimationFrame(() => {
+            e.target.style.animation = '';
+            e.target.classList.add('sr7-elastic-pop');
+          });
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    chips.forEach(c => io.observe(c));
+  }
+
+  /* ── 6. Stagger sr7-reveal children inside sections ────── */
+  function initStaggeredSections() {
+    document.querySelectorAll('[data-sr7-stagger]').forEach(section => {
+      const children = section.children;
+      Array.from(children).forEach((child, i) => {
+        child.classList.add('sr7-reveal');
+        child.style.transitionDelay = `${i * 0.08}s`;
+      });
+    });
+    // Re-run scroll reveal to pick up new elements
+    initScrollReveal();
+  }
+
+  /* ── Boot ───────────────────────────────────────────────── */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+
+  function boot() {
+    initLoadingScreen();
+    initScrollReveal();
+    initCoverFilters();
+    initScorePop();
+    initStaggeredSections();
+    // Re-apply after hydration (data arrives async)
+    setTimeout(initCoverFilters, 1200);
+    setTimeout(initCoverFilters, 3000);
+  }
+})();
+
+  </script>
+
+  <!-- SR7 motion for artist page -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      document.querySelectorAll('.artist-rail-card, .arc-album, .disc-grid > *, .artist-revs-grid > *').forEach(function(card, i) {
+        card.classList.add('sr7-reveal');
+        card.style.transitionDelay = Math.min(i * 0.07, 0.5) + 's';
+        var genre = card.dataset.genre || '';
+        var img = card.querySelector('img');
+        if (img && genre && window.REVERB_SR7) REVERB_SR7.applyFilter(img, genre);
+      });
+      document.querySelectorAll('.sr7-reveal:not(.is-visible)').forEach(function(el) {
+        var rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight) el.classList.add('is-visible');
+      });
+    }, 600);
+  });
+  </script>
+</body>
+</html>

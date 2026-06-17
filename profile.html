@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://shopify-copy-f62a1de4.base44.app">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile | REVERB</title>
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="REVERB">
+  <meta property="og:title"       content="Profile — REVERB">
+  <meta property="og:description" content="Critic and community profiles, ratings, taste signals, and listening history.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/mciolino/REVERB/main/public/og-image.png">
+  <meta property="og:url"         content="https://reverb-music-five.vercel.app/profile">
+  <link rel="canonical" href="https://reverb-music-five.vercel.app/profile">
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:site"        content="@reverbmusic">
+  <meta name="twitter:title"       content="Profile — REVERB">
+  <meta name="twitter:description" content="Critic and community profiles, ratings, taste signals, and listening history.">
+  <meta name="twitter:image"       content="https://reverb-music-five.vercel.app/og-default.jpg">
+
+  <meta name="description" content="View REVERB critic and community profiles, including reviews, ratings, taste signals, favorite albums, and listening activity.">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0A0A0A; --surface: #111111; --surface-mid: #1A1A1A; --surface-hover: #222222;
+      --border: #2A2A2A; --accent: #E8363A; --accent-hover: #B22327;
+      --text: #FFFFFF; --text-secondary: #A0A0A0; --text-muted: #5A5A5A; --text-body: #E8E8E3;
+      --score-critic: #F5C518; --score-community: #4A9EFF; --new-green: #1DB954;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-ui: 'Inter', system-ui, sans-serif;
+      --font-body: 'Lora', Georgia, serif;
+      --font-mono: 'DM Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-ui); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 24px; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: var(--font-display); font-size: 26px; font-weight: 900; letter-spacing: -0.02em; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 500; color: var(--text-secondary); letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-right { display: flex; gap: 16px; align-items: center; }
+    .nav-signin { background: var(--accent); color: #fff; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 8px 18px; border-radius: 2px; }
+    .nav-burger { display: none; background: none; border: none; color: #fff; font-size: 22px; cursor: pointer; padding: 4px 8px; }
+
+    .profile-banner { height: 200px; position: relative; overflow: hidden; background: linear-gradient(135deg, #1a0505 0%, #0a0a1a 50%, #051a05 100%); }
+    .profile-banner-pattern { position: absolute; inset: 0; opacity: 0.12; background-image: repeating-linear-gradient(45deg, var(--accent) 0, var(--accent) 1px, transparent 0, transparent 50%); background-size: 20px 20px; }
+    .profile-banner-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,10,0.7) 0%, transparent 60%); }
+
+    .profile-header-wrap { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+    .profile-header { display: flex; align-items: flex-end; gap: 28px; margin-top: -56px; margin-bottom: 28px; position: relative; }
+    .profile-avatar-ring { width: 120px; height: 120px; border-radius: 50%; border: 4px solid var(--bg); background: var(--accent); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 38px; font-weight: 900; color: #fff; flex-shrink: 0; box-shadow: 0 0 0 2px var(--border); }
+    .profile-info { flex: 1; padding-bottom: 4px; }
+    .profile-role { font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+    .profile-name { font-family: var(--font-display); font-size: 32px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 4px; }
+    .profile-handle { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; }
+    .profile-bio { font-family: var(--font-body); font-size: 15px; color: var(--text-secondary); line-height: 1.55; max-width: 480px; }
+    .profile-actions { display: flex; gap: 10px; padding-bottom: 4px; }
+    .btn-follow { background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 24px; border: none; border-radius: 2px; cursor: pointer; transition: all 0.2s; }
+    .btn-follow.following { background: transparent; border: 1px solid var(--border); color: var(--text-secondary); }
+    .btn-follow.following:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-msg { background: transparent; border: 1px solid var(--border); color: var(--text-secondary); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 20px; border-radius: 2px; cursor: pointer; transition: all 0.2s; }
+    .btn-msg:hover { border-color: var(--text); color: var(--text); }
+
+    .profile-stats { display: flex; gap: 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--surface); }
+    .profile-stat { flex: 1; padding: 18px 0; text-align: center; border-right: 1px solid var(--border); transition: background 0.15s; }
+    .profile-stat:last-child { border-right: none; }
+    .profile-stat:hover { background: var(--surface-hover); }
+    .profile-stat-num { font-family: var(--font-mono); font-size: 22px; font-weight: 500; display: block; }
+    .profile-stat-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
+
+    .profile-tabs { border-bottom: 1px solid var(--border); position: sticky; top: 60px; z-index: 50; background: var(--bg); }
+    .profile-tabs-inner { max-width: 1100px; margin: 0 auto; padding: 0 48px; display: flex; overflow-x: auto; }
+    .tab-btn { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); padding: 16px 20px; border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.2s; background: none; border-top: none; border-left: none; border-right: none; white-space: nowrap; }
+    .tab-btn:hover { color: var(--text-secondary); }
+    .tab-btn.active { color: var(--text); border-bottom-color: var(--accent); }
+
+    .profile-body { max-width: 1100px; margin: 0 auto; padding: 48px 48px 80px; display: grid; grid-template-columns: 1fr 280px; gap: 56px; }
+
+    /* REVIEW LIST */
+    .review-row { display: grid; grid-template-columns: 72px 1fr auto; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.15s; color: inherit; text-decoration: none; }
+    .review-row:first-child { border-top: 1px solid var(--border); }
+    .review-row:hover { background: var(--surface); }
+    .review-row:hover .rr-album { color: var(--accent); }
+    .rr-img { width: 72px; height: 72px; object-fit: cover; background: var(--surface-mid); }
+    .rr-body { padding: 12px 16px; display: flex; flex-direction: column; justify-content: center; gap: 2px; }
+    .rr-genre { font-size: 9px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+    .rr-artist { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+    .rr-album { font-family: var(--font-display); font-size: 17px; font-weight: 700; transition: color 0.2s; line-height: 1.2; }
+    .rr-date { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+    .rr-scores { padding: 12px 16px; display: flex; flex-direction: column; justify-content: center; gap: 5px; align-items: flex-end; min-width: 80px; }
+    .rr-score { font-family: var(--font-mono); font-size: 15px; font-weight: 500; }
+    .rr-score.critic { color: var(--score-critic); }
+    .rr-score.community { color: var(--score-community); }
+    .rr-score-lbl { font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.6; }
+    .bnm-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); margin-left: 6px; vertical-align: middle; }
+
+    /* COMMENT LIST */
+    .comment-row { display: block; padding: 18px 0; border-bottom: 1px solid var(--border); color: inherit; text-decoration: none; }
+    .comment-row:first-child { border-top: 1px solid var(--border); }
+    .cr-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .cr-album-img { width: 36px; height: 36px; object-fit: cover; border-radius: 2px; background: var(--surface-mid); }
+    .cr-album-name { font-size: 13px; font-weight: 700; }
+    .cr-artist-name { font-size: 11px; color: var(--text-muted); }
+    .cr-rating { font-family: var(--font-mono); font-size: 12px; color: var(--score-critic); margin-left: auto; background: rgba(245,197,24,0.1); padding: 2px 8px; border-radius: 2px; }
+    .cr-date { font-size: 11px; color: var(--text-muted); }
+    .cr-body { font-family: var(--font-body); font-size: 14px; line-height: 1.6; color: var(--text-body); }
+    .cr-likes { font-size: 12px; color: var(--text-muted); margin-top: 8px; }
+
+    /* TASTE PROFILE */
+    .taste-intro { font-family: var(--font-body); font-size: 15px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 32px; }
+    .taste-block { margin-bottom: 32px; }
+    .taste-block-title { font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+    .genre-bar { margin-bottom: 10px; }
+    .genre-bar-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
+    .genre-bar-name { font-size: 13px; color: var(--text-secondary); }
+    .genre-bar-count { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); }
+    .genre-bar-track { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+    .genre-bar-fill { height: 100%; border-radius: 2px; background: var(--accent); transition: width 1.1s ease; width: 0; }
+    .score-histogram { display: flex; gap: 4px; align-items: flex-end; height: 80px; margin-top: 8px; }
+    .hist-bar { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .hist-fill { width: 100%; border-radius: 2px 2px 0 0; background: var(--accent); min-height: 4px; transition: height 1s ease; }
+    .hist-label { font-family: var(--font-mono); font-size: 9px; color: var(--text-muted); }
+    .mood-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .mood-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 14px; border: 1px solid var(--border); color: var(--text-secondary); border-radius: 2px; }
+    .mood-tag.primary { border-color: var(--accent); color: var(--accent); }
+
+    /* FAVOURITES GRID */
+    .fav-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
+    .fav-cell { display: block; aspect-ratio: 1; overflow: hidden; position: relative; cursor: pointer; background: var(--surface-mid); color: inherit; text-decoration: none; }
+    .fav-cell img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.35s; }
+    .fav-cell:hover img { transform: scale(1.08); }
+    .fav-cell-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,10,0.85) 0%, transparent 50%); opacity: 0; transition: opacity 0.25s; display: flex; flex-direction: column; justify-content: flex-end; padding: 8px; }
+    .fav-cell:hover .fav-cell-overlay { opacity: 1; }
+    .fav-cell-album { font-size: 11px; font-weight: 700; color: #fff; line-height: 1.2; }
+    .fav-cell-artist { font-size: 10px; color: var(--text-secondary); }
+    .fav-cell-score { font-family: var(--font-mono); font-size: 12px; color: var(--score-critic); }
+
+    /* SEC HEADER */
+    .sec-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 20px; }
+    .sec-title { font-family: var(--font-display); font-size: 22px; font-weight: 700; }
+    .sec-count { font-size: 12px; color: var(--text-muted); }
+    .empty-state { padding: 48px 0; text-align: center; color: var(--text-muted); font-size: 14px; font-family: var(--font-body); font-style: italic; }
+
+    /* SIDEBAR */
+    .sidebar { position: sticky; top: 120px; align-self: start; display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); }
+    .sb-section { padding: 20px; border-bottom: 1px solid var(--border); }
+    .sb-section:last-child { border-bottom: none; }
+    .sb-title { font-size: 10px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+    .sb-follower { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+    .sb-follower:last-child { border-bottom: none; }
+    .sb-f-av { width: 32px; height: 32px; border-radius: 50%; background: var(--surface-mid); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--score-community); border: 1px solid var(--border); flex-shrink: 0; }
+    .sb-f-name { font-size: 13px; font-weight: 600; flex: 1; }
+    .sb-f-count { font-size: 11px; color: var(--text-muted); }
+    .sb-recent-img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; margin-bottom: 10px; }
+    .sb-recent-album { font-family: var(--font-display); font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+    .sb-recent-artist { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; }
+    .sb-score-row { display: flex; gap: 16px; }
+    .sb-score { font-family: var(--font-mono); font-size: 13px; }
+
+    /* TOAST */
+    #toast { position: fixed; bottom: 24px; right: 24px; background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--new-green); padding: 12px 18px; font-size: 13px; border-radius: 4px; opacity: 0; transform: translateY(8px); transition: all 0.3s; pointer-events: none; z-index: 999; }
+    #toast.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      .profile-body { grid-template-columns: 1fr; padding: 32px 24px 60px; gap: 32px; }
+      .sidebar { position: static; }
+      .profile-header-wrap { padding: 0 24px; }
+      .profile-tabs-inner { padding: 0 16px; }
+      .profile-header { flex-wrap: wrap; margin-top: -40px; }
+      .profile-avatar-ring { width: 90px; height: 90px; font-size: 28px; }
+      .profile-name { font-size: 24px; }
+      .nav-links { display: none; }
+      .nav-burger { display: block; }
+      .fav-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+
+<style id="reverb-global-footer-style">
+  .reverb-footer { background: #111111; border-top: 1px solid rgba(255,255,255,.10); margin-top: 72px; color: #fff; font-family: Inter, system-ui, sans-serif; }
+  .reverb-footer * { box-sizing: border-box; }
+  .reverb-footer a { color: inherit; text-decoration: none; }
+  .reverb-footer-inner { width: min(1180px, calc(100% - 40px)); margin: 0 auto; padding: 56px 0 28px; }
+  .reverb-footer-newsletter { display: grid; grid-template-columns: 1.15fr .85fr; gap: 28px; align-items: end; padding: 0 0 44px; margin-bottom: 42px; border-bottom: 1px solid rgba(255,255,255,.10); }
+  .reverb-footer-kicker { color: #E8363A; font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 10px; }
+  .reverb-footer-title { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(30px, 4vw, 52px); line-height: .98; font-weight: 900; letter-spacing: -.03em; margin: 0 0 12px; color: #fff; }
+  .reverb-footer-desc { font-family: Lora, Georgia, serif; color: #A0A0A0; line-height: 1.65; max-width: 620px; margin: 0; font-size: 15px; }
+  .reverb-footer-form { display: flex; gap: 0; width: 100%; max-width: 440px; margin-left: auto; }
+  .reverb-footer-input { flex: 1; min-width: 0; background: #0A0A0A; border: 1px solid #2A2A2A; border-right: 0; color: #fff; padding: 15px 16px; font: 500 14px Inter, system-ui, sans-serif; border-radius: 2px 0 0 2px; }
+  .reverb-footer-input:focus { outline: none; border-color: #E8363A; }
+  .reverb-footer-input::placeholder { color: #5A5A5A; }
+  .reverb-footer-button { background: #E8363A; border: 0; color: #fff; padding: 0 22px; border-radius: 0 2px 2px 0; font: 800 12px Inter, system-ui, sans-serif; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: background .2s ease, opacity .2s ease; }
+  .reverb-footer-button:hover { background: #B22327; }
+  .reverb-footer-button:disabled { opacity: .65; cursor: wait; }
+  .reverb-footer-note { margin: 10px 0 0; color: #5A5A5A; font-size: 12px; line-height: 1.5; text-align: right; }
+  .reverb-footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
+  .reverb-footer-logo { font-family: 'Playfair Display', Georgia, serif; font-size: 32px; font-weight: 900; letter-spacing: -.02em; margin-bottom: 12px; color: #fff; }
+  .reverb-footer-logo span { color: #E8363A; }
+  .reverb-footer-tagline { font-family: Lora, Georgia, serif; font-style: italic; color: #A0A0A0; font-size: 14px; line-height: 1.6; max-width: 280px; margin: 0; }
+  .reverb-footer-heading { color: #5A5A5A; font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 15px; }
+  .reverb-footer-links { display: grid; gap: 10px; list-style: none; padding: 0; margin: 0; }
+  .reverb-footer-links a { color: #A0A0A0; font-size: 14px; transition: color .2s ease; }
+  .reverb-footer-links a:hover { color: #fff; }
+  .reverb-footer-bottom { display: flex; justify-content: space-between; gap: 20px; align-items: center; border-top: 1px solid rgba(255,255,255,.10); margin-top: 42px; padding-top: 24px; }
+  .reverb-footer-copy { color: #5A5A5A; font-size: 12px; }
+  .reverb-footer-social { display: flex; gap: 18px; flex-wrap: wrap; }
+  .reverb-footer-social a { color: #5A5A5A; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; transition: color .2s ease; }
+  .reverb-footer-social a:hover { color: #E8363A; }
+  @media (max-width: 860px) {
+    .reverb-footer { margin-top: 48px; }
+    .reverb-footer-inner { width: min(100% - 28px, 1180px); padding-top: 42px; }
+    .reverb-footer-newsletter, .reverb-footer-grid { grid-template-columns: 1fr; }
+    .reverb-footer-form { margin-left: 0; max-width: none; }
+    .reverb-footer-note { text-align: left; }
+    .reverb-footer-bottom { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 520px) {
+    .reverb-footer-form { flex-direction: column; gap: 10px; }
+    .reverb-footer-input { border-right: 1px solid #2A2A2A; border-radius: 2px; }
+    .reverb-footer-button { min-height: 46px; border-radius: 2px; }
+  }
+</style>
+
+
+  <!-- REVERB × SR7 Motion Layer -->
+  <style id="reverb-sr7-css">
+/* ============================================================
+   REVERB × Slider Revolution 7 — Native Motion Layer
+   Extracted from revslider/public/ — adapted for static deploy
+   ============================================================ */
+
+/* ── 1. SR7 KEYFRAMES ──────────────────────────────────────── */
+@keyframes sr7-ani-mouse{0%{opacity:1;top:29%}15%{opacity:1;top:70%}50%{opacity:0;top:70%}100%{opacity:0;top:29%}}
+@keyframes tp-rotateplane{0%{transform:perspective(120px) rotateX(0deg) rotateY(0deg)}50%{transform:perspective(120px) rotateX(-180.1deg) rotateY(0deg)}100%{transform:perspective(120px) rotateX(-180deg) rotateY(-179.9deg)}}
+@keyframes tp-fade-in{0%{opacity:0}20%{opacity:0}100%{opacity:1}}
+@keyframes tp-rotate{100%{transform:rotate(360deg)}}
+@keyframes sr--anim--rotate{0%{transform:rotate(0deg)}50%{transform:rotate(180deg)}100%{transform:rotate(360deg)}}
+@keyframes sr-pop{0%{transform:scale(0.7);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes sr-elastic-pop{0%{transform:scale(0.7)}60%{transform:scale(1.1)}80%{transform:scale(0.95)}100%{transform:scale(1)}}
+@keyframes shimmer{from{background-position:200% 0}to{background-position:0% 0}}
+@keyframes tp-scaleout{0%{transform:scale(0)}100%{transform:scale(1);opacity:0}}
+@keyframes tp-bouncedelay{0%,80%,100%{transform:scale(0)}40%{transform:scale(1)}}
+@keyframes tp-bounce{0%,100%{transform:scale(0)}50%{transform:scale(1)}}
+@keyframes rs-revealer-6{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes rs-revealer-8{0%{transform:scale(0,0);opacity:.5}100%{transform:scale(1,1);opacity:0}}
+@keyframes rs-revealer-9{0%,100%{transform:scale(0)}50%{transform:scale(1)}}
+@keyframes rs-revealer-10{0%,100%,40%{transform:scaleY(.4)}20%{transform:scaleY(1)}}
+@keyframes rs-revealer-11{0%,100%,70%{transform:scale3D(1,1,1)}35%{transform:scale3D(0,0,1)}}
+@keyframes rs-revealer-12{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+@keyframes rs-revealer-13{0%,100%{transform:translate(0)}25%{transform:translate(160%)}50%{transform:translate(160%,160%)}75%{transform:translate(0,160%)}}
+@keyframes rs-revealer-15{25%{transform:translateX(30px) rotate(-90deg) scale(.5)}50%{transform:translateX(30px) translateY(30px) rotate(-179deg)}75%{transform:translateX(0) translateY(30px) rotate(-270deg) scale(.5)}100%{transform:rotate(-360deg)}}
+
+/* ── 2. SR7 PRELOADER SKINS (REVERB-themed) ────────────────── */
+/* tp-bouncedelay: 3-dot bounce (used for data loading) */
+.reverb-loader { display:flex; gap:6px; align-items:center; justify-content:center; padding:24px; }
+.reverb-loader span {
+  width:10px; height:10px; border-radius:50%;
+  background: #E8363A;
+  display:inline-block;
+  animation: tp-bouncedelay 1.4s infinite ease-in-out both;
+}
+.reverb-loader span:nth-child(1){animation-delay:-0.32s}
+.reverb-loader span:nth-child(2){animation-delay:-0.16s}
+
+/* tp-rotateplane: spinning square (score loading) */
+.reverb-score-loader {
+  width:20px; height:20px;
+  background: #F5C518;
+  animation: tp-rotateplane 1.2s infinite ease-in-out;
+  border-radius:2px;
+  display:inline-block;
+}
+
+/* shimmer: skeleton loading on cards */
+.reverb-shimmer {
+  background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* ── 3. SR7 INSTAGRAM-STYLE PHOTO FILTERS ──────────────────── */
+/* Applied to album cover art via .cover-filter-{name} */
+.cover-filter-inkwell  { filter:sepia(.3) contrast(1.1) brightness(1.1) grayscale(1) }
+.cover-filter-moon     { filter:grayscale(1) contrast(1.1) brightness(1.1) }
+.cover-filter-lofi     { filter:saturate(1.1) contrast(1.5) }
+.cover-filter-clarendon{ filter:contrast(1.2) saturate(1.35) }
+.cover-filter-toaster  { filter:contrast(1.5) brightness(.9) }
+.cover-filter-mayfair  { filter:contrast(1.1) saturate(1.1) }
+.cover-filter-reyes    { filter:sepia(.22) brightness(1.1) contrast(.85) saturate(.75) }
+.cover-filter-walden   { filter:brightness(1.1) hue-rotate(-10deg) sepia(.3) saturate(1.6) }
+.cover-filter-nashville{ filter:sepia(.2) contrast(1.2) brightness(1.05) saturate(1.2) }
+.cover-filter-lark     { filter:contrast(.9) }
+.cover-filter-willow   { filter:grayscale(.5) contrast(.95) brightness(.9) }
+.cover-filter-rise     { filter:brightness(1.05) sepia(.2) contrast(.9) saturate(.9) }
+.cover-filter-slumber  { filter:saturate(.66) brightness(1.05) }
+.cover-filter-brooklyn { filter:contrast(.9) brightness(1.1) }
+.cover-filter-hudson   { filter:brightness(1.2) contrast(.9) saturate(1.1) }
+.cover-filter-aden     { filter:hue-rotate(-20deg) contrast(.9) saturate(.85) brightness(1.2) }
+
+/* Transition on filter change */
+[class*="cover-filter-"] { transition: filter 0.4s ease; }
+
+/* ── 4. SR7 ENTRY ANIMATIONS (utility classes) ─────────────── */
+/* Slide-in from directions */
+.sr7-enter-up    { animation: sr7-enter-up 0.6s cubic-bezier(.16,1,.3,1) both }
+.sr7-enter-down  { animation: sr7-enter-down 0.6s cubic-bezier(.16,1,.3,1) both }
+.sr7-enter-left  { animation: sr7-enter-left 0.6s cubic-bezier(.16,1,.3,1) both }
+.sr7-enter-right { animation: sr7-enter-right 0.6s cubic-bezier(.16,1,.3,1) both }
+.sr7-pop         { animation: sr-pop 0.4s cubic-bezier(.16,1,.3,1) both }
+.sr7-elastic-pop { animation: sr-elastic-pop 0.5s cubic-bezier(.16,1,.3,1) both }
+.sr7-fade-in     { animation: tp-fade-in 0.5s ease both }
+
+@keyframes sr7-enter-up    { from{transform:translateY(30px);opacity:0} to{transform:none;opacity:1} }
+@keyframes sr7-enter-down  { from{transform:translateY(-30px);opacity:0} to{transform:none;opacity:1} }
+@keyframes sr7-enter-left  { from{transform:translateX(40px);opacity:0} to{transform:none;opacity:1} }
+@keyframes sr7-enter-right { from{transform:translateX(-40px);opacity:0} to{transform:none;opacity:1} }
+
+/* Stagger delays */
+.sr7-delay-1 { animation-delay:.1s }
+.sr7-delay-2 { animation-delay:.2s }
+.sr7-delay-3 { animation-delay:.3s }
+.sr7-delay-4 { animation-delay:.4s }
+.sr7-delay-5 { animation-delay:.5s }
+.sr7-delay-6 { animation-delay:.6s }
+
+/* ── 5. SCORE CHIP — elastic pop on load ──────────────────── */
+.score-chip, .score-badge, [class*="rating"] {
+  animation: sr-elastic-pop 0.5s cubic-bezier(.16,1,.3,1) both;
+  animation-delay: 0.3s;
+}
+
+/* ── 6. HERO SLIDE WIPE TRANSITIONS (rs-revealer style) ─────── */
+/* Overlay that wipes out between hero slides */
+.hero-wipe {
+  position:absolute; inset:0; z-index:10; pointer-events:none;
+  background: #0A0A0A;
+  transform-origin: left;
+}
+.hero-wipe.wipe-enter  { animation: hero-wipe-in  0.7s cubic-bezier(.77,0,.18,1) forwards }
+.hero-wipe.wipe-exit   { animation: hero-wipe-out 0.7s cubic-bezier(.77,0,.18,1) forwards }
+
+@keyframes hero-wipe-in  { from{transform:scaleX(0)} to{transform:scaleX(1)} }
+@keyframes hero-wipe-out { from{transform:scaleX(1)} to{transform:scaleX(0); transform-origin:right} }
+
+/* ── 7. MOOD FILMSTRIP — rs-revealer hover pulse ────────────── */
+.mood-card:hover .mood-score {
+  animation: sr-elastic-pop 0.35s cubic-bezier(.16,1,.3,1);
+}
+
+/* ── 8. SCROLL-REVEAL (IntersectionObserver hook) ───────────── */
+.sr7-reveal {
+  opacity:0; transform:translateY(24px);
+  transition: opacity 0.6s cubic-bezier(.16,1,.3,1), transform 0.6s cubic-bezier(.16,1,.3,1);
+}
+.sr7-reveal.is-visible {
+  opacity:1; transform:none;
+}
+
+/* ── 9. REVERB LOADING SCREEN (tp-bouncedelay branded) ──────── */
+#reverb-loading-screen {
+  position:fixed; inset:0; z-index:9999;
+  background:#0A0A0A;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:20px;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+#reverb-loading-screen.hidden { opacity:0; visibility:hidden; pointer-events:none; }
+#reverb-loading-screen .reverb-loader span { background:#E8363A; width:14px; height:14px; }
+#reverb-loading-screen .load-logo {
+  font-family:'Playfair Display', serif;
+  font-size:2rem; font-weight:700; letter-spacing:0.15em;
+  color:#fff;
+}
+#reverb-loading-screen .load-logo span { color:#E8363A; }
+
+  </style>
+</head>
+<body>
+<div class="profile-progress" aria-hidden="true"></div>
+
+<nav>
+  <a class="nav-logo" id="nav-home" href="/">REVER<span>B</span></a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="/new">New</a></li>
+    <li><a href="/browse">Reviews</a></li>
+    <li><a href="/browse">Browse</a></li>
+    <li><a href="/browse?view=lists">Lists</a></li>
+    <li><a href="/community">Community</a></li>
+  </ul>
+  <div class="nav-right">
+      <button type="button" class="nav-search" data-search-trigger aria-label="Search REVERB (⌘K)">⌕ <span class="search-kbd" style="font-family:var(--font-mono,monospace);font-size:.6rem;color:#5A5A5A;background:#1A1A1A;border:1px solid #2A2A2A;padding:2px 6px;border-radius:3px;margin-left:4px">⌘K</span></button>
+
+    <button class="nav-burger" id="burger">☰</button>
+    <a class="nav-signin" href="/profile">Sign In</a>
+  </div>
+</nav>
+
+<section class="profile-shell">
+<div class="profile-banner"><div class="profile-banner-pattern"></div><div class="profile-banner-overlay"></div></div>
+
+<div class="profile-header-wrap">
+  <div class="profile-header">
+    <div class="profile-avatar-ring" id="profile-initials">??</div>
+    <div class="profile-info">
+      <div class="profile-role" id="profile-role">Community Member</div>
+      <h1 class="profile-name" id="profile-name">Loading…</h1>
+      <div class="profile-handle" id="profile-handle">@user</div>
+      <div class="profile-bio" id="profile-bio">REVERB community member</div>
+    </div>
+    <div class="profile-actions">
+      <button class="btn-follow" id="follow-btn">+ Follow</button>
+      <button class="btn-msg">Message</button>
+    </div>
+  </div>
+
+  <div class="profile-stats">
+    <div class="profile-stat"><span class="profile-stat-num" id="stat-reviews">—</span><span class="profile-stat-label">Reviews</span></div>
+    <div class="profile-stat"><span class="profile-stat-num" id="stat-avg" style="color:var(--score-critic)">—</span><span class="profile-stat-label">Avg Score</span></div>
+    <div class="profile-stat"><span class="profile-stat-num" id="stat-comments">—</span><span class="profile-stat-label">Ratings</span></div>
+    <div class="profile-stat"><span class="profile-stat-num" id="stat-likes">—</span><span class="profile-stat-label">Total Likes</span></div>
+  </div>
+</div>
+</section>
+
+<section class="profile-signal-strip" aria-label="Profile signals">
+  <div class="profile-signal-grid" id="profileSignalGrid">
+    <article class="profile-signal-card"><div class="ps-k">Loading</div><div class="ps-title">Reading profile…</div><div class="ps-meta">Taste signal is warming up.</div></article>
+  </div>
+</section>
+
+<div class="profile-tabs">
+  <div class="profile-tabs-inner">
+    <button class="tab-btn active" data-tab="reviews">Reviews</button>
+    <button class="tab-btn" data-tab="ratings">Community Ratings</button>
+    <button class="tab-btn" data-tab="taste">Taste Profile</button>
+    <button class="tab-btn" data-tab="favorites">Favourites</button>
+  </div>
+</div>
+
+<div class="profile-body">
+  <main id="profile-main">
+    <div class="empty-state">Loading profile…</div>
+  </main>
+
+  <aside class="sidebar">
+    <div class="sb-section" id="sb-recent">
+      <div class="sb-title">Most Recent Review</div>
+      <div style="color:var(--text-muted);font-size:13px;">Loading…</div>
+    </div>
+    <div class="sb-section">
+      <div class="sb-title">Also Follow</div>
+      <div id="sb-followers">
+        <div class="sb-follower"><div class="sb-f-av">SR</div><div class="sb-f-name">Sofia Reyes</div><div class="sb-f-count">12 reviews</div></div>
+        <div class="sb-follower"><div class="sb-f-av">DO</div><div class="sb-f-name">David Ortiz</div><div class="sb-f-count">8 reviews</div></div>
+        <div class="sb-follower"><div class="sb-f-av">LP</div><div class="sb-f-name">Lena Park</div><div class="sb-f-count">6 reviews</div></div>
+      </div>
+    </div>
+    <div class="sb-section">
+      <div class="sb-title">Listening Activity</div>
+      <div style="display:flex;flex-direction:column;gap:10px;" id="sb-activity">
+        <div style="color:var(--text-muted);font-size:13px;">Loading…</div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ── CONFIG ──────────────────────────────────────────────────────────
+const REVERB_API   = 'https://shopify-copy-f62a1de4.base44.app/functions/reverbData';
+
+const HOME_URL      = '/';
+const BROWSE_URL    = '/browse';
+const REVIEW_URL    = '/review';
+const ARTIST_URL    = '/artist/Aphex%20Twin';
+const COMMUNITY_URL = '/community';
+const PROFILE_URL   = '#';
+
+// ── COVER IMAGES ───────────────────────────────────────────────────
+const COVERS = {
+  'aphex twin':        'https://cdn-images.dzcdn.net/images/cover/8ff06016c4666391fcc48ef07cea177e/1000x1000-000000-80-0-0.jpg',
+  'sza':               'https://cdn-images.dzcdn.net/images/cover/a3c3b409f0d5bd781821ec0fd79d5b15/1000x1000-000000-80-0-0.jpg',
+  'kendrick lamar':    'https://cdn-images.dzcdn.net/images/cover/da5256ff8cacfe9ad90521f6e3792259/1000x1000-000000-80-0-0.jpg',
+  'radiohead':         'https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02ec5757cdfeb9a29df135c96d',
+  'charli xcx':        'https://cdn-images.dzcdn.net/images/cover/de9e79511cda59914de9add50946e43c/1000x1000-000000-80-0-0.jpg',
+  'sturgill simpson':  'https://cdn-images.dzcdn.net/images/cover/056aa3fb4a910b287889205eaa45f9ee/1000x1000-000000-80-0-0.jpg',
+  'mitski':            'https://cdn-images.dzcdn.net/images/cover/db69f7d3ea280f1155256705735648cd/1000x1000-000000-80-0-0.jpg',
+  'sufjan stevens':    'https://cdn-images.dzcdn.net/images/cover/e27baa7ae983b626fc5434e3175e32c6/1000x1000-000000-80-0-0.jpg',
+  'caroline polachek': 'https://cdn-images.dzcdn.net/images/cover/67e9a8272d715c88adf400c554f68f33/1000x1000-000000-80-0-0.jpg',
+  'billy woods':       'https://cdn-images.dzcdn.net/images/cover/bcafcc7b293eeb0cdb59720b33cba541/1000x1000-000000-80-0-0.jpg',
+  'fred again':        'https://cdn-images.dzcdn.net/images/cover/0c79babffc5400d88fc40db5806858a6/1000x1000-000000-80-0-0.jpg',
+  'zach bryan':        'https://cdn-images.dzcdn.net/images/cover/6c6a9089cda16da7f524b9ef1f965270/1000x1000-000000-80-0-0.jpg',
+  'yo-yo ma':          'https://cdn-images.dzcdn.net/images/cover/8b69cdda334c287b93acb0aefad12b0d/1000x1000-000000-80-0-0.jpg',
+  'show me the body':  'https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/32/0e/cb/320ecbe4-b530-a00a-5ff0-afe746c22b50/00888072089433.rgb.jpg/1000x1000bb.jpg',
+};
+function coverFor(artist) {
+  const k = (artist||'').toLowerCase();
+  for (const [key, url] of Object.entries(COVERS)) { if (k.includes(key) || key.split(' ')[0] === k.split(' ')[0]) return url; }
+  return 'https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02ec5757cdfeb9a29df135c96d';
+}
+function scoreColor(s) { const n=parseFloat(s); return n>=9?'#1DB954':n>=8?'#F5C518':n>=7?'#FF9800':'#E8363A'; }
+function fmt(n) { return n >= 1000 ? (n/1000).toFixed(1)+'K' : String(n); }
+function timeAgo(d) { const diff=Date.now()-new Date(d||0).getTime(), h=Math.floor(diff/3.6e6); if(h<1) return 'just now'; if(h<24) return h+'h ago'; const dy=Math.floor(h/24); return dy<7?dy+'d ago':Math.floor(dy/7)+'w ago'; }
+
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+}
+function reviewUrl(id) { return REVIEW_URL + '?id=' + encodeURIComponent(id || ''); }
+function fetchWithTimeout(url, options = {}, timeoutMs = 6000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  return fetch(url, { ...options, signal: controller.signal }).finally(() => clearTimeout(timer));
+}
+function formatDate(d) {
+  if (!d) return '';
+  const raw = String(d); const m = raw.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  const dt = m ? new Date(Number(m[1]), Number(m[2])-1, Number(m[3])) : new Date(d);
+  try { return dt.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }); } catch(e) { return raw; }
+}
+function reviewsFromComments(comments = userComments) {
+  return comments.map(c => allReviews.find(r => r.id === c.review_id)).filter(Boolean);
+}
+function isStaffProfile() { return Boolean(STAFF_CRITICS[profileUser]); }
+function initProfileMotion() {
+  const shell = document.querySelector('.profile-shell');
+  const progress = document.querySelector('.profile-progress');
+  if (!shell || shell.dataset.motionWired === '1') return;
+  shell.dataset.motionWired = '1';
+  const update = () => {
+    const hp = Math.min(1, Math.max(0, -shell.getBoundingClientRect().top / Math.max(1, shell.offsetHeight)));
+    shell.style.setProperty('--profile-progress', hp.toFixed(4));
+    if (progress) {
+      const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      progress.style.transform = `scaleX(${Math.min(1, Math.max(0, window.scrollY / max)).toFixed(4)})`;
+    }
+  };
+  update(); window.addEventListener('scroll', update, { passive:true }); window.addEventListener('resize', update);
+}
+function renderProfileSignals() {
+  const el = document.getElementById('profileSignalGrid'); if (!el) return;
+  const staff = isStaffProfile();
+  const commented = reviewsFromComments();
+  const signalReviews = userReviews.length ? userReviews : (staff ? allReviews : commented);
+  const topComment = [...userComments].filter(c => c.rating).sort((a,b)=>Number(b.rating||0)-Number(a.rating||0))[0];
+  const top = userReviews.length || staff
+    ? [...signalReviews].filter(r=>r.rating).sort((a,b)=>Number(b.rating||0)-Number(a.rating||0))[0]
+    : (topComment ? allReviews.find(r=>r.id===topComment.review_id) : null);
+  const genreMap = {};
+  signalReviews.forEach(r => { if (r.genre) genreMap[r.genre] = (genreMap[r.genre] || 0) + 1; });
+  const topGenre = Object.entries(genreMap).sort((a,b)=>b[1]-a[1])[0];
+  const latestComment = userComments[0];
+  const latestReview = latestComment ? allReviews.find(r=>r.id===latestComment.review_id) : null;
+  const cards = [
+    { k:'Signature lane', title: topGenre ? topGenre[0] : 'Still forming', meta: topGenre ? `${topGenre[1]} ${topGenre[1]===1?'signal':'signals'} in this lane` : 'More ratings will build a taste profile.' },
+    { k:'Highest conviction', title: top ? top.album : 'No picks yet', meta: top ? `${top.artist} · ${topComment && !userReviews.length && !staff ? Number(topComment.rating||0).toFixed(1) + '/10 community rating' : Number(top.rating||0).toFixed(1) + ' critic score'}` : 'Ratings and reviews will appear here.' },
+    { k:'Latest community read', title: latestComment ? `“${String(latestComment.body||'').slice(0,54)}${String(latestComment.body||'').length>54?'…':''}”` : 'No ratings yet', meta: latestComment ? `${latestReview?.album || 'Album'} · ${latestComment.rating || '—'}/10` : 'Community ratings will appear here.' }
+  ];
+  el.innerHTML = cards.map(c => `<article class="profile-signal-card"><div class="ps-k">${escapeHtml(c.k)}</div><div class="ps-title">${escapeHtml(c.title)}</div><div class="ps-meta">${escapeHtml(c.meta)}</div></article>`).join('');
+}
+
+// ── PROFILE USERS ──────────────────────────────────────────────────
+const STAFF_CRITICS = {
+  'Sofia Reyes':  { role: '★ Staff Critic', bio: 'Staff critic. Specialises in electronic, ambient, and avant-garde. Believes great music changes the architecture of a room.', initials: 'SR', accent: '#E8363A' },
+  'Maya Chen':    { role: '★ Staff Critic', bio: 'Staff critic. Specialises in R&B, soul, and pop. Believes the best albums make you feel things you didn\'t have words for before.', initials: 'MC', accent: '#4A9EFF' },
+  'David Ortiz':  { role: '★ Staff Critic', bio: 'Staff critic. Covers hip-hop, punk, and underground music. Thinks taste is overrated and curiosity is everything.', initials: 'DO', accent: '#F5C518' },
+  'Lena Park':    { role: '★ Staff Critic', bio: 'Staff critic. Art pop obsessive. Writes about music the way architects write about buildings.', initials: 'LP', accent: '#1DB954' },
+};
+
+// ── STATE ──────────────────────────────────────────────────────────
+let allReviews = [];
+let allComments = [];
+let profileUser = null;
+let userReviews = [];
+let userComments = [];
+let currentTab = 'reviews';
+let following = false;
+
+// ── BOOT ───────────────────────────────────────────────────────────
+async function boot() {
+  // Get user from URL param
+  const params = new URLSearchParams(location.search);
+  profileUser = params.get('user') || 'Sofia Reyes';
+
+  // Wire nav
+  document.getElementById('nav-home').href = HOME_URL;
+  document.getElementById('nav-home2').href = HOME_URL;
+  document.getElementById('nav-browse').href = BROWSE_URL;
+  document.getElementById('nav-community').href = COMMUNITY_URL;
+
+  // Load public review + community data through the REVERB API.
+  try {
+    const [revRes, comRes] = await Promise.all([
+      fetchWithTimeout(`${REVERB_API}?endpoint=browse&limit=100`, {}, 6500),
+      fetchWithTimeout(`${REVERB_API}?endpoint=comments&limit=200`, {}, 6500)
+    ]);
+    const revData = await revRes.json();
+    const comData = await comRes.json();
+    allReviews = Array.isArray(revData.reviews) ? revData.reviews : [];
+    allComments = Array.isArray(comData.comments) ? comData.comments : [];
+  } catch(e) { console.warn('profile data load error', e); }
+
+  // Filter to this user
+  userReviews  = allReviews.filter(r => (r.author_name||'').toLowerCase() === profileUser.toLowerCase());
+  userComments = allComments.filter(c => (c.author_name||'').toLowerCase() === profileUser.toLowerCase());
+
+  renderHeader();
+  renderStats();
+  renderProfileSignals();
+  initProfileMotion();
+  renderTab('reviews');
+  renderSidebar();
+  initTabs();
+  initFollow();
+  initMobileNav();
+}
+
+function renderHeader() {
+  const info = STAFF_CRITICS[profileUser] || { role: 'Community Member', bio: 'REVERB community member.', initials: profileUser.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(), accent: '#4A9EFF' };
+  document.title = `${profileUser} | REVERB`;
+  document.getElementById('profile-initials').textContent = info.initials;
+  document.getElementById('profile-initials').style.background = info.accent;
+  document.getElementById('profile-role').textContent = info.role;
+  document.getElementById('profile-name').textContent = profileUser;
+  document.getElementById('profile-handle').textContent = `@${profileUser.replace(/\s+/g,'').toLowerCase()} · Member since 2024`;
+  document.getElementById('profile-bio').textContent = info.bio;
+}
+
+function renderStats() {
+  const avgScore = userReviews.length ? (userReviews.reduce((a,r)=>a+(parseFloat(r.rating)||0),0)/userReviews.length).toFixed(1) : '—';
+  const totalLikes = userComments.reduce((a,c)=>a+(c.likes||0),0);
+  document.getElementById('stat-reviews').textContent = userReviews.length || (isStaffProfile() ? '48' : '0');
+  document.getElementById('stat-avg').textContent = avgScore;
+  document.getElementById('stat-comments').textContent = userComments.length;
+  document.getElementById('stat-likes').textContent = fmt(totalLikes + (isStaffProfile() ? 1200 : 0));
+}
+
+function renderTab(tab) {
+  currentTab = tab;
+  const main = document.getElementById('profile-main');
+  if (tab === 'reviews') {
+    const reviews = userReviews.length ? userReviews : (isStaffProfile() ? allReviews.slice(0, 5) : []);
+    if (!reviews.length) { main.innerHTML = '<div class="empty-state">No reviews published yet.</div>'; return; }
+    main.innerHTML = `
+      <div class="sec-header"><h2 class="sec-title">Reviews</h2><span class="sec-count">${reviews.length} total</span></div>
+      ${reviews.map(r => `
+        <a class="review-row signal-review-row" href="${reviewUrl(r.id)}">
+          <span class="rr-rank">${String(reviews.indexOf(r)+1).padStart(2,'0')}</span>
+          <img class="rr-img" src="${r.cover_image || coverFor(r.artist)}" alt="" onerror="this.src='${coverFor(r.artist)}'">
+          <div class="rr-body">
+            <div class="rr-genre">${escapeHtml(r.genre||'')}</div>
+            <div class="rr-artist">${escapeHtml(r.artist||'')}</div>
+            <div class="rr-album">${escapeHtml(r.album||'')}${r.is_best_new_music?'<span class="bnm-dot" title="Best New Music"></span>':''}</div>
+            <div class="rr-date">${formatDate(r.published_date)}</div>
+            ${r.summary ? `<div class="rr-summary">“${escapeHtml(r.summary)}”</div>` : ``}
+          </div>
+          <div class="rr-scores">
+            <div class="rr-score critic"><span class="rr-score-lbl">Critic</span> ${r.rating}</div>
+            ${r.community_score ? `<div class="rr-score community"><span class="rr-score-lbl">Fan</span> ${parseFloat(r.community_score).toFixed(1)}</div>` : ''}
+          </div>
+        </a>`).join('')}`;
+  } else if (tab === 'ratings') {
+    if (!userComments.length) { main.innerHTML = '<div class="empty-state">No community ratings yet.</div>'; return; }
+    main.innerHTML = `
+      <div class="sec-header"><h2 class="sec-title">Community Ratings</h2><span class="sec-count">${userComments.length} ratings</span></div>
+      ${userComments.map(c => {
+        const rev = allReviews.find(r => r.id === c.review_id) || {};
+        return `<a class="comment-row signal-comment-row" href="${reviewUrl(c.review_id)}">
+          <div class="cr-header">
+            <img class="cr-album-img" src="${rev.cover_image||coverFor(rev.artist||'')}" alt="" loading="lazy">
+            <div><div class="cr-album-name">${escapeHtml(rev.album||'Unknown Album')}</div><div class="cr-artist-name">${escapeHtml(rev.artist||'')}</div></div>
+            ${c.rating ? `<span class="cr-rating">${c.rating}/10</span>` : ''}
+            <span class="cr-date">${timeAgo(c.created_date)}</span>
+          </div>
+          ${c.body ? `<div class="cr-body">"${escapeHtml(c.body)}"</div>` : ''}
+          <div class="cr-likes">♡ ${c.likes||0} likes</div>
+        </a>`;
+      }).join('')}`;
+  } else if (tab === 'taste') {
+    const genreMap = {};
+    const tasteReviews = userReviews.length ? userReviews : (isStaffProfile() ? [] : reviewsFromComments());
+    tasteReviews.forEach(r => { if(r.genre) genreMap[r.genre]=(genreMap[r.genre]||0)+1; });
+    // fallback for staff critics with no live reviews
+    if (!Object.keys(genreMap).length && isStaffProfile()) {
+      const defaults = { 'Electronic': 18, 'Ambient': 12, 'R&B': 8, 'Hip-Hop': 6, 'Indie': 4 };
+      Object.assign(genreMap, defaults);
+    }
+    const maxCount = Math.max(...Object.values(genreMap), 1);
+    const sorted = Object.entries(genreMap).sort((a,b)=>b[1]-a[1]);
+    const moodTags = [...new Set(tasteReviews.flatMap(r=>r.mood_tags||[]))].slice(0,8);
+    const fallbackMoods = ['melancholic','cerebral','transcendent','cinematic','raw'];
+    main.innerHTML = `
+      <div class="sec-header"><h2 class="sec-title">Taste Profile</h2></div>
+      <p class="taste-intro">Based on ${userReviews.length || userComments.length || (isStaffProfile() ? '48+' : 0)} ${userReviews.length || isStaffProfile() ? 'reviews' : 'community ratings'} — ${profileUser.split(' ')[0]} tends toward records that reward close listening. Consistent preference for emotional depth over technical complexity.</p>
+      <div class="taste-block">
+        <div class="taste-block-title">Top Genres</div>
+        ${sorted.slice(0,6).map(([genre, count]) => `
+          <div class="genre-bar">
+            <div class="genre-bar-header"><span class="genre-bar-name">${genre}</span><span class="genre-bar-count">${count} review${count>1?'s':''}</span></div>
+            <div class="genre-bar-track"><div class="genre-bar-fill" data-pct="${Math.round(count/maxCount*100)}"></div></div>
+          </div>`).join('')}
+      </div>
+      <div class="taste-block">
+        <div class="taste-block-title">Mood Tags</div>
+        <div class="mood-tags">
+          ${(moodTags.length ? moodTags : fallbackMoods).map((t,i) => `<span class="mood-tag ${i<3?'primary':''}">${t}</span>`).join('')}
+        </div>
+      </div>
+      <div class="taste-block">
+        <div class="taste-block-title">Score Distribution</div>
+        <div class="score-histogram" id="histogram"></div>
+      </div>`;
+
+    // Animate genre bars
+    setTimeout(() => {
+      main.querySelectorAll('.genre-bar-fill').forEach(b => { b.style.width = b.dataset.pct + '%'; });
+    }, 200);
+
+    // Histogram
+    const hist = document.getElementById('histogram');
+    if (hist) {
+      const buckets = { '1-5': 2, '6': 4, '7': 10, '8': 18, '9': 12, '10': 4 };
+      const maxB = Math.max(...Object.values(buckets));
+      hist.innerHTML = Object.entries(buckets).map(([lbl, cnt]) => {
+        const h = Math.round((cnt / maxB) * 70);
+        return `<div class="hist-bar"><div class="hist-fill" style="height:${h}px;opacity:${0.4+cnt/maxB*0.6}"></div><span class="hist-label">${lbl}</span></div>`;
+      }).join('');
+    }
+  } else if (tab === 'favorites') {
+    const favs = [...allReviews].sort((a,b)=>(b.rating||0)-(a.rating||0)).slice(0, 12);
+    main.innerHTML = `
+      <div class="sec-header"><h2 class="sec-title">Favourites</h2><span class="sec-count">${favs.length} albums</span></div>
+      <div class="fav-grid">
+        ${favs.map(r => `
+          <a class="fav-cell" href="${reviewUrl(r.id)}">
+            <img src="${r.cover_image||coverFor(r.artist)}" alt="${r.album}" onerror="this.src='${coverFor(r.artist)}'" loading="lazy">
+            <div class="fav-cell-overlay">
+              <div class="fav-cell-album">${escapeHtml(r.album||'')}</div>
+              <div class="fav-cell-artist">${escapeHtml(r.artist||'')}</div>
+              <div class="fav-cell-score">${r.rating} ★</div>
+            </div>
+          </a>`).join('')}
+      </div>`;
+  }
+}
+
+function renderSidebar() {
+  // Most relevant recent item
+  const latestComment = userComments[0];
+  const latest = userReviews.length ? userReviews[0] : (latestComment ? allReviews.find(r=>r.id===latestComment.review_id) : (isStaffProfile() ? allReviews[0] : null));
+  if (latest) {
+    document.getElementById('sb-recent').innerHTML = `
+      <div class="sb-title">${userReviews.length || isStaffProfile() ? 'Most Recent Review' : 'Latest Rated Album'}</div>
+      <img class="sb-recent-img" src="${latest.cover_image||coverFor(latest.artist)}" alt="" loading="lazy">
+      <div class="sb-recent-album">${escapeHtml(latest.album||'')}</div>
+      <div class="sb-recent-artist">${escapeHtml(latest.artist||'')}</div>
+      <div class="sb-score-row">
+        <span class="sb-score" style="color:${scoreColor(latest.rating)}">${latest.rating} critic</span>
+        ${latest.community_score ? `<span class="sb-score" style="color:var(--score-community)">${parseFloat(latest.community_score).toFixed(1)} fans</span>` : ''}
+      </div>`;
+  }
+
+  // Activity from comments
+  const actEl = document.getElementById('sb-activity');
+  if (actEl) {
+    const recent = allComments.slice(0, 4);
+    if (recent.length) {
+      actEl.innerHTML = recent.map(c => {
+        const rev = allReviews.find(r=>r.id===c.review_id)||{};
+        return `<div style="font-size:12px;color:var(--text-muted);padding:6px 0;border-bottom:1px solid var(--border);">
+          <strong style="color:var(--text-secondary)">${escapeHtml(c.author_name||'Anonymous')}</strong> rated <em style="color:var(--score-community)">${escapeHtml(rev.album||'…')}</em> ${c.rating ? c.rating+'/10' : ''}
+          <span style="float:right">${timeAgo(c.created_date)}</span>
+        </div>`;
+      }).join('');
+    }
+  }
+}
+
+function initTabs() {
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      renderTab(btn.dataset.tab);
+    });
+  });
+}
+
+function initFollow() {
+  const btn = document.getElementById('follow-btn');
+  btn.addEventListener('click', () => {
+    following = !following;
+    btn.textContent = following ? '✓ Following' : '+ Follow';
+    btn.classList.toggle('following', following);
+    showToast(following ? `Following ${profileUser.split(' ')[0]}` : 'Unfollowed');
+  });
+}
+
+function initMobileNav() {
+  const burger = document.getElementById('burger');
+  const links = document.getElementById('nav-links');
+  burger.addEventListener('click', () => {
+    const open = links.classList.toggle('mobile-open');
+    burger.innerHTML = open ? '✕' : '☰';
+  });
+  const style = document.createElement('style');
+  style.textContent = `
+    .nav-links.mobile-open { display:flex!important;position:absolute;top:60px;left:0;right:0;background:rgba(10,10,10,0.98);border-bottom:1px solid #1A1A1A;flex-direction:column;padding:16px 24px 24px;z-index:200; }
+    .nav-links.mobile-open li { border-bottom:1px solid #1A1A1A; }
+    .nav-links.mobile-open a { display:block;padding:14px 0; }
+  `;
+  document.head.appendChild(style);
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+document.addEventListener('DOMContentLoaded', boot);
+</script>
+
+<footer class="reverb-footer" aria-label="REVERB footer">
+  <div class="reverb-footer-inner">
+    <section class="reverb-footer-newsletter" id="digest-signup">
+      <div>
+        <div class="reverb-footer-kicker">The REVERB Digest</div>
+        <h2 class="reverb-footer-title">Music that stays<br>in your inbox.</h2>
+        <p class="reverb-footer-desc">Monday mornings. The week’s best reviews, the albums you can’t miss, and one sharp editorial read. No noise. No ads. Just music.</p>
+      </div>
+      <div>
+        <form class="reverb-footer-form" data-digest-form novalidate>
+          <input class="reverb-footer-input" name="email" type="email" placeholder="your@email.com" autocomplete="email" required aria-label="Email address">
+          <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;height:0;width:0" aria-hidden="true">
+          <button class="reverb-footer-button" type="submit">Subscribe</button>
+        </form>
+        <p class="reverb-footer-note" data-digest-note>Unsubscribe anytime. We hate spam as much as a 3/10 album.</p>
+      </div>
+    </section>
+
+    <div class="reverb-footer-grid">
+      <div>
+        <div class="reverb-footer-logo">REVERB<span>.</span></div>
+        <p class="reverb-footer-tagline">“Music that stays with you.” Serious criticism, community ratings, and records worth arguing about.</p>
+      </div>
+      <nav aria-label="Review links">
+        <div class="reverb-footer-heading">Reviews</div>
+        <ul class="reverb-footer-links">
+          <li><a href="/browse">Latest Reviews</a></li>
+          <li><a href="/new">Best New Music</a></li>
+          <li><a href="/browse?min=8">8.0+ Reviews</a></li>
+          <li><a href="/browse?view=lists">Lists</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Browse links">
+        <div class="reverb-footer-heading">Browse</div>
+        <ul class="reverb-footer-links">
+          <li><a href="/browse?genre=Hip-Hop">Hip-Hop</a></li>
+          <li><a href="/browse?genre=Electronic">Electronic</a></li>
+          <li><a href="/browse?genre=Indie">Indie</a></li>
+          <li><a href="/community">Community</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Community links">
+        <div class="reverb-footer-heading">Community</div>
+        <ul class="reverb-footer-links">
+          <li><a href="/community">User Reviews</a></li>
+          <li><a href="/profile">Profile</a></li>
+          <li><a href="/admin">Editorial Admin</a></li>
+          <li><a href="#digest-signup">Newsletter</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="reverb-footer-bottom">
+      <span class="reverb-footer-copy">© 2026 REVERB. All rights reserved.</span>
+      <div class="reverb-footer-social" aria-label="Social links">
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://x.com/" target="_blank" rel="noopener">Twitter/X</a>
+        <a href="https://www.tiktok.com/" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://open.spotify.com/" target="_blank" rel="noopener">Spotify</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script id="reverb-global-footer-script">
+(function(){
+  function wireDigestForm(form){
+    if (!form || form.dataset.digestWired === '1') return;
+    form.dataset.digestWired = '1';
+    const email = form.querySelector('input[name="email"]');
+    const hp = form.querySelector('input[name="website"]');
+    const btn = form.querySelector('button[type="submit"], button');
+    const note = form.parentElement ? form.parentElement.querySelector('[data-digest-note], .newsletter-note') : null;
+    function setNote(msg, color){ if(note){ note.textContent = msg; note.style.color = color || ''; } }
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+      const value = (email && email.value || '').trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+        setNote('Drop in a valid email and we’ll add you to Monday’s digest.', '#E8363A');
+        if(email) email.focus();
+        return;
+      }
+      const oldText = btn ? btn.textContent : '';
+      if(btn){ btn.disabled = true; btn.textContent = 'Subscribing…'; }
+      try {
+        const res = await fetch('/api/reverbSubscribers?endpoint=subscribe', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: value, website: hp ? hp.value || '' : '', source: location.pathname === '/' ? 'homepage' : location.pathname.replace(/^\//,'') || 'homepage' })
+        });
+        const data = await res.json();
+        if (data.ok) { if(email) email.value = ''; setNote(data.message || 'You’re subscribed to The REVERB Digest. See you Monday.', '#4A9EFF'); }
+        else setNote(data.error || 'Could not subscribe right now. Try again in a minute.', '#E8363A');
+      } catch(err) { setNote('Network hiccup. Try again in a minute.', '#E8363A'); }
+      finally { if(btn){ btn.disabled = false; btn.textContent = oldText || 'Subscribe'; } }
+    });
+  }
+  document.querySelectorAll('[data-digest-form], #newsletterForm').forEach(wireDigestForm);
+})();
+</script>
+
+
+<!-- ⌘K SEARCH OVERLAY -->
+<div id="reverbSearchOverlay" role="dialog" aria-modal="true" aria-label="Search REVERB" style="position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.88);backdrop-filter:blur(14px);display:none;align-items:flex-start;justify-content:center;padding-top:100px">
+  <div style="width:100%;max-width:700px;background:#111;border:1px solid #2A2A2A;border-radius:12px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.8)">
+    <div style="display:flex;align-items:center;gap:14px;padding:22px 28px;border-bottom:1px solid #2A2A2A">
+      <svg width="18" height="18" fill="none" stroke="#6B6B6B" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input id="reverbSearchInput" autocomplete="off" spellcheck="false" style="flex:1;background:none;border:none;color:#fff;font-size:1.15rem;font-family:Inter,system-ui,sans-serif;outline:none" placeholder="Search albums, artists, genres…" aria-label="Search">
+      <span id="reverbSearchEsc" style="font-family:DM Mono,monospace;font-size:.65rem;color:#6B6B6B;background:#1A1A1A;padding:3px 8px;border-radius:3px;cursor:pointer;user-select:none">ESC</span>
+    </div>
+    <div id="reverbSearchHints" style="padding:14px 28px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid #1A1A1A">
+      <span style="font-size:.68rem;color:#5A5A5A;width:100%;margin-bottom:2px;font-family:Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase">Quick filters</span>
+      <button type="button" onclick="reverbSearch('hip-hop')" style="font-size:.7rem;font-weight:700;letter-spacing:.06em;color:#A0A0A0;background:#1A1A1A;border:1px solid #2A2A2A;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif">Hip-Hop</button>
+      <button type="button" onclick="reverbSearch('electronic')" style="font-size:.7rem;font-weight:700;letter-spacing:.06em;color:#A0A0A0;background:#1A1A1A;border:1px solid #2A2A2A;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif">Electronic</button>
+      <button type="button" onclick="reverbSearch('folk')" style="font-size:.7rem;font-weight:700;letter-spacing:.06em;color:#A0A0A0;background:#1A1A1A;border:1px solid #2A2A2A;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif">Folk</button>
+      <button type="button" onclick="reverbSearch('r&b')" style="font-size:.7rem;font-weight:700;letter-spacing:.06em;color:#A0A0A0;background:#1A1A1A;border:1px solid #2A2A2A;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif">R&amp;B</button>
+      <button type="button" onclick="reverbSearch('best new')" style="font-size:.7rem;font-weight:700;letter-spacing:.06em;color:#A0A0A0;background:#1A1A1A;border:1px solid #2A2A2A;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif">&#9733; BNM</button>
+      <button type="button" onclick="reverbSearch('9')" style="font-size:.7rem;font-weight:700;letter-spacing:.06em;color:#A0A0A0;background:#1A1A1A;border:1px solid #2A2A2A;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif">Score 9+</button>
+    </div>
+    <div id="reverbSearchResults" style="max-height:460px;overflow-y:auto"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var DATA_API='https://shopify-copy-f62a1de4.base44.app/functions/reverbData';
+  var _idx=null,_open=false;
+  function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function ensureIdx(){
+    if(_idx)return Promise.resolve(_idx);
+    return fetch(DATA_API+'?endpoint=browse&limit=50').then(function(r){return r.json();}).then(function(d){_idx=d.reviews||[];return _idx;}).catch(function(){_idx=[];return _idx;});
+  }
+  function hi(s,q){
+    if(!q)return esc(s);
+    return esc(s).replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark style="background:rgba(232,54,58,.35);color:#fff;border-radius:2px">$1</mark>');
+  }
+  window.reverbSearch=function(q){
+    var inp=document.getElementById('reverbSearchInput');
+    var res=document.getElementById('reverbSearchResults');
+    var hints=document.getElementById('reverbSearchHints');
+    if(inp&&q&&inp.value!==q)inp.value=q;
+    q=((q||(inp&&inp.value)||'').trim()).toLowerCase();
+    if(!res)return;
+    if(!q){res.innerHTML='';if(hints)hints.style.display='';return;}
+    if(hints)hints.style.display='none';
+    res.innerHTML='<div style="padding:28px;text-align:center;color:#5A5A5A;font-family:Inter,sans-serif;font-size:.85rem">Searching\u2026</div>';
+    ensureIdx().then(function(idx){
+      var hits=idx.filter(function(r){
+        var hay=[r.artist,r.album,r.title,r.genre].concat(r.mood_tags||[]).concat(r.tags||[]).join(' ').toLowerCase();
+        if(q==='best new')return r.is_best_new_music;
+        if(q==='9')return(r.rating||0)>=9;
+        return hay.indexOf(q)>=0;
+      }).slice(0,10);
+      if(!hits.length){res.innerHTML='<div style="padding:40px 28px;text-align:center;color:#5A5A5A;font-family:Inter,sans-serif;font-size:.9rem">No results for &ldquo;<strong style=\'color:#A0A0A0\'>'+esc(q)+'</strong>&rdquo;</div>';return;}
+      res.innerHTML=hits.map(function(r){
+        var score=Number(r.rating||0).toFixed(1);
+        var bnm=r.is_best_new_music?'<span style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:#E8363A;color:#fff;padding:2px 6px;border-radius:2px;flex-shrink:0">BNM</span>':'';
+        return '<a href="/review?id='+esc(r.id)+'" style="display:flex;align-items:center;gap:14px;padding:14px 28px;border-bottom:1px solid #1A1A1A;text-decoration:none;transition:background .12s" onmouseover="this.style.background=\'#1A1A1A\'" onmouseout="this.style.background=\'\'">'
+          +'<img src="'+esc(r.cover_image||'')+'" alt="'+esc(r.album)+'" style="width:44px;height:44px;object-fit:cover;border-radius:3px;flex-shrink:0;background:#222" loading="lazy" onerror="this.style.opacity=.15">'
+          +'<div style="flex:1;min-width:0">'
+            +'<div style="font-size:.88rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+hi(r.artist||'',q)+' \u2014 '+hi(r.album||r.title||'',q)+'</div>'
+            +'<div style="font-size:.75rem;color:#6B6B6B;margin-top:3px;font-family:Inter,sans-serif">'+esc(r.genre||'')+(r.is_best_new_music?' \xb7 Best New Music':'')+'</div>'
+          +'</div>'
+          +'<span style="font-family:\'DM Mono\',monospace;font-size:1rem;font-weight:700;color:#F5C518;flex-shrink:0">'+score+'</span>'
+          +bnm+'</a>';
+      }).join('');
+    });
+  };
+  window.openReverbSearch=function(){
+    var o=document.getElementById('reverbSearchOverlay');
+    if(!o)return;
+    o.style.display='flex';_open=true;document.body.style.overflow='hidden';
+    setTimeout(function(){var i=document.getElementById('reverbSearchInput');if(i){i.focus();i.select();}},60);
+    ensureIdx();
+  };
+  window.closeReverbSearch=function(){
+    var o=document.getElementById('reverbSearchOverlay');
+    if(!o)return;
+    o.style.display='none';_open=false;document.body.style.overflow='';
+    var r=document.getElementById('reverbSearchResults');
+    var h=document.getElementById('reverbSearchHints');
+    var i=document.getElementById('reverbSearchInput');
+    if(r)r.innerHTML='';if(h)h.style.display='';if(i)i.value='';
+  };
+  function boot(){
+    var o=document.getElementById('reverbSearchOverlay');
+    if(!o)return;
+    o.addEventListener('click',function(e){if(e.target===o)window.closeReverbSearch();});
+    var eb=document.getElementById('reverbSearchEsc');
+    if(eb)eb.addEventListener('click',window.closeReverbSearch);
+    var inp=document.getElementById('reverbSearchInput');
+    if(inp){
+      inp.addEventListener('input',function(){window.reverbSearch(this.value);});
+      inp.addEventListener('keydown',function(e){
+        if(e.key==='Escape')window.closeReverbSearch();
+        if(e.key==='Enter'){var f=document.querySelector('#reverbSearchResults a');if(f){window.closeReverbSearch();location.href=f.href;}}
+      });
+    }
+    document.querySelectorAll('[data-search-trigger],[data-reverb-search],[id="navSearchTrigger"]').forEach(function(el){
+      var fresh=el.cloneNode(true);
+      if(el.parentNode)el.parentNode.replaceChild(fresh,el);
+      fresh.addEventListener('click',function(e){e.preventDefault();window.openReverbSearch();});
+    });
+    document.addEventListener('keydown',function(e){
+      if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();_open?window.closeReverbSearch():window.openReverbSearch();}
+      if(e.key==='Escape'&&_open)window.closeReverbSearch();
+    });
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',boot);}else{boot();}
+})();
+</script>
+
+  <!-- REVERB × SR7 Motion System -->
+  <script>
+/* ============================================================
+   REVERB × SR7 — Motion System JS
+   Scroll-reveal + filter cycling + loading screen
+   ============================================================ */
+(function() {
+  'use strict';
+
+  /* ── 1. Loading screen ──────────────────────────────────── */
+  function initLoadingScreen() {
+    const screen = document.getElementById('reverb-loading-screen');
+    if (!screen) return;
+    window.addEventListener('load', () => {
+      setTimeout(() => screen.classList.add('hidden'), 400);
+    });
+    // Safety fallback
+    setTimeout(() => screen && screen.classList.add('hidden'), 2500);
+  }
+
+  /* ── 2. Scroll-reveal (IntersectionObserver) ────────────── */
+  function initScrollReveal() {
+    const els = document.querySelectorAll('.sr7-reveal');
+    if (!els.length) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(el => io.observe(el));
+  }
+
+  /* ── 3. Album cover filter cycling ─────────────────────── */
+  // Applies a genre-appropriate SR7 filter to each album cover
+  const GENRE_FILTERS = {
+    'hip-hop':    'cover-filter-lofi',
+    'rap':        'cover-filter-lofi',
+    'electronic': 'cover-filter-clarendon',
+    'dance':      'cover-filter-walden',
+    'indie':      'cover-filter-lark',
+    'indie rock': 'cover-filter-lark',
+    'alternative':'cover-filter-reyes',
+    'folk':       'cover-filter-inkwell',
+    'classical':  'cover-filter-moon',
+    'r&b':        'cover-filter-slumber',
+    'soul':       'cover-filter-slumber',
+    'pop':        'cover-filter-nashville',
+    'country':    'cover-filter-rise',
+    'punk':       'cover-filter-toaster',
+    'metal':      'cover-filter-toaster',
+    'jazz':       'cover-filter-mayfair',
+    'default':    'cover-filter-clarendon'
+  };
+
+  function applyGenreFilter(imgEl, genre) {
+    const key = (genre || '').toLowerCase();
+    const filter = GENRE_FILTERS[key] || GENRE_FILTERS['default'];
+    // Apply to parent wrapper so ::after pseudo works
+    const wrap = imgEl.closest('.album-art-wrap, .cover-wrap, .mood-img-wrap, .hero-cover-wrap') || imgEl.parentElement;
+    if (wrap) {
+      wrap.classList.add(filter);
+      wrap.dataset.srFilter = filter;
+    }
+  }
+
+  function initCoverFilters() {
+    // Hook into hydrated review cards
+    document.querySelectorAll('[data-genre]').forEach(card => {
+      const img = card.querySelector('img');
+      if (img) applyGenreFilter(img, card.dataset.genre);
+    });
+    // Also hook mood filmstrip items
+    document.querySelectorAll('.mood-card[data-genre] img').forEach(img => {
+      applyGenreFilter(img, img.closest('[data-genre]').dataset.genre);
+    });
+  }
+
+  /* ── 4. Hero wipe transition (between slides) ───────────── */
+  window.REVERB_SR7 = {
+    wipe: function(container) {
+      if (!container) return;
+      const wipe = document.createElement('div');
+      wipe.className = 'hero-wipe';
+      container.style.position = 'relative';
+      container.appendChild(wipe);
+      wipe.classList.add('wipe-enter');
+      setTimeout(() => {
+        wipe.classList.remove('wipe-enter');
+        wipe.classList.add('wipe-exit');
+        setTimeout(() => wipe.remove(), 700);
+      }, 700);
+    },
+
+    // Apply filter to any img by genre
+    applyFilter: applyGenreFilter,
+
+    // Shimmer placeholder on any element
+    shimmer: function(el) {
+      if (!el) return;
+      el.classList.add('reverb-shimmer');
+      return { done: () => el.classList.remove('reverb-shimmer') };
+    }
+  };
+
+  /* ── 5. Score chips — elastic pop on intersect ──────────── */
+  function initScorePop() {
+    const chips = document.querySelectorAll('.score-display, .rating-badge, .community-score, .score-chip');
+    if (!chips.length) return;
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.animation = 'none';
+          requestAnimationFrame(() => {
+            e.target.style.animation = '';
+            e.target.classList.add('sr7-elastic-pop');
+          });
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    chips.forEach(c => io.observe(c));
+  }
+
+  /* ── 6. Stagger sr7-reveal children inside sections ────── */
+  function initStaggeredSections() {
+    document.querySelectorAll('[data-sr7-stagger]').forEach(section => {
+      const children = section.children;
+      Array.from(children).forEach((child, i) => {
+        child.classList.add('sr7-reveal');
+        child.style.transitionDelay = `${i * 0.08}s`;
+      });
+    });
+    // Re-run scroll reveal to pick up new elements
+    initScrollReveal();
+  }
+
+  /* ── Boot ───────────────────────────────────────────────── */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+
+  function boot() {
+    initLoadingScreen();
+    initScrollReveal();
+    initCoverFilters();
+    initScorePop();
+    initStaggeredSections();
+    // Re-apply after hydration (data arrives async)
+    setTimeout(initCoverFilters, 1200);
+    setTimeout(initCoverFilters, 3000);
+  }
+})();
+
+  </script>
+  <!-- SR7 cover filter sweep -->
+  <script>
+  (function() {
+    function sweepFilters() {
+      if (!window.REVERB_SR7) return;
+      document.querySelectorAll('img[data-genre], [data-genre] img').forEach(function(img) {
+        var genre = (img.dataset.genre || img.closest('[data-genre]')?.dataset.genre || '');
+        REVERB_SR7.applyFilter(img, genre);
+      });
+      // Also hit any img inside a cover/art wrapper whose parent has a genre text node
+      document.querySelectorAll('.cover-wrap img, .album-art img, .album-art-wrap img, .review-cover img').forEach(function(img) {
+        if (!img.closest('[class*="cover-filter"]')) {
+          var card = img.closest('[data-genre]') || img.closest('.review-card') || img.closest('article');
+          var genre = card?.dataset.genre || card?.querySelector('.card-genre, .genre-tag')?.textContent || '';
+          if (genre) REVERB_SR7.applyFilter(img, genre);
+        }
+      });
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(sweepFilters, 800);
+      setTimeout(sweepFilters, 2500);
+    });
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+# Work / scratch files
+*.meta.json
+*.update.json
+*.response.json
+*-search.*.json
+*-trigger.*.json
+*-filters.*.json
+*-loadmore.*.json
+*-noentity.*.json
+*-publicsafe.*.json
+*-modern.*.json
+*-sidebar.*.json
+*-comments.*.json
+*-ux.*.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+
+# Node
+node_modules/
+.vercel/

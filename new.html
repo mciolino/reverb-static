@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://shopify-copy-f62a1de4.base44.app">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Best New Music — REVERB</title>
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="REVERB">
+  <meta property="og:title"       content="Best New Music — REVERB">
+  <meta property="og:description" content="Essential albums with standout critic scores and editorial context.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/mciolino/REVERB/main/public/og-image.png">
+  <meta property="og:url"         content="https://reverb-music-five.vercel.app/new">
+  <link rel="canonical" href="https://reverb-music-five.vercel.app/new">
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:site"        content="@reverbmusic">
+  <meta name="twitter:title"       content="Best New Music — REVERB">
+  <meta name="twitter:description" content="Essential albums with standout critic scores and editorial context.">
+  <meta name="twitter:image"       content="https://reverb-music-five.vercel.app/og-default.jpg">
+
+  <meta name="description" content="Discover REVERB Best New Music — essential albums with standout critic scores, community ratings, and editorial context.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0A0A0A;--surface:#111111;--surface2:#1A1A1A;--border:#2A2A2A;--accent:#E8363A;--text:#FFFFFF;--text2:#A0A0A0;--text3:#6B6B6B;--gold:#F5C518;--blue:#4A9EFF;--green:#1DB954;--font-display:'Playfair Display',Georgia,serif;--font-ui:'Inter',system-ui,sans-serif;--font-body:'Lora',Georgia,serif;--font-mono:'DM Mono',monospace}
+body{background:var(--bg);color:var(--text);font-family:var(--font-ui);min-height:100vh}
+a{color:inherit;text-decoration:none}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:60px}
+.nav-logo{font-family:var(--font-display);font-weight:900;font-size:1.4rem;letter-spacing:-.02em}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-links a{font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text2);transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.nav-links a.active{border-bottom:2px solid var(--accent);padding-bottom:2px}
+.nav-search{background:none;border:1px solid var(--border);border-radius:6px;padding:6px 12px;color:var(--text2);font-size:.8rem;font-family:var(--font-ui);width:200px;transition:all .2s;cursor:text}
+.nav-search:focus{outline:none;border-color:var(--accent);color:var(--text);width:260px}
+.search-wrap{position:relative}
+.search-kbd{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-family:var(--font-mono);font-size:.65rem;color:var(--text3);pointer-events:none}
+
+/* HERO BANNER */
+.bnm-hero{background:linear-gradient(135deg, #0A0A0A 0%, #1a0a0a 50%, #0A0A0A 100%);border-bottom:1px solid var(--border);padding:80px 40px 60px;position:relative;overflow:hidden}
+.bnm-hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(232,54,58,.03) 60px,rgba(232,54,58,.03) 61px);pointer-events:none}
+.bnm-badge{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:4px;margin-bottom:24px}
+.bnm-hero h1{font-family:var(--font-display);font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;line-height:1;margin-bottom:16px}
+.bnm-hero p{font-family:var(--font-body);font-size:1.1rem;color:var(--text2);max-width:560px;line-height:1.6;margin-bottom:32px}
+.bnm-stats{display:flex;gap:48px}
+.bnm-stat-val{font-family:var(--font-mono);font-size:2rem;font-weight:500;color:var(--gold);display:block}
+.bnm-stat-label{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-top:4px}
+
+/* GRID */
+.bnm-grid-wrap{max-width:1200px;margin:0 auto;padding:60px 40px}
+.section-label{display:flex;align-items:center;gap:12px;margin-bottom:40px}
+.section-label::before{content:'';width:32px;height:2px;background:var(--accent)}
+.section-label span{font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--accent)}
+
+/* FEATURED TOP PICK */
+.bnm-featured{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:60px;min-height:420px;cursor:pointer;transition:border-color .3s}
+.bnm-featured:hover{border-color:rgba(232,54,58,.4)}
+.bnm-featured-art{position:relative;overflow:hidden}
+.bnm-featured-art img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.bnm-featured:hover .bnm-featured-art img{transform:scale(1.04)}
+.bnm-featured-art::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,transparent 60%,var(--bg))}
+.bnm-featured-info{background:var(--surface);padding:48px;display:flex;flex-direction:column;justify-content:center}
+.feat-pick-badge{display:inline-flex;align-items:center;gap:6px;font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.feat-pick-badge::before{content:'★';font-size:.8rem}
+.feat-artist{font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.feat-album{font-family:var(--font-display);font-size:2rem;font-weight:900;line-height:1.1;margin-bottom:12px}
+.feat-title{font-family:var(--font-body);font-style:italic;font-size:1rem;color:var(--text2);margin-bottom:24px}
+.feat-body{font-family:var(--font-body);font-size:.95rem;color:var(--text2);line-height:1.7;margin-bottom:32px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.feat-scores{display:flex;gap:24px;align-items:center;margin-bottom:28px}
+.feat-score-item{text-align:center}
+.feat-score-num{font-family:var(--font-mono);font-size:2.2rem;font-weight:500;line-height:1}
+.feat-score-num.gold{color:var(--gold)}
+.feat-score-num.blue{color:var(--blue)}
+.feat-score-label{font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-top:4px}
+.feat-score-divider{width:1px;height:48px;background:var(--border)}
+.feat-cta{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:12px 24px;border-radius:6px;transition:background .2s;align-self:flex-start}
+.feat-cta:hover{background:#c42d31}
+
+/* BNM CARDS GRID */
+.bnm-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px}
+.bnm-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:all .25s;display:flex;flex-direction:column}
+.bnm-card:hover{border-color:rgba(232,54,58,.35);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.5)}
+.bnm-card-art{position:relative;aspect-ratio:1;overflow:hidden}
+.bnm-card-art img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.bnm-card:hover .bnm-card-art img{transform:scale(1.06)}
+.bnm-card-score{position:absolute;top:12px;right:12px;background:rgba(10,10,10,.85);backdrop-filter:blur(8px);border-radius:6px;padding:6px 10px;text-align:center}
+.bnm-card-score .num{font-family:var(--font-mono);font-size:1.3rem;font-weight:500;color:var(--gold);display:block;line-height:1}
+.bnm-card-score .lbl{font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-top:2px}
+.bnm-badge-small{position:absolute;top:12px;left:12px;background:var(--accent);color:#fff;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 8px;border-radius:3px}
+.bnm-card-body{padding:20px;flex:1;display:flex;flex-direction:column;gap:6px}
+.bnm-card-artist{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.bnm-card-album{font-family:var(--font-display);font-size:1.1rem;font-weight:700;line-height:1.2}
+.bnm-card-summary{font-family:var(--font-body);font-style:italic;font-size:.85rem;color:var(--text2);margin-top:4px}
+.bnm-card-meta{display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:12px;border-top:1px solid var(--border)}
+.bnm-card-genre{font-size:.65rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);background:var(--surface2);padding:3px 8px;border-radius:3px}
+.bnm-card-community{font-size:.7rem;color:var(--blue);font-family:var(--font-mono);margin-left:auto}
+
+/* SORT BAR */
+.sort-bar{display:flex;align-items:center;gap:16px;margin-bottom:32px;flex-wrap:wrap}
+.sort-bar span{font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)}
+.sort-btn{background:none;border:1px solid var(--border);color:var(--text2);font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:6px 14px;border-radius:20px;cursor:pointer;transition:all .2s;font-family:var(--font-ui)}
+.sort-btn:hover,.sort-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* TICKER */
+.ticker-wrap{background:var(--accent);overflow:hidden;height:36px;display:flex;align-items:center}
+.ticker-track{display:flex;gap:0;animation:ticker 30s linear infinite;white-space:nowrap}
+.ticker-item{display:flex;align-items:center;gap:8px;padding:0 24px;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.ticker-item::before{content:'★ ◆'}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* CINEMATIC BNM FRONT TABLE */
+.bnm-progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:240;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,var(--accent),var(--gold),var(--blue));pointer-events:none}
+.bnm-hero{min-height:650px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr);gap:56px;align-items:end;isolation:isolate;--bnm-progress:0;background:radial-gradient(circle at 16% 16%,rgba(232,54,58,.24),transparent 27%),radial-gradient(circle at 70% 52%,rgba(245,197,24,.11),transparent 29%),#0A0A0A;padding-top:110px}
+.bnm-hero::after{content:'BEST NEW';position:absolute;right:-4vw;bottom:-3.5vw;z-index:0;font-family:var(--font-display);font-size:clamp(82px,15vw,220px);font-weight:900;letter-spacing:-.075em;color:rgba(255,255,255,.04);line-height:.8;transform:translateY(calc(var(--bnm-progress)*36px));pointer-events:none}
+.bnm-hero-copy{position:relative;z-index:3;max-width:720px}.bnm-hero h1{font-size:clamp(54px,8vw,106px);letter-spacing:-.055em}.bnm-hero p{max-width:640px}
+.bnm-tableau{position:relative;z-index:2;min-height:430px;perspective:1200px;transform:translateY(calc(var(--bnm-progress)*-24px));will-change:transform}
+.bnm-table-card{position:absolute;width:clamp(160px,20vw,280px);aspect-ratio:1;background-size:cover;background-position:center;border:1px solid rgba(255,255,255,.14);box-shadow:0 34px 90px rgba(0,0,0,.5);transition:transform .45s cubic-bezier(.16,1,.3,1);overflow:hidden}
+.bnm-table-card::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.68),transparent 62%)}
+.bnm-table-card.one{right:12%;top:0;z-index:4;transform:rotate(4deg) translate3d(calc(var(--bnm-progress)*-28px),calc(var(--bnm-progress)*70px),0)}
+.bnm-table-card.two{left:6%;top:92px;z-index:3;opacity:.78;transform:rotate(-8deg) translate3d(calc(var(--bnm-progress)*34px),calc(var(--bnm-progress)*-30px),0)}
+.bnm-table-card.three{right:2%;bottom:10px;z-index:2;width:clamp(122px,15vw,200px);opacity:.58;transform:rotate(10deg) translate3d(calc(var(--bnm-progress)*-18px),calc(var(--bnm-progress)*-54px),0)}
+.bnm-table-note{position:absolute;left:0;right:0;bottom:0;z-index:6;padding:22px;border:1px solid rgba(255,255,255,.14);background:rgba(10,10,10,.62);backdrop-filter:blur(18px);box-shadow:0 28px 80px rgba(0,0,0,.36)}
+.bnm-table-k{font-size:.58rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}.bnm-table-title{font-family:var(--font-display);font-size:clamp(1.55rem,3vw,2.5rem);font-weight:900;line-height:.98;letter-spacing:-.035em}.bnm-table-meta{font-family:var(--font-body);font-style:italic;color:var(--text2);font-size:.9rem;margin-top:8px;line-height:1.45}
+.bnm-stats{position:relative;z-index:3}.bnm-stat-val{font-size:clamp(2rem,4vw,3.2rem)}
+.bnm-grid-wrap{position:relative}.bnm-grid-wrap::before{content:'';position:absolute;left:40px;right:40px;top:28px;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.45}.bnm-featured{position:relative;border-radius:0;border-color:rgba(255,255,255,.12);box-shadow:0 30px 100px rgba(0,0,0,.32);overflow:visible;background:var(--surface)}.bnm-featured::before{content:'EDITOR PICK';position:absolute;left:-1px;top:-34px;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.14em;color:var(--text3)}.bnm-featured-art{overflow:hidden}.bnm-featured-art img{filter:saturate(.95) contrast(1.05)}.bnm-featured-info{position:relative}.bnm-featured-info::after{content:'';position:absolute;right:24px;top:24px;width:88px;height:88px;border:1px solid rgba(245,197,24,.28);border-radius:50%;background:radial-gradient(circle,rgba(245,197,24,.08),transparent 64%)}
+.bnm-cards{grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;perspective:1200px}.bnm-card{position:relative;border-radius:0;min-height:420px;border-color:rgba(255,255,255,.10);box-shadow:0 18px 60px rgba(0,0,0,.24);transform-style:preserve-3d}.bnm-card:hover{transform:translateY(-8px) rotateX(calc(var(--my,0)*-.012deg)) rotateY(calc(var(--mx,0)*.012deg));border-color:rgba(232,54,58,.55);box-shadow:0 34px 94px rgba(0,0,0,.42)}.bnm-card-art{position:absolute;inset:0;aspect-ratio:auto}.bnm-card-art::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,.98),rgba(10,10,10,.55) 46%,rgba(10,10,10,.08))}.bnm-card-art img{filter:brightness(.64) saturate(.95)}.bnm-card:hover .bnm-card-art img{filter:brightness(.42) saturate(1.12);transform:scale(1.10)}.bnm-card-body{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:20px}.bnm-card-album{font-size:1.45rem;line-height:1.02;letter-spacing:-.025em}.bnm-card-summary{line-height:1.45}.bnm-card-meta{background:rgba(10,10,10,.45);backdrop-filter:blur(8px);margin:16px -20px -20px;padding:12px 20px;border-top:1px solid rgba(255,255,255,.10)}.bnm-rank{position:absolute;top:14px;left:14px;z-index:3;font-family:var(--font-mono);font-size:.72rem;color:rgba(255,255,255,.65);letter-spacing:.1em}.bnm-rank::after{content:'';display:inline-block;width:30px;height:1px;background:var(--accent);margin-left:8px;vertical-align:middle}.bnm-card-link{position:absolute;inset:0;z-index:5}.bnm-empty{grid-column:1/-1;padding:70px 20px;text-align:center;border:1px solid var(--border);background:var(--surface);font-family:var(--font-body);color:var(--text2)}
+@media(max-width:960px){.bnm-hero{grid-template-columns:1fr;min-height:auto;padding:76px 24px 52px}.bnm-tableau{min-height:360px}.bnm-grid-wrap{padding:48px 24px}.bnm-featured{grid-template-columns:1fr}.bnm-featured-art{min-height:340px}.bnm-featured-art::after{background:linear-gradient(to top,var(--bg),transparent)}nav{padding:0 20px}.nav-links{display:none}.search-wrap{display:none}}
+@media(max-width:560px){.bnm-stats{gap:22px;flex-wrap:wrap}.bnm-tableau{min-height:300px}.bnm-table-card.one{right:4%}.bnm-table-card.two{left:0}.bnm-cards{grid-template-columns:1fr}.bnm-card{min-height:430px}.bnm-featured-info{padding:30px 24px}}
+@media(prefers-reduced-motion:reduce){.ticker-track{animation:none}.bnm-table-card,.bnm-tableau,.bnm-hero::after{transform:none!important}.bnm-card:hover{transform:translateY(-4px)}}
+
+/* SEARCH OVERLAY */
+.search-overlay{position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);display:none;align-items:flex-start;justify-content:center;padding-top:120px}
+.search-overlay.open{display:flex}
+.search-modal{width:100%;max-width:680px;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.search-input-wrap{display:flex;align-items:center;gap:12px;padding:20px 24px;border-bottom:1px solid var(--border)}
+.search-input-wrap svg{color:var(--text3);flex-shrink:0}
+.search-input{flex:1;background:none;border:none;color:var(--text);font-size:1.2rem;font-family:var(--font-ui);outline:none}
+.search-input::placeholder{color:var(--text3)}
+.search-esc{font-family:var(--font-mono);font-size:.65rem;color:var(--text3);background:var(--surface2);padding:3px 7px;border-radius:3px;flex-shrink:0}
+.search-results{max-height:480px;overflow-y:auto}
+.search-result-item{display:flex;align-items:center;gap:16px;padding:16px 24px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s}
+.search-result-item:hover,.search-result-item.selected{background:var(--surface2)}
+.search-result-item:last-child{border-bottom:none}
+.search-result-img{width:48px;height:48px;border-radius:4px;object-fit:cover;flex-shrink:0}
+.search-result-info{flex:1}
+.search-result-album{font-family:var(--font-display);font-size:.95rem;font-weight:700}
+.search-result-artist{font-size:.75rem;color:var(--text2);margin-top:2px}
+.search-result-score{font-family:var(--font-mono);font-size:1rem;color:var(--gold);flex-shrink:0}
+.search-empty{padding:40px;text-align:center;color:var(--text3);font-size:.9rem}
+.search-hint{padding:16px 24px;display:flex;gap:16px;flex-wrap:wrap}
+.search-hint-tag{font-size:.72rem;font-weight:600;letter-spacing:.06em;color:var(--text2);background:var(--surface2);border:1px solid var(--border);padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .2s}
+.search-hint-tag:hover{border-color:var(--accent);color:var(--accent)}
+
+@media(max-width:768px){
+  nav{padding:0 20px}.nav-links{display:none}
+  .bnm-hero{padding:48px 20px 40px}
+  .bnm-featured{grid-template-columns:1fr}
+  .bnm-featured-art{height:260px}
+  .bnm-featured-art::after{background:linear-gradient(to bottom,transparent 40%,var(--bg))}
+  .bnm-featured-info{padding:28px}
+  .bnm-grid-wrap{padding:40px 20px}
+  .bnm-stats{gap:24px}
+}
+</style>
+
+<style id="reverb-global-footer-style">
+  .reverb-footer { background: #111111; border-top: 1px solid rgba(255,255,255,.10); margin-top: 72px; color: #fff; font-family: Inter, system-ui, sans-serif; }
+  .reverb-footer * { box-sizing: border-box; }
+  .reverb-footer a { color: inherit; text-decoration: none; }
+  .reverb-footer-inner { width: min(1180px, calc(100% - 40px)); margin: 0 auto; padding: 56px 0 28px; }
+  .reverb-footer-newsletter { display: grid; grid-template-columns: 1.15fr .85fr; gap: 28px; align-items: end; padding: 0 0 44px; margin-bottom: 42px; border-bottom: 1px solid rgba(255,255,255,.10); }
+  .reverb-footer-kicker { color: #E8363A; font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 10px; }
+  .reverb-footer-title { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(30px, 4vw, 52px); line-height: .98; font-weight: 900; letter-spacing: -.03em; margin: 0 0 12px; color: #fff; }
+  .reverb-footer-desc { font-family: Lora, Georgia, serif; color: #A0A0A0; line-height: 1.65; max-width: 620px; margin: 0; font-size: 15px; }
+  .reverb-footer-form { display: flex; gap: 0; width: 100%; max-width: 440px; margin-left: auto; }
+  .reverb-footer-input { flex: 1; min-width: 0; background: #0A0A0A; border: 1px solid #2A2A2A; border-right: 0; color: #fff; padding: 15px 16px; font: 500 14px Inter, system-ui, sans-serif; border-radius: 2px 0 0 2px; }
+  .reverb-footer-input:focus { outline: none; border-color: #E8363A; }
+  .reverb-footer-input::placeholder { color: #5A5A5A; }
+  .reverb-footer-button { background: #E8363A; border: 0; color: #fff; padding: 0 22px; border-radius: 0 2px 2px 0; font: 800 12px Inter, system-ui, sans-serif; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: background .2s ease, opacity .2s ease; }
+  .reverb-footer-button:hover { background: #B22327; }
+  .reverb-footer-button:disabled { opacity: .65; cursor: wait; }
+  .reverb-footer-note { margin: 10px 0 0; color: #5A5A5A; font-size: 12px; line-height: 1.5; text-align: right; }
+  .reverb-footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
+  .reverb-footer-logo { font-family: 'Playfair Display', Georgia, serif; font-size: 32px; font-weight: 900; letter-spacing: -.02em; margin-bottom: 12px; color: #fff; }
+  .reverb-footer-logo span { color: #E8363A; }
+  .reverb-footer-tagline { font-family: Lora, Georgia, serif; font-style: italic; color: #A0A0A0; font-size: 14px; line-height: 1.6; max-width: 280px; margin: 0; }
+  .reverb-footer-heading { color: #5A5A5A; font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 15px; }
+  .reverb-footer-links { display: grid; gap: 10px; list-style: none; padding: 0; margin: 0; }
+  .reverb-footer-links a { color: #A0A0A0; font-size: 14px; transition: color .2s ease; }
+  .reverb-footer-links a:hover { color: #fff; }
+  .reverb-footer-bottom { display: flex; justify-content: space-between; gap: 20px; align-items: center; border-top: 1px solid rgba(255,255,255,.10); margin-top: 42px; padding-top: 24px; }
+  .reverb-footer-copy { color: #5A5A5A; font-size: 12px; }
+  .reverb-footer-social { display: flex; gap: 18px; flex-wrap: wrap; }
+  .reverb-footer-social a { color: #5A5A5A; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; transition: color .2s ease; }
+  .reverb-footer-social a:hover { color: #E8363A; }
+  @media (max-width: 860px) {
+    .reverb-footer { margin-top: 48px; }
+    .reverb-footer-inner { width: min(100% - 28px, 1180px); padding-top: 42px; }
+    .reverb-footer-newsletter, .reverb-footer-grid { grid-template-columns: 1fr; }
+    .reverb-footer-form { margin-left: 0; max-width: none; }
+    .reverb-footer-note { text-align: left; }
+    .reverb-footer-bottom { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 520px) {
+    .reverb-footer-form { flex-direction: column; gap: 10px; }
+    .reverb-footer-input { border-right: 1px solid #2A2A2A; border-radius: 2px; }
+    .reverb-footer-button { min-height: 46px; border-radius: 2px; }
+  }
+</style>
+
+
+  <!-- REVERB × SR7 Motion Layer -->
+  <style id="reverb-sr7-css">
+/* ============================================================
+   REVERB × Slider Revolution 7 — Native Motion Layer
+   Extracted from revslider/public/ — adapted for static deploy
+   ============================================================ */
+
+/* ── 1. SR7 KEYFRAMES ──────────────────────────────────────── */
+@keyframes sr7-ani-mouse{0%{opacity:1;top:29%}15%{opacity:1;top:70%}50%{opacity:0;top:70%}100%{opacity:0;top:29%}}
+@keyframes tp-rotateplane{0%{transform:perspective(120px) rotateX(0deg) rotateY(0deg)}50%{transform:perspective(120px) rotateX(-180.1deg) rotateY(0deg)}100%{transform:perspective(120px) rotateX(-180deg) rotateY(-179.9deg)}}
+@keyframes tp-fade-in{0%{opacity:0}20%{opacity:0}100%{opacity:1}}
+@keyframes tp-rotate{100%{transform:rotate(360deg)}}
+@keyframes sr--anim--rotate{0%{transform:rotate(0deg)}50%{transform:rotate(180deg)}100%{transform:rotate(360deg)}}
+@keyframes sr-pop{0%{transform:scale(0.7);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes sr-elastic-pop{0%{transform:scale(0.7)}60%{transform:scale(1.1)}80%{transform:scale(0.95)}100%{transform:scale(1)}}
+@keyframes shimmer{from{background-position:200% 0}to{background-position:0% 0}}
+@keyframes tp-scaleout{0%{transform:scale(0)}100%{transform:scale(1);opacity:0}}
+@keyframes tp-bouncedelay{0%,80%,100%{transform:scale(0)}40%{transform:scale(1)}}
+@keyframes tp-bounce{0%,100%{transform:scale(0)}50%{transform:scale(1)}}
+@keyframes rs-revealer-6{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes rs-revealer-8{0%{transform:scale(0,0);opacity:.5}100%{transform:scale(1,1);opacity:0}}
+@keyframes rs-revealer-9{0%,100%{transform:scale(0)}50%{transform:scale(1)}}
+@keyframes rs-revealer-10{0%,100%,40%{transform:scaleY(.4)}20%{transform:scaleY(1)}}
+@keyframes rs-revealer-11{0%,100%,70%{transform:scale3D(1,1,1)}35%{transform:scale3D(0,0,1)}}
+@keyframes rs-revealer-12{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+@keyframes rs-revealer-13{0%,100%{transform:translate(0)}25%{transform:translate(160%)}50%{transform:translate(160%,160%)}75%{transform:translate(0,160%)}}
+@keyframes rs-revealer-15{25%{transform:translateX(30px) rotate(-90deg) scale(.5)}50%{transform:translateX(30px) translateY(30px) rotate(-179deg)}75%{transform:translateX(0) translateY(30px) rotate(-270deg) scale(.5)}100%{transform:rotate(-360deg)}}
+
+/* ── 2. SR7 PRELOADER SKINS (REVERB-themed) ────────────────── */
+/* tp-bouncedelay: 3-dot bounce (used for data loading) */
+.reverb-loader { display:flex; gap:6px; align-items:center; justify-content:center; padding:24px; }
+.reverb-loader span {
+  width:10px; height:10px; border-radius:50%;
+  background: #E8363A;
+  display:inline-block;
+  animation: tp-bouncedelay 1.4s infinite ease-in-out both;
+}
+.reverb-loader span:nth-child(1){animation-delay:-0.32s}
+.reverb-loader span:nth-child(2){animation-delay:-0.16s}
+
+/* tp-rotateplane: spinning square (score loading) */
+.reverb-score-loader {
+  width:20px; height:20px;
+  background: #F5C518;
+  animation: tp-rotateplane 1.2s infinite ease-in-out;
+  border-radius:2px;
+  display:inline-block;
+}
+
+/* shimmer: skeleton loading on cards */
+.reverb-shimmer {
+  background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* ── 3. SR7 INSTAGRAM-STYLE PHOTO FILTERS ──────────────────── */
+/* Applied to album cover art via .cover-filter-{name} */
+.cover-filter-inkwell  { filter:sepia(.3) contrast(1.1) brightness(1.1) grayscale(1) }
+.cover-filter-moon     { filter:grayscale(1) contrast(1.1) brightness(1.1) }
+.cover-filter-lofi     { filter:saturate(1.1) contrast(1.5) }
+.cover-filter-clarendon{ filter:contrast(1.2) saturate(1.35) }
+.cover-filter-toaster  { filter:contrast(1.5) brightness(.9) }
+.cover-filter-mayfair  { filter:contrast(1.1) saturate(1.1) }
+.cover-filter-reyes    { filter:sepia(.22) brightness(1.1) contrast(.85) saturate(.75) }
+.cover-filter-walden   { filter:brightness(1.1) hue-rotate(-10deg) sepia(.3) saturate(1.6) }
+.cover-filter-nashville{ filter:sepia(.2) contrast(1.2) brightness(1.05) saturate(1.2) }
+.cover-filter-lark     { filter:contrast(.9) }
+.cover-filter-willow   { filter:grayscale(.5) contrast(.95) brightness(.9) }
+.cover-filter-rise     { filter:brightness(1.05) sepia(.2) contrast(.9) saturate(.9) }
+.cover-filter-slumber  { filter:saturate(.66) brightness(1.05) }
+.cover-filter-brooklyn { filter:contrast(.9) brightness(1.1) }
+.cover-filter-hudson   { filter:brightness(1.2) contrast(.9) saturate(1.1) }
+.cover-filter-aden     { filter:hue-rotate(-20deg) contrast(.9) saturate(.85) brightness(1.2) }
+
+/* Transition on filter change */
+[class*="cover-filter-"] { transition: filter 0.4s ease; }
+
+/* ── 4. SR7 ENTRY ANIMATIONS (utility classes) ─────────────── */
+/* Slide-in from directions */
+.sr7-enter-up    { animation: sr7-enter-up 0.6s cubic-bezier(.16,1,.3,1) both }
+.sr7-enter-down  { animation: sr7-enter-down 0.6s cubic-bezier(.16,1,.3,1) both }
+.sr7-enter-left  { animation: sr7-enter-left 0.6s cubic-bezier(.16,1,.3,1) both }
+.sr7-enter-right { animation: sr7-enter-right 0.6s cubic-bezier(.16,1,.3,1) both }
+.sr7-pop         { animation: sr-pop 0.4s cubic-bezier(.16,1,.3,1) both }
+.sr7-elastic-pop { animation: sr-elastic-pop 0.5s cubic-bezier(.16,1,.3,1) both }
+.sr7-fade-in     { animation: tp-fade-in 0.5s ease both }
+
+@keyframes sr7-enter-up    { from{transform:translateY(30px);opacity:0} to{transform:none;opacity:1} }
+@keyframes sr7-enter-down  { from{transform:translateY(-30px);opacity:0} to{transform:none;opacity:1} }
+@keyframes sr7-enter-left  { from{transform:translateX(40px);opacity:0} to{transform:none;opacity:1} }
+@keyframes sr7-enter-right { from{transform:translateX(-40px);opacity:0} to{transform:none;opacity:1} }
+
+/* Stagger delays */
+.sr7-delay-1 { animation-delay:.1s }
+.sr7-delay-2 { animation-delay:.2s }
+.sr7-delay-3 { animation-delay:.3s }
+.sr7-delay-4 { animation-delay:.4s }
+.sr7-delay-5 { animation-delay:.5s }
+.sr7-delay-6 { animation-delay:.6s }
+
+/* ── 5. SCORE CHIP — elastic pop on load ──────────────────── */
+.score-chip, .score-badge, [class*="rating"] {
+  animation: sr-elastic-pop 0.5s cubic-bezier(.16,1,.3,1) both;
+  animation-delay: 0.3s;
+}
+
+/* ── 6. HERO SLIDE WIPE TRANSITIONS (rs-revealer style) ─────── */
+/* Overlay that wipes out between hero slides */
+.hero-wipe {
+  position:absolute; inset:0; z-index:10; pointer-events:none;
+  background: #0A0A0A;
+  transform-origin: left;
+}
+.hero-wipe.wipe-enter  { animation: hero-wipe-in  0.7s cubic-bezier(.77,0,.18,1) forwards }
+.hero-wipe.wipe-exit   { animation: hero-wipe-out 0.7s cubic-bezier(.77,0,.18,1) forwards }
+
+@keyframes hero-wipe-in  { from{transform:scaleX(0)} to{transform:scaleX(1)} }
+@keyframes hero-wipe-out { from{transform:scaleX(1)} to{transform:scaleX(0); transform-origin:right} }
+
+/* ── 7. MOOD FILMSTRIP — rs-revealer hover pulse ────────────── */
+.mood-card:hover .mood-score {
+  animation: sr-elastic-pop 0.35s cubic-bezier(.16,1,.3,1);
+}
+
+/* ── 8. SCROLL-REVEAL (IntersectionObserver hook) ───────────── */
+.sr7-reveal {
+  opacity:0; transform:translateY(24px);
+  transition: opacity 0.6s cubic-bezier(.16,1,.3,1), transform 0.6s cubic-bezier(.16,1,.3,1);
+}
+.sr7-reveal.is-visible {
+  opacity:1; transform:none;
+}
+
+/* ── 9. REVERB LOADING SCREEN (tp-bouncedelay branded) ──────── */
+#reverb-loading-screen {
+  position:fixed; inset:0; z-index:9999;
+  background:#0A0A0A;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:20px;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+#reverb-loading-screen.hidden { opacity:0; visibility:hidden; pointer-events:none; }
+#reverb-loading-screen .reverb-loader span { background:#E8363A; width:14px; height:14px; }
+#reverb-loading-screen .load-logo {
+  font-family:'Playfair Display', serif;
+  font-size:2rem; font-weight:700; letter-spacing:0.15em;
+  color:#fff;
+}
+#reverb-loading-screen .load-logo span { color:#E8363A; }
+
+  </style>
+</head>
+<body>
+<div class="bnm-progress" aria-hidden="true"></div>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track" id="tickerTrack">
+    <div class="ticker-item">APHEX TWIN — BLACKBOX LIFE RECORDER (9.5)</div>
+    <div class="ticker-item">CAROLINE POLACHEK — DESIRE (9.4)</div>
+    <div class="ticker-item">SUFJAN STEVENS — JAVELIN (9.3)</div>
+    <div class="ticker-item">MITSKI — THE LAND IS INHOSPITABLE (9.2)</div>
+    <div class="ticker-item">BILLY WOODS — MAPS (9.1)</div>
+    <div class="ticker-item">SZA — SOS (9.0)</div>
+    <div class="ticker-item">KENDRICK LAMAR — GNX (9.0)</div>
+    <div class="ticker-item">APHEX TWIN — BLACKBOX LIFE RECORDER (9.5)</div>
+    <div class="ticker-item">CAROLINE POLACHEK — DESIRE (9.4)</div>
+    <div class="ticker-item">SUFJAN STEVENS — JAVELIN (9.3)</div>
+    <div class="ticker-item">MITSKI — THE LAND IS INHOSPITABLE (9.2)</div>
+    <div class="ticker-item">BILLY WOODS — MAPS (9.1)</div>
+    <div class="ticker-item">SZA — SOS (9.0)</div>
+    <div class="ticker-item">KENDRICK LAMAR — GNX (9.0)</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">REVERB<span>.</span></a>
+  <div class="nav-links">
+    <a href="/new" class="active">New</a>
+    <a href="/browse">Reviews</a>
+    <a href="/browse">Browse</a>
+    <a href="/browse?view=lists">Lists</a>
+    <a href="/community">Community</a>
+  </div>
+  <div class="search-wrap">
+    <input class="nav-search" placeholder="Search... ⌘K" id="navSearchTrigger" data-search-trigger readonly aria-label="Search REVERB">
+    <span class="search-kbd">⌘K</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="bnm-hero">
+  <div class="bnm-hero-copy">
+    <div class="bnm-badge">★ Best New Music</div>
+    <h1>The Records<br>That Matter</h1>
+    <p>Not everything deserves your time. These do. REVERB's Best New Music designation marks the albums our critics consider essential listening — the records that will define the era.</p>
+    <div class="bnm-stats">
+      <div><span class="bnm-stat-val" id="bnmCount">—</span><div class="bnm-stat-label">Designated Albums</div></div>
+      <div><span class="bnm-stat-val" id="bnmAvgScore">—</span><div class="bnm-stat-label">Average Critic Score</div></div>
+      <div><span class="bnm-stat-val" id="bnmGenres">—</span><div class="bnm-stat-label">Genres Represented</div></div>
+    </div>
+  </div>
+  <aside class="bnm-tableau" aria-label="Best New Music front table">
+    <div class="bnm-table-card one" id="tableCardOne"></div>
+    <div class="bnm-table-card two" id="tableCardTwo"></div>
+    <div class="bnm-table-card three" id="tableCardThree"></div>
+    <div class="bnm-table-note">
+      <div class="bnm-table-k">Front table</div>
+      <div class="bnm-table-title" id="tableTitle">Essential listening, curated hard.</div>
+      <div class="bnm-table-meta" id="tableMeta">The strongest REVERB picks, ranked by critic conviction and community heat.</div>
+    </div>
+  </aside>
+</section>
+
+<!-- MAIN GRID -->
+<div class="bnm-grid-wrap" data-sr7-stagger data-sr7-stagger>
+
+  <!-- FEATURED -->
+  <div class="section-label"><span>Editor's Top Pick</span></div>
+  <div class="bnm-featured" id="featuredPick" onclick="">
+    <div class="bnm-featured-art">
+      <img id="featImg" src="" alt="">
+    </div>
+    <div class="bnm-featured-info">
+      <div class="feat-pick-badge">Best New Music — Editor's Pick</div>
+      <div class="feat-artist" id="featArtist"></div>
+      <div class="feat-album" id="featAlbum"></div>
+      <div class="feat-title" id="featTitle"></div>
+      <div class="feat-body" id="featBody"></div>
+      <div class="feat-scores">
+        <div class="feat-score-item">
+          <div class="feat-score-num gold" id="featCritic"></div>
+          <div class="feat-score-label">Critic</div>
+        </div>
+        <div class="feat-score-divider"></div>
+        <div class="feat-score-item">
+          <div class="feat-score-num blue" id="featFan"></div>
+          <div class="feat-score-label">Fans</div>
+        </div>
+      </div>
+      <a class="feat-cta" id="featLink">Read the Review →</a>
+    </div>
+  </div>
+
+  <!-- SORT + REST -->
+  <div class="section-label"><span>All Best New Music</span></div>
+  <div class="sort-bar">
+    <span>Sort by</span>
+    <button class="sort-btn active" data-sort="score">Critic Score</button>
+    <button class="sort-btn" data-sort="community">Fan Score</button>
+    <button class="sort-btn" data-sort="date">Newest</button>
+    <button class="sort-btn" data-sort="genre">Genre</button>
+  </div>
+  <div class="bnm-cards" data-sr7-stagger id="bnmCards"></div>
+</div>
+
+<!-- SEARCH OVERLAY -->
+
+
+<script>
+const STATIC_REVIEWS = [
+  {id:'6a2fa073942706375ccb2dae',artist:'Aphex Twin',album:'Blackbox Life Recorder',genre:'Electronic',rating:9.5,community_score:8.7,is_best_new_music:true,is_published:true,tags:['experimental','electronic'],mood_tags:['Experimental','Atmospheric'],summary:'The Future Sounds Like This',body:'Richard D. James returns with a staggering collection that pushes electronic music into uncharted waters.',author_name:'Sofia Reyes',published_date:'2026-06-05',cover_image:'https://cdn-images.dzcdn.net/images/cover/8ff06016c4666391fcc48ef07cea177e/1000x1000-000000-80-0-0.jpg',spotify_album_id:'2dIGnmEIy1WZIcZCFSj6i8',youtube_id:'M9xMuPWAZW8'},
+  {id:'6a2fa073942706375ccb2daf',artist:'SZA',album:'SOS',genre:'R&B',rating:9.0,community_score:8.2,is_best_new_music:true,is_published:true,tags:['r&b','pop'],mood_tags:['Melancholic','Euphoric'],summary:'A Masterclass in Vulnerability and Sound',body:'SZA delivers her most ambitious and emotionally raw work yet.',author_name:'Maya Chen',published_date:'2026-06-15',cover_image:'https://cdn-images.dzcdn.net/images/cover/a3c3b409f0d5bd781821ec0fd79d5b15/1000x1000-000000-80-0-0.jpg',spotify_album_id:'4OOeIhm9LBBuFTDRb2Mvfd',youtube_id:'F-4hEFqAzgM'},
+  {id:'6a2fa073942706375ccb2db0',artist:'Kendrick Lamar',album:'GNX',genre:'Hip-Hop',rating:9.0,community_score:9.1,is_best_new_music:true,is_published:true,tags:['hip-hop','rap'],mood_tags:['Aggressive','Introspective'],summary:'Raw Power, Refined Vision',body:'Kendrick Lamar delivers an album that feels both urgent and timeless.',author_name:'Marcus Johnson',published_date:'2026-06-01',cover_image:'https://cdn-images.dzcdn.net/images/cover/da5256ff8cacfe9ad90521f6e3792259/1000x1000-000000-80-0-0.jpg',spotify_album_id:'3XC5V4Yg3CtUJBTxDwKGPu',youtube_id:'TVg4b8EBme4'},
+  {id:'6a2fa073942706375ccb2db1',artist:'The Smile',album:'Wall of Eyes',genre:'Alternative',rating:8.5,community_score:7.9,is_best_new_music:false,is_published:true,tags:['alternative','art-rock'],mood_tags:['Atmospheric','Dreamy'],summary:'The Sound of a Band Reborn',body:'Thom Yorke and Jonny Greenwood channel grief into something crystalline.',author_name:'David Ortiz',published_date:'2026-06-12',cover_image:'https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02ec5757cdfeb9a29df135c96d',spotify_album_id:'5uQSPqBIIqoG4djAqrR3AI',youtube_id:'_NcXbMnPSs0'},
+  {id:'6a2fa073942706375ccb2db2',artist:'Charli XCX',album:'Brat',genre:'Pop',rating:8.0,community_score:8.6,is_best_new_music:false,is_published:true,tags:['pop','electronic'],mood_tags:['Euphoric','Danceable'],summary:'Neon Nights and Digital Dreams',body:'Charli XCX builds a world that is equal parts euphoric and paranoid.',author_name:'Lena Park',published_date:'2026-06-10',cover_image:'https://cdn-images.dzcdn.net/images/cover/de9e79511cda59914de9add50946e43c/1000x1000-000000-80-0-0.jpg',spotify_album_id:'2lIZef4lzdvZkiiCzvPKj7',youtube_id:'zg8BjNdQIMk'},
+  {id:'6a2fa073942706375ccb2db3',artist:'Johnny Blue Skies',album:'Passage du Desir',genre:'Country',rating:7.5,community_score:7.1,is_best_new_music:false,is_published:true,tags:['country','folk'],mood_tags:['Melancholic','Introspective'],summary:'Southern Gothic at Its Finest',body:'Sturgill Simpson delivers a world-weary masterpiece.',author_name:'James Wright',published_date:'2026-06-08',cover_image:'https://cdn-images.dzcdn.net/images/cover/056aa3fb4a910b287889205eaa45f9ee/1000x1000-000000-80-0-0.jpg',spotify_album_id:null,youtube_id:null},
+  {id:'6a2fd4d47ba31d7baa22fcfa',artist:'Mitski',album:'The Land Is Inhospitable and So Are We',genre:'Alternative',rating:9.2,community_score:8.9,is_best_new_music:true,is_published:true,tags:['indie','folk'],mood_tags:['Melancholic','Raw'],summary:'The Weight of Everything',body:'Mitski strips back to something ancient and devastating.',author_name:'Sofia Reyes',published_date:'2026-05-20',cover_image:'https://cdn-images.dzcdn.net/images/cover/db69f7d3ea280f1155256705735648cd/1000x1000-000000-80-0-0.jpg',spotify_album_id:'0U28BCxdqtUjHvEMqHBtNB',youtube_id:'3AOsbVRYMKo'},
+  {id:'6a2fd4d47ba31d7baa22fcfb',artist:'Sufjan Stevens',album:'Javelin',genre:'Folk',rating:9.3,community_score:8.8,is_best_new_music:true,is_published:true,tags:['folk','orchestral'],mood_tags:['Melancholic','Cinematic'],summary:'Maximalism as Tenderness',body:'Sufjan Stevens turns personal catastrophe into orchestral transcendence.',author_name:'Maya Chen',published_date:'2026-05-15',cover_image:'https://cdn-images.dzcdn.net/images/cover/e27baa7ae983b626fc5434e3175e32c6/1000x1000-000000-80-0-0.jpg',spotify_album_id:'1mCFCLuCHqoRqQHlHgDR4J',youtube_id:'xVpFMuOf3OY'},
+  {id:'6a2fd4d47ba31d7baa22fcfc',artist:'Show Me the Body',album:'Endure',genre:'Hardcore',rating:8.3,community_score:7.8,is_best_new_music:false,is_published:true,tags:['hardcore','punk'],mood_tags:['Aggressive','Raw'],summary:'Noise as Prayer',body:'Show Me the Body make hardcore that sounds like the city is eating itself.',author_name:'Marcus Johnson',published_date:'2026-05-28',cover_image:'https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/32/0e/cb/320ecbe4-b530-a00a-5ff0-afe746c22b50/00888072089433.rgb.jpg/1000x1000bb.jpg',spotify_album_id:'6JbbRxbEHOFqx6oKAFxNS4',youtube_id:'j-pFTg-rHbw'},
+  {id:'6a2fd4d47ba31d7baa22fcfd',artist:'Caroline Polachek',album:'Desire, I Want to Turn Into You',genre:'Art Pop',rating:9.4,community_score:9.0,is_best_new_music:true,is_published:true,tags:['art-pop','experimental'],mood_tags:['Euphoric','Dreamy'],summary:'The Internet Never Sleeps',body:'Caroline Polachek crafts an album of stunning ambition and intimacy.',author_name:'Lena Park',published_date:'2026-05-10',cover_image:'https://cdn-images.dzcdn.net/images/cover/67e9a8272d715c88adf400c554f68f33/1000x1000-000000-80-0-0.jpg',spotify_album_id:'5LCnhSfbRlTlFWnJw5KAiZ',youtube_id:'sTnDRiGrFdA'},
+  {id:'6a2fd4d47ba31d7baa22fcfe',artist:'Yo-Yo Ma',album:'Six Unaccompanied Cello Suites',genre:'Classical',rating:10.0,community_score:9.7,is_best_new_music:false,is_published:true,tags:['classical','cello'],mood_tags:['Cinematic','Atmospheric'],summary:'The Silence Between Notes',body:'The definitive modern recording of the greatest solo works ever written.',author_name:'David Ortiz',published_date:'2026-04-30',cover_image:'https://cdn-images.dzcdn.net/images/cover/8b69cdda334c287b93acb0aefad12b0d/1000x1000-000000-80-0-0.jpg',spotify_album_id:'4BsT2BKNEbBKcU5QcalE4j',youtube_id:'mGQLXRTl3Z0'},
+  {id:'6a2fd4d47ba31d7baa22fcff',artist:'Billy Woods',album:'Maps',genre:'Hip-Hop',rating:9.1,community_score:8.4,is_best_new_music:true,is_published:true,tags:['hip-hop','underground'],mood_tags:['Introspective','Atmospheric'],summary:'Rap Is Still Alive',body:'Billy Woods makes rap that sounds like dispatches from the end of the world.',author_name:'Marcus Johnson',published_date:'2026-05-05',cover_image:'https://cdn-images.dzcdn.net/images/cover/bcafcc7b293eeb0cdb59720b33cba541/1000x1000-000000-80-0-0.jpg',spotify_album_id:'4tBQS8DXm5pS5LBqWfvKPC',youtube_id:'8Ts2jFbNczc'},
+  {id:'6a2fd4d47ba31d7baa22fd00',artist:'Fred Again..',album:'Actual Life 3',genre:'Electronic',rating:8.6,community_score:8.8,is_best_new_music:false,is_published:true,tags:['electronic','dance'],mood_tags:['Euphoric','Danceable'],summary:'Grief and the Dance Floor',body:'Fred Again.. turns grief into euphoria across an hour of luminous electronic music.',author_name:'Lena Park',published_date:'2026-04-20',cover_image:'https://cdn-images.dzcdn.net/images/cover/0c79babffc5400d88fc40db5806858a6/1000x1000-000000-80-0-0.jpg',spotify_album_id:'2I2bGLX7wy3VFmRpBenQXA',youtube_id:'pIiKq9gu9mk'},
+  {id:'6a2fd4d47ba31d7baa22fd01',artist:'Zach Bryan',album:'Zach Bryan',genre:'Country',rating:8.1,community_score:8.9,is_best_new_music:false,is_published:true,tags:['country','americana'],mood_tags:['Raw','Melancholic'],summary:'Country Music Is Not What You Think',body:'Zach Bryan makes country music that feels genuinely dangerous again.',author_name:'James Wright',published_date:'2026-04-10',cover_image:'https://cdn-images.dzcdn.net/images/cover/6c6a9089cda16da7f524b9ef1f965270/1000x1000-000000-80-0-0.jpg',spotify_album_id:'6UywHjQ8kOOAqvnMVkULel',youtube_id:'XiGRJkNKSaA'}
+];
+
+const BNM = STATIC_REVIEWS.filter(r => r.is_best_new_music).sort((a,b) => b.rating - a.rating);
+let currentSort = 'score';
+let searchSelectedIdx = -1;
+
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+}
+function reviewUrl(id) { return '/review?id=' + encodeURIComponent(id); }
+function formatDate(d) {
+  if (!d) return '';
+  const raw = String(d); const m = raw.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  const dt = m ? new Date(Number(m[1]), Number(m[2])-1, Number(m[3])) : new Date(d);
+  try { return dt.toLocaleDateString('en-US', { month:'short', day:'numeric' }); } catch(e) { return raw; }
+}
+function initBnmMotion() {
+  const hero = document.querySelector('.bnm-hero');
+  const progress = document.querySelector('.bnm-progress');
+  if (!hero || hero.dataset.motionWired === '1') return;
+  hero.dataset.motionWired = '1';
+  const update = () => {
+    const hp = Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / Math.max(1, hero.offsetHeight)));
+    hero.style.setProperty('--bnm-progress', hp.toFixed(4));
+    if (progress) {
+      const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      progress.style.transform = `scaleX(${Math.min(1, Math.max(0, window.scrollY / max)).toFixed(4)})`;
+    }
+  };
+  update(); window.addEventListener('scroll', update, { passive:true }); window.addEventListener('resize', update);
+}
+function hydrateBnmTableau(items) {
+  const covers = items.filter(r => r.cover_image);
+  ['One','Two','Three'].forEach((name, idx) => {
+    const el = document.getElementById('tableCard' + name);
+    if (el && covers[idx]) el.style.backgroundImage = `url(${covers[idx].cover_image})`;
+  });
+  const top = items[0];
+  const tableTitle = document.getElementById('tableTitle');
+  const tableMeta = document.getElementById('tableMeta');
+  if (top && tableTitle) tableTitle.textContent = `${top.artist}: ${top.album}`;
+  if (top && tableMeta) tableMeta.textContent = `${top.genre} · ${Number(top.rating||0).toFixed(1)} critic · ${formatDate(top.published_date)}`;
+}
+function wireBnmCards() {
+  document.querySelectorAll('.bnm-card').forEach(card => {
+    if (card.dataset.tiltWired === '1') return;
+    card.dataset.tiltWired = '1';
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (e.clientX - rect.left - rect.width/2).toFixed(1));
+      card.style.setProperty('--my', (e.clientY - rect.top - rect.height/2).toFixed(1));
+    });
+    card.addEventListener('mouseleave', () => { card.style.setProperty('--mx','0'); card.style.setProperty('--my','0'); });
+  });
+}
+
+function init() {
+  // Stats
+  document.getElementById('bnmCount').textContent = BNM.length;
+  const avg = (BNM.reduce((s,r)=>s+r.rating,0)/BNM.length).toFixed(1);
+  document.getElementById('bnmAvgScore').textContent = avg;
+  const genres = [...new Set(BNM.map(r=>r.genre))].length;
+  document.getElementById('bnmGenres').textContent = genres;
+
+  // Featured = highest rated BNM
+  const feat = BNM[0];
+  document.getElementById('featImg').src = feat.cover_image;
+  document.getElementById('featImg').alt = feat.album;
+  document.getElementById('featArtist').textContent = feat.artist.toUpperCase();
+  document.getElementById('featAlbum').textContent = feat.album;
+  document.getElementById('featTitle').textContent = '"' + feat.summary + '"';
+  document.getElementById('featBody').innerHTML = feat.body.replace(/<[^>]*>/g,'').substring(0,300) + '...';
+  document.getElementById('featCritic').textContent = feat.rating.toFixed(1);
+  document.getElementById('featFan').textContent = feat.community_score.toFixed(1);
+  document.getElementById('featLink').href = reviewUrl(feat.id);
+  document.getElementById('featuredPick').onclick = () => window.location.href = reviewUrl(feat.id);
+  hydrateBnmTableau(BNM);
+  initBnmMotion();
+
+  renderCards(BNM.slice(1));
+}
+
+function renderCards(reviews) {
+  const grid = document.getElementById('bnmCards');
+  if (!reviews.length) { grid.innerHTML = '<div class="bnm-empty">No Best New Music picks match that view.</div>'; return; }
+  grid.innerHTML = reviews.map((r, i) => `
+    <article class="bnm-card">
+      <a class="bnm-card-link" href="${reviewUrl(r.id)}" aria-label="Read ${escapeHtml(r.artist)} — ${escapeHtml(r.album)}"></a>
+      <span class="bnm-rank">${String(i+2).padStart(2,'0')}</span>
+      <div class="bnm-card-art">
+        <img src="${r.cover_image}" alt="${escapeHtml(r.album)}" loading="lazy" onerror="this.style.background='#1a1a1a'">
+        <div class="bnm-badge-small">★ BNM</div>
+        <div class="bnm-card-score"><span class="num">${Number(r.rating||0).toFixed(1)}</span><div class="lbl">Critic</div></div>
+      </div>
+      <div class="bnm-card-body">
+        <div class="bnm-card-artist">${escapeHtml(r.artist).toUpperCase()}</div>
+        <div class="bnm-card-album">${escapeHtml(r.album)}</div>
+        <div class="bnm-card-summary">“${escapeHtml(r.summary || '')}”</div>
+        <div class="bnm-card-meta">
+          <span class="bnm-card-genre">${escapeHtml(r.genre || '')}</span>
+          <span class="bnm-card-community">${Number(r.community_score||0).toFixed(1)} fan</span>
+        </div>
+      </div>
+    </article>
+  `).join('');
+  wireBnmCards();
+}
+
+
+function sortCards(by) {
+  currentSort = by;
+  document.querySelectorAll('.sort-btn').forEach(b => b.classList.toggle('active', b.dataset.sort === by));
+  let sorted = [...BNM.slice(1)];
+  if (by==='score') sorted.sort((a,b)=>b.rating-a.rating);
+  else if (by==='community') sorted.sort((a,b)=>b.community_score-a.community_score);
+  else if (by==='date') sorted.sort((a,b)=>new Date(b.published_date)-new Date(a.published_date));
+  else if (by==='genre') sorted.sort((a,b)=>a.genre.localeCompare(b.genre));
+  renderCards(sorted);
+}
+
+document.querySelectorAll('.sort-btn').forEach(btn => {
+  btn.addEventListener('click', () => sortCards(btn.dataset.sort));
+});
+
+// SEARCH
+const overlay = document.getElementById('searchOverlay');
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+const searchHint = document.getElementById('searchHint');
+
+function openSearch() { overlay.classList.add('open'); searchInput.focus(); searchSelectedIdx = -1; }
+function closeSearch() { overlay.classList.remove('open'); searchInput.value=''; searchResults.innerHTML=''; searchHint.style.display='flex'; }
+
+document.getElementById('navSearchTrigger').addEventListener('click', openSearch);
+document.getElementById('searchEsc').addEventListener('click', closeSearch);
+overlay.addEventListener('click', e => { if(e.target===overlay) closeSearch(); });
+
+document.addEventListener('keydown', e => {
+  if ((e.metaKey||e.ctrlKey) && e.key==='k') { e.preventDefault(); openSearch(); }
+  if (e.key==='Escape' && overlay.classList.contains('open')) closeSearch();
+  if (overlay.classList.contains('open')) {
+    const items = searchResults.querySelectorAll('.search-result-item');
+    if (e.key==='ArrowDown') { searchSelectedIdx = Math.min(searchSelectedIdx+1, items.length-1); items.forEach((el,i)=>el.classList.toggle('selected',i===searchSelectedIdx)); e.preventDefault(); }
+    if (e.key==='ArrowUp') { searchSelectedIdx = Math.max(searchSelectedIdx-1, 0); items.forEach((el,i)=>el.classList.toggle('selected',i===searchSelectedIdx)); e.preventDefault(); }
+    if (e.key==='Enter' && searchSelectedIdx>=0) { items[searchSelectedIdx].click(); }
+  }
+});
+
+function doSearch(query) {
+  searchInput.value = query;
+  searchInput.dispatchEvent(new Event('input'));
+}
+
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.toLowerCase().trim();
+  searchHint.style.display = q ? 'none' : 'flex';
+  searchSelectedIdx = -1;
+  if (!q) { searchResults.innerHTML=''; return; }
+  const matches = STATIC_REVIEWS.filter(r =>
+    r.album.toLowerCase().includes(q) ||
+    r.artist.toLowerCase().includes(q) ||
+    r.genre.toLowerCase().includes(q) ||
+    (r.summary||'').toLowerCase().includes(q) ||
+    (r.tags||[]).some(t=>t.toLowerCase().includes(q))
+  );
+  if (!matches.length) {
+    searchResults.innerHTML = '<div class="search-empty">No results for "'+searchInput.value+'"</div>';
+    return;
+  }
+  searchResults.innerHTML = matches.map(r => `
+    <div class="search-result-item" onclick="window.location.href='${reviewUrl(r.id)}';closeSearch()">
+      <img class="search-result-img" src="${r.cover_image}" alt="${r.album}" onerror="this.style.background='#1a1a1a'" loading="lazy">
+      <div class="search-result-info">
+        <div class="search-result-album">${r.album}</div>
+        <div class="search-result-artist">${r.artist} · ${r.genre}${r.is_best_new_music?' · ★ BNM':''}</div>
+      </div>
+      <div class="search-result-score">${r.rating.toFixed(1)}</div>
+    </div>
+  `).join('');
+});
+
+init();
+</script>
+
+<footer class="reverb-footer" aria-label="REVERB footer">
+  <div class="reverb-footer-inner">
+    <section class="reverb-footer-newsletter" id="digest-signup">
+      <div>
+        <div class="reverb-footer-kicker">The REVERB Digest</div>
+        <h2 class="reverb-footer-title">Music that stays<br>in your inbox.</h2>
+        <p class="reverb-footer-desc">Monday mornings. The week’s best reviews, the albums you can’t miss, and one sharp editorial read. No noise. No ads. Just music.</p>
+      </div>
+      <div>
+        <form class="reverb-footer-form" data-digest-form novalidate>
+          <input class="reverb-footer-input" name="email" type="email" placeholder="your@email.com" autocomplete="email" required aria-label="Email address">
+          <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;height:0;width:0" aria-hidden="true">
+          <button class="reverb-footer-button" type="submit">Subscribe</button>
+        </form>
+        <p class="reverb-footer-note" data-digest-note>Unsubscribe anytime. We hate spam as much as a 3/10 album.</p>
+      </div>
+    </section>
+
+    <div class="reverb-footer-grid">
+      <div>
+        <div class="reverb-footer-logo">REVERB<span>.</span></div>
+        <p class="reverb-footer-tagline">“Music that stays with you.” Serious criticism, community ratings, and records worth arguing about.</p>
+      </div>
+      <nav aria-label="Review links">
+        <div class="reverb-footer-heading">Reviews</div>
+        <ul class="reverb-footer-links">
+          <li><a href="/browse">Latest Reviews</a></li>
+          <li><a href="/new">Best New Music</a></li>
+          <li><a href="/browse?min=8">8.0+ Reviews</a></li>
+          <li><a href="/browse?view=lists">Lists</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Browse links">
+        <div class="reverb-footer-heading">Browse</div>
+        <ul class="reverb-footer-links">
+          <li><a href="/browse?genre=Hip-Hop">Hip-Hop</a></li>
+          <li><a href="/browse?genre=Electronic">Electronic</a></li>
+          <li><a href="/browse?genre=Indie">Indie</a></li>
+          <li><a href="/community">Community</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Community links">
+        <div class="reverb-footer-heading">Community</div>
+        <ul class="reverb-footer-links">
+          <li><a href="/community">User Reviews</a></li>
+          <li><a href="/profile">Profile</a></li>
+          <li><a href="/admin">Editorial Admin</a></li>
+          <li><a href="#digest-signup">Newsletter</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="reverb-footer-bottom">
+      <span class="reverb-footer-copy">© 2026 REVERB. All rights reserved.</span>
+      <div class="reverb-footer-social" aria-label="Social links">
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://x.com/" target="_blank" rel="noopener">Twitter/X</a>
+        <a href="https://www.tiktok.com/" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://open.spotify.com/" target="_blank" rel="noopener">Spotify</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script id="reverb-global-footer-script">
+(function(){
+  function wireDigestForm(form){
+    if (!form || form.dataset.digestWired === '1') return;
+    form.dataset.digestWired = '1';
+    const email = form.querySelector('input[name="email"]');
+    const hp = form.querySelector('input[name="website"]');
+    const btn = form.querySelector('button[type="submit"], button');
+    const note = form.parentElement ? form.parentElement.querySelector('[data-digest-note], .newsletter-note') : null;
+    function setNote(msg, color){ if(note){ note.textContent = msg; note.style.color = color || ''; } }
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+      const value = (email && email.value || '').trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+        setNote('Drop in a valid email and we’ll add you to Monday’s digest.', '#E8363A');
+        if(email) email.focus();
+        return;
+      }
+      const oldText = btn ? btn.textContent : '';
+      if(btn){ btn.disabled = true; btn.textContent = 'Subscribing…'; }
+      try {
+        const res = await fetch('/api/reverbSubscribers?endpoint=subscribe', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: value, website: hp ? hp.value || '' : '', source: location.pathname === '/' ? 'homepage' : location.pathname.replace(/^\//,'') || 'homepage' })
+        });
+        const data = await res.json();
+        if (data.ok) { if(email) email.value = ''; setNote(data.message || 'You’re subscribed to The REVERB Digest. See you Monday.', '#4A9EFF'); }
+        else setNote(data.error || 'Could not subscribe right now. Try again in a minute.', '#E8363A');
+      } catch(err) { setNote('Network hiccup. Try again in a minute.', '#E8363A'); }
+      finally { if(btn){ btn.disabled = false; btn.textContent = oldText || 'Subscribe'; } }
+    });
+  }
+  document.querySelectorAll('[data-digest-form], #newsletterForm').forEach(wireDigestForm);
+})();
+</script>
+
+
+<!-- ⌘K SEARCH OVERLAY -->
+<div id="reverbSearchOverlay" role="dialog" aria-modal="true" aria-label="Search REVERB" style="position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.88);backdrop-filter:blur(14px);display:none;align-items:flex-start;justify-content:center;padding-top:100px">
+  <div style="width:100%;max-width:700px;background:#111;border:1px solid #2A2A2A;border-radius:12px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.8)">
+    <div style="display:flex;align-items:center;gap:14px;padding:22px 28px;border-bottom:1px solid #2A2A2A">
+      <svg width="18" height="18" fill="none" stroke="#6B6B6B" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input id="reverbSearchInput" autocomplete="off" spellcheck="false" style="flex:1;background:none;border:none;color:#fff;font-size:1.15rem;font-family:Inter,system-ui,sans-serif;outline:none" placeholder="Search albums, artists, genres…" aria-label="Search">
+      <span id="reverbSearchEsc" style="font-family:DM Mono,monospace;font-size:.65rem;color:#6B6B6B;background:#1A1A1A;padding:3px 8px;border-radius:3px;cursor:pointer;user-select:none">ESC</span>
+    </div>
+    <div id="reverbSearchHints" style="padding:14px 28px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid #1A1A1A">
+      <span style="font-size:.68rem;color:#5A5A5A;width:100%;margin-bottom:2px;font-family:Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase">Quick filters</span>
+      <button type="button" onclick="reverbSearch('hip-hop')" style="font-size:.7rem;font-weight:700;letter-spacing:.06em;color:#A0A0A0;background:#1A1A1A;border:1px solid #2A2A2A;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif">Hip-Hop</button>
+      <button type="button" onclick="reverbSearch('electronic')" style="font-size:.7rem;font-weight:700;letter-spacing:.06em;color:#A0A0A0;background:#1A1A1A;border:1px solid #2A2A2A;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif">Electronic</button>
+      <button type="button" onclick="reverbSearch('folk')" style="font-size:.7rem;font-weight:700;letter-spacing:.06em;color:#A0A0A0;background:#1A1A1A;border:1px solid #2A2A2A;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif">Folk</button>
+      <button type="button" onclick="reverbSearch('r&b')" style="font-size:.7rem;font-weight:700;letter-spacing:.06em;color:#A0A0A0;background:#1A1A1A;border:1px solid #2A2A2A;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif">R&amp;B</button>
+      <button type="button" onclick="reverbSearch('best new')" style="font-size:.7rem;font-weight:700;letter-spacing:.06em;color:#A0A0A0;background:#1A1A1A;border:1px solid #2A2A2A;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif">&#9733; BNM</button>
+      <button type="button" onclick="reverbSearch('9')" style="font-size:.7rem;font-weight:700;letter-spacing:.06em;color:#A0A0A0;background:#1A1A1A;border:1px solid #2A2A2A;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif">Score 9+</button>
+    </div>
+    <div id="reverbSearchResults" style="max-height:460px;overflow-y:auto"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var DATA_API='https://shopify-copy-f62a1de4.base44.app/functions/reverbData';
+  var _idx=null,_open=false;
+  function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function ensureIdx(){
+    if(_idx)return Promise.resolve(_idx);
+    return fetch(DATA_API+'?endpoint=browse&limit=50').then(function(r){return r.json();}).then(function(d){_idx=d.reviews||[];return _idx;}).catch(function(){_idx=[];return _idx;});
+  }
+  function hi(s,q){
+    if(!q)return esc(s);
+    return esc(s).replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark style="background:rgba(232,54,58,.35);color:#fff;border-radius:2px">$1</mark>');
+  }
+  window.reverbSearch=function(q){
+    var inp=document.getElementById('reverbSearchInput');
+    var res=document.getElementById('reverbSearchResults');
+    var hints=document.getElementById('reverbSearchHints');
+    if(inp&&q&&inp.value!==q)inp.value=q;
+    q=((q||(inp&&inp.value)||'').trim()).toLowerCase();
+    if(!res)return;
+    if(!q){res.innerHTML='';if(hints)hints.style.display='';return;}
+    if(hints)hints.style.display='none';
+    res.innerHTML='<div style="padding:28px;text-align:center;color:#5A5A5A;font-family:Inter,sans-serif;font-size:.85rem">Searching\u2026</div>';
+    ensureIdx().then(function(idx){
+      var hits=idx.filter(function(r){
+        var hay=[r.artist,r.album,r.title,r.genre].concat(r.mood_tags||[]).concat(r.tags||[]).join(' ').toLowerCase();
+        if(q==='best new')return r.is_best_new_music;
+        if(q==='9')return(r.rating||0)>=9;
+        return hay.indexOf(q)>=0;
+      }).slice(0,10);
+      if(!hits.length){res.innerHTML='<div style="padding:40px 28px;text-align:center;color:#5A5A5A;font-family:Inter,sans-serif;font-size:.9rem">No results for &ldquo;<strong style=\'color:#A0A0A0\'>'+esc(q)+'</strong>&rdquo;</div>';return;}
+      res.innerHTML=hits.map(function(r){
+        var score=Number(r.rating||0).toFixed(1);
+        var bnm=r.is_best_new_music?'<span style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:#E8363A;color:#fff;padding:2px 6px;border-radius:2px;flex-shrink:0">BNM</span>':'';
+        return '<a href="/review?id='+esc(r.id)+'" style="display:flex;align-items:center;gap:14px;padding:14px 28px;border-bottom:1px solid #1A1A1A;text-decoration:none;transition:background .12s" onmouseover="this.style.background=\'#1A1A1A\'" onmouseout="this.style.background=\'\'">'
+          +'<img src="'+esc(r.cover_image||'')+'" alt="'+esc(r.album)+'" style="width:44px;height:44px;object-fit:cover;border-radius:3px;flex-shrink:0;background:#222" loading="lazy" onerror="this.style.opacity=.15">'
+          +'<div style="flex:1;min-width:0">'
+            +'<div style="font-size:.88rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+hi(r.artist||'',q)+' \u2014 '+hi(r.album||r.title||'',q)+'</div>'
+            +'<div style="font-size:.75rem;color:#6B6B6B;margin-top:3px;font-family:Inter,sans-serif">'+esc(r.genre||'')+(r.is_best_new_music?' \xb7 Best New Music':'')+'</div>'
+          +'</div>'
+          +'<span style="font-family:\'DM Mono\',monospace;font-size:1rem;font-weight:700;color:#F5C518;flex-shrink:0">'+score+'</span>'
+          +bnm+'</a>';
+      }).join('');
+    });
+  };
+  window.openReverbSearch=function(){
+    var o=document.getElementById('reverbSearchOverlay');
+    if(!o)return;
+    o.style.display='flex';_open=true;document.body.style.overflow='hidden';
+    setTimeout(function(){var i=document.getElementById('reverbSearchInput');if(i){i.focus();i.select();}},60);
+    ensureIdx();
+  };
+  window.closeReverbSearch=function(){
+    var o=document.getElementById('reverbSearchOverlay');
+    if(!o)return;
+    o.style.display='none';_open=false;document.body.style.overflow='';
+    var r=document.getElementById('reverbSearchResults');
+    var h=document.getElementById('reverbSearchHints');
+    var i=document.getElementById('reverbSearchInput');
+    if(r)r.innerHTML='';if(h)h.style.display='';if(i)i.value='';
+  };
+  function boot(){
+    var o=document.getElementById('reverbSearchOverlay');
+    if(!o)return;
+    o.addEventListener('click',function(e){if(e.target===o)window.closeReverbSearch();});
+    var eb=document.getElementById('reverbSearchEsc');
+    if(eb)eb.addEventListener('click',window.closeReverbSearch);
+    var inp=document.getElementById('reverbSearchInput');
+    if(inp){
+      inp.addEventListener('input',function(){window.reverbSearch(this.value);});
+      inp.addEventListener('keydown',function(e){
+        if(e.key==='Escape')window.closeReverbSearch();
+        if(e.key==='Enter'){var f=document.querySelector('#reverbSearchResults a');if(f){window.closeReverbSearch();location.href=f.href;}}
+      });
+    }
+    document.querySelectorAll('[data-search-trigger],[data-reverb-search],[data-search-trigger]').forEach(function(el){
+      var fresh=el.cloneNode(true);
+      if(el.parentNode)el.parentNode.replaceChild(fresh,el);
+      fresh.addEventListener('click',function(e){e.preventDefault();window.openReverbSearch();});
+    });
+    document.addEventListener('keydown',function(e){
+      if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();_open?window.closeReverbSearch():window.openReverbSearch();}
+      if(e.key==='Escape'&&_open)window.closeReverbSearch();
+    });
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',boot);}else{boot();}
+})();
+</script>
+
+  <!-- REVERB × SR7 Motion System -->
+  <script>
+/* ============================================================
+   REVERB × SR7 — Motion System JS
+   Scroll-reveal + filter cycling + loading screen
+   ============================================================ */
+(function() {
+  'use strict';
+
+  /* ── 1. Loading screen ──────────────────────────────────── */
+  function initLoadingScreen() {
+    const screen = document.getElementById('reverb-loading-screen');
+    if (!screen) return;
+    window.addEventListener('load', () => {
+      setTimeout(() => screen.classList.add('hidden'), 400);
+    });
+    // Safety fallback
+    setTimeout(() => screen && screen.classList.add('hidden'), 2500);
+  }
+
+  /* ── 2. Scroll-reveal (IntersectionObserver) ────────────── */
+  function initScrollReveal() {
+    const els = document.querySelectorAll('.sr7-reveal');
+    if (!els.length) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(el => io.observe(el));
+  }
+
+  /* ── 3. Album cover filter cycling ─────────────────────── */
+  // Applies a genre-appropriate SR7 filter to each album cover
+  const GENRE_FILTERS = {
+    'hip-hop':    'cover-filter-lofi',
+    'rap':        'cover-filter-lofi',
+    'electronic': 'cover-filter-clarendon',
+    'dance':      'cover-filter-walden',
+    'indie':      'cover-filter-lark',
+    'indie rock': 'cover-filter-lark',
+    'alternative':'cover-filter-reyes',
+    'folk':       'cover-filter-inkwell',
+    'classical':  'cover-filter-moon',
+    'r&b':        'cover-filter-slumber',
+    'soul':       'cover-filter-slumber',
+    'pop':        'cover-filter-nashville',
+    'country':    'cover-filter-rise',
+    'punk':       'cover-filter-toaster',
+    'metal':      'cover-filter-toaster',
+    'jazz':       'cover-filter-mayfair',
+    'default':    'cover-filter-clarendon'
+  };
+
+  function applyGenreFilter(imgEl, genre) {
+    const key = (genre || '').toLowerCase();
+    const filter = GENRE_FILTERS[key] || GENRE_FILTERS['default'];
+    // Apply to parent wrapper so ::after pseudo works
+    const wrap = imgEl.closest('.album-art-wrap, .cover-wrap, .mood-img-wrap, .hero-cover-wrap') || imgEl.parentElement;
+    if (wrap) {
+      wrap.classList.add(filter);
+      wrap.dataset.srFilter = filter;
+    }
+  }
+
+  function initCoverFilters() {
+    // Hook into hydrated review cards
+    document.querySelectorAll('[data-genre]').forEach(card => {
+      const img = card.querySelector('img');
+      if (img) applyGenreFilter(img, card.dataset.genre);
+    });
+    // Also hook mood filmstrip items
+    document.querySelectorAll('.mood-card[data-genre] img').forEach(img => {
+      applyGenreFilter(img, img.closest('[data-genre]').dataset.genre);
+    });
+  }
+
+  /* ── 4. Hero wipe transition (between slides) ───────────── */
+  window.REVERB_SR7 = {
+    wipe: function(container) {
+      if (!container) return;
+      const wipe = document.createElement('div');
+      wipe.className = 'hero-wipe';
+      container.style.position = 'relative';
+      container.appendChild(wipe);
+      wipe.classList.add('wipe-enter');
+      setTimeout(() => {
+        wipe.classList.remove('wipe-enter');
+        wipe.classList.add('wipe-exit');
+        setTimeout(() => wipe.remove(), 700);
+      }, 700);
+    },
+
+    // Apply filter to any img by genre
+    applyFilter: applyGenreFilter,
+
+    // Shimmer placeholder on any element
+    shimmer: function(el) {
+      if (!el) return;
+      el.classList.add('reverb-shimmer');
+      return { done: () => el.classList.remove('reverb-shimmer') };
+    }
+  };
+
+  /* ── 5. Score chips — elastic pop on intersect ──────────── */
+  function initScorePop() {
+    const chips = document.querySelectorAll('.score-display, .rating-badge, .community-score, .score-chip');
+    if (!chips.length) return;
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.animation = 'none';
+          requestAnimationFrame(() => {
+            e.target.style.animation = '';
+            e.target.classList.add('sr7-elastic-pop');
+          });
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    chips.forEach(c => io.observe(c));
+  }
+
+  /* ── 6. Stagger sr7-reveal children inside sections ────── */
+  function initStaggeredSections() {
+    document.querySelectorAll('[data-sr7-stagger]').forEach(section => {
+      const children = section.children;
+      Array.from(children).forEach((child, i) => {
+        child.classList.add('sr7-reveal');
+        child.style.transitionDelay = `${i * 0.08}s`;
+      });
+    });
+    // Re-run scroll reveal to pick up new elements
+    initScrollReveal();
+  }
+
+  /* ── Boot ───────────────────────────────────────────────── */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+
+  function boot() {
+    initLoadingScreen();
+    initScrollReveal();
+    initCoverFilters();
+    initScorePop();
+    initStaggeredSections();
+    // Re-apply after hydration (data arrives async)
+    setTimeout(initCoverFilters, 1200);
+    setTimeout(initCoverFilters, 3000);
+  }
+})();
+
+  </script>
+
+  <!-- SR7 motion for new releases -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      document.querySelectorAll('.bnm-card, .bnm-featured').forEach(function(card, i) {
+        card.classList.add('sr7-reveal');
+        card.style.transitionDelay = Math.min(i * 0.08, 0.6) + 's';
+        var genre = card.dataset.genre || card.querySelector('.bnm-card-genre')?.textContent || '';
+        var img = card.querySelector('.bnm-card-art img, img');
+        if (img && window.REVERB_SR7) REVERB_SR7.applyFilter(img, genre);
+      });
+      document.querySelectorAll('.sr7-reveal:not(.is-visible)').forEach(function(el) {
+        var rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight) el.classList.add('is-visible');
+      });
+    }, 600);
+  });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://shopify-copy-f62a1de4.base44.app">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community | REVERB</title>
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="REVERB">
+  <meta property="og:title"       content="Community — REVERB">
+  <meta property="og:description" content="Fan favorites, most-voted albums, and the records the internet is arguing about.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/mciolino/REVERB/main/public/og-image.png">
+  <meta property="og:url"         content="https://reverb-music-five.vercel.app/community">
+  <link rel="canonical" href="https://reverb-music-five.vercel.app/community">
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:site"        content="@reverbmusic">
+  <meta name="twitter:title"       content="Community — REVERB">
+  <meta name="twitter:description" content="Fan favorites, most-voted albums, and the records the internet is arguing about.">
+  <meta name="twitter:image"       content="https://reverb-music-five.vercel.app/og-default.jpg">
+
+  <meta name="description" content="Join the REVERB community conversation with listener ratings, featured reactions, fan favorites, and the week’s most debated albums.">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0A0A0A; --surface: #111111; --surface-mid: #1A1A1A; --surface-hover: #222222;
+      --border: #2A2A2A; --accent: #E8363A; --accent-hover: #B22327;
+      --text: #FFFFFF; --text-secondary: #A0A0A0; --text-muted: #5A5A5A; --text-body: #E8E8E3;
+      --score-critic: #F5C518; --score-community: #4A9EFF; --new-green: #1DB954;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-ui: 'Inter', system-ui, sans-serif;
+      --font-body: 'Lora', Georgia, serif;
+      --font-mono: 'DM Mono', monospace;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-ui); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 24px; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: var(--font-display); font-size: 26px; font-weight: 900; letter-spacing: -0.02em; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 500; color: var(--text-secondary); letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-right { display: flex; gap: 16px; align-items: center; }
+    .nav-signin { background: var(--accent); color: #fff; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 8px 18px; border-radius: 2px; }
+
+    /* HERO */
+    .community-hero {
+      border-bottom: 1px solid var(--border);
+      padding: 72px 48px 56px;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .community-hero-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--score-community); margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .community-hero-label::before { content: ''; width: 24px; height: 1px; background: var(--score-community); }
+    .community-hero h1 {
+      font-family: var(--font-display); font-size: clamp(36px, 5vw, 64px);
+      font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 16px;
+    }
+    .community-hero p { font-family: var(--font-body); font-size: 18px; color: var(--text-secondary); max-width: 540px; line-height: 1.65; }
+    .community-stats {
+      display: flex; gap: 48px; margin-top: 40px;
+      padding-top: 32px; border-top: 1px solid var(--border);
+    }
+    .stat-item { display: flex; flex-direction: column; gap: 4px; }
+    .stat-num { font-family: var(--font-mono); font-size: 28px; font-weight: 500; color: var(--score-community); }
+    .stat-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+
+    /* LAYOUT */
+    .community-body {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 340px; gap: 0;
+      border-bottom: 1px solid var(--border);
+    }
+    main { border-right: 1px solid var(--border); padding: 48px; }
+    aside { padding: 48px 32px; }
+
+    /* SECTION HEADERS */
+    .sec-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 24px; }
+    .sec-title { font-family: var(--font-display); font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
+    .sec-sub { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+
+    /* TABS */
+    .feed-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 32px; }
+    .feed-tab { padding: 12px 20px; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.2s; background: none; border-top: none; border-left: none; border-right: none; }
+    .feed-tab:hover { color: var(--text); }
+    .feed-tab.active { color: var(--text); border-bottom-color: var(--accent); }
+
+    /* ACTIVITY FEED */
+    .activity-feed { display: flex; flex-direction: column; gap: 0; }
+    .activity-item {
+      padding: 24px 0; border-bottom: 1px solid var(--border);
+      display: flex; gap: 16px; align-items: flex-start;
+      opacity: 0; transform: translateY(12px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .activity-item.revealed { opacity: 1; transform: translateY(0); }
+    .activity-avatar {
+      width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+      background: var(--surface-mid); display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+    .activity-content { flex: 1; }
+    .activity-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
+    .activity-user { font-size: 13px; font-weight: 700; color: var(--text); }
+    .activity-verb { font-size: 13px; color: var(--text-muted); }
+    .activity-target { font-size: 13px; color: var(--score-community); font-style: italic; }
+    .activity-time { font-size: 11px; color: var(--text-muted); margin-left: auto; font-family: var(--font-mono); }
+    .activity-body { font-family: var(--font-body); font-size: 15px; line-height: 1.6; color: var(--text-body); margin-bottom: 10px; }
+    .activity-meta { display: flex; align-items: center; gap: 16px; }
+    .activity-rating { font-family: var(--font-mono); font-size: 13px; font-weight: 500; padding: 2px 8px; border-radius: 2px; background: rgba(245,197,24,0.12); color: var(--score-critic); }
+    .activity-likes { background: transparent; border: 0; padding: 0; font: inherit; font-size: 12px; color: var(--text-muted); cursor: pointer; transition: color 0.2s; display: flex; align-items: center; gap: 5px; } .activity-likes:disabled { cursor: default; }
+    .activity-likes:hover { color: var(--accent); }
+    .activity-album-link { font-size: 12px; color: var(--text-muted); cursor: pointer; transition: color 0.2s; }
+    .activity-album-link:hover { color: var(--text); }
+
+    /* FEATURED COMMENTS BOX */
+    .featured-comments { display: flex; flex-direction: column; gap: 0; }
+    .featured-comment {
+      padding: 20px; border: 1px solid var(--border); margin-bottom: -1px;
+      background: var(--surface);
+      opacity: 0; transform: translateY(10px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .featured-comment.revealed { opacity: 1; transform: translateY(0); }
+    .featured-comment:first-child { border-radius: 4px 4px 0 0; }
+    .featured-comment:last-child { border-radius: 0 0 4px 4px; margin-bottom: 0; }
+    .fc-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .fc-avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--surface-mid); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--score-community); border: 1px solid var(--border); }
+    .fc-user { font-size: 13px; font-weight: 700; }
+    .fc-album { font-size: 12px; color: var(--text-muted); font-style: italic; margin-left: auto; }
+    .fc-rating-badge { font-family: var(--font-mono); font-size: 11px; padding: 2px 6px; border-radius: 2px; background: rgba(245,197,24,0.15); color: var(--score-critic); }
+    .fc-body { font-family: var(--font-body); font-size: 14px; line-height: 1.6; color: var(--text-body); }
+    .fc-likes { font-size: 11px; color: var(--text-muted); margin-top: 8px; }
+
+    /* WRITE COMMENT */
+    .write-box {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+      padding: 24px; margin-bottom: 40px;
+    }
+    .write-box-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); margin-bottom: 16px; }
+    .write-select {
+      width: 100%; padding: 10px 14px; background: var(--surface-mid);
+      border: 1px solid var(--border); border-radius: 2px; color: var(--text);
+      font-family: var(--font-ui); font-size: 13px; margin-bottom: 12px;
+      appearance: none; cursor: pointer;
+    }
+    .write-select:focus { outline: none; border-color: var(--score-community); }
+    .write-textarea {
+      width: 100%; padding: 12px 14px; background: var(--surface-mid);
+      border: 1px solid var(--border); border-radius: 2px; color: var(--text);
+      font-family: var(--font-body); font-size: 15px; line-height: 1.6;
+      resize: vertical; min-height: 100px; margin-bottom: 12px;
+    }
+    .write-textarea::placeholder { color: var(--text-muted); }
+    .write-textarea:focus { outline: none; border-color: var(--score-community); }
+    .write-footer { display: flex; align-items: center; gap: 12px; }
+    .write-rating-label { font-size: 12px; color: var(--text-muted); }
+    .write-stars { display: flex; gap: 4px; }
+    .write-star { font-size: 18px; cursor: pointer; color: var(--text-muted); transition: color 0.15s; }
+    .write-star.active { color: var(--score-critic); }
+    .write-submit { margin-left: auto; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 22px; border: none; border-radius: 2px; cursor: pointer; transition: background 0.2s; }
+    .write-submit:hover { background: var(--accent-hover); }
+
+    /* SIDEBAR */
+    .sidebar-box { margin-bottom: 32px; }
+    .sidebar-title { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+    /* TOP LISTENERS */
+    .top-listener { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .top-listener:last-child { border-bottom: none; }
+    .tl-rank { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); width: 18px; }
+    .tl-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--surface-mid); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--score-community); border: 1px solid var(--border); }
+    .tl-name { font-size: 13px; font-weight: 600; flex: 1; }
+    .tl-count { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); }
+
+    /* TRENDING */
+    .trending-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.2s; }
+    .trending-item:last-child { border-bottom: none; }
+    .trending-item:hover .trending-album { color: var(--score-community); }
+    .trending-num { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); width: 16px; }
+    .trending-img { width: 36px; height: 36px; object-fit: cover; border-radius: 2px; background: var(--surface-mid); }
+    .trending-info { flex: 1; }
+    .trending-album { font-size: 13px; font-weight: 600; line-height: 1.3; transition: color 0.2s; }
+    .trending-artist { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+    .trending-score { font-family: var(--font-mono); font-size: 13px; font-weight: 500; color: var(--score-critic); }
+
+    /* GENRE BREAKDOWN */
+    .genre-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .genre-label { font-size: 12px; color: var(--text-secondary); width: 90px; flex-shrink: 0; }
+    .genre-bar-wrap { flex: 1; height: 4px; background: var(--surface-mid); border-radius: 2px; overflow: hidden; }
+    .genre-bar-fill { height: 100%; border-radius: 2px; background: var(--score-community); width: 0; transition: width 1s ease; }
+    .genre-pct { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); width: 30px; text-align: right; }
+
+    /* LOAD MORE */
+    .load-more-btn {
+      display: block; width: 100%; padding: 14px; margin-top: 8px;
+      background: none; border: 1px solid var(--border); color: var(--text-secondary);
+      font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      cursor: pointer; transition: all 0.2s; border-radius: 2px;
+    }
+    .load-more-btn:hover { border-color: var(--text-secondary); color: var(--text); }
+
+    /* TOAST */
+    #toast { position: fixed; bottom: 24px; right: 24px; background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--score-community); padding: 14px 20px; font-size: 14px; border-radius: 4px; opacity: 0; transform: translateY(8px); transition: all 0.3s ease; pointer-events: none; z-index: 999; }
+    /* COMMUNITY SIGNAL UPGRADE */
+    .community-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 240; transform-origin: left; transform: scaleX(0); background: linear-gradient(90deg, var(--score-community), var(--accent), var(--score-critic)); pointer-events: none; }
+    .community-hero-shell { position: relative; overflow: hidden; border-bottom: 1px solid var(--border); background: radial-gradient(circle at 14% 18%, rgba(74,158,255,.22), transparent 27%), radial-gradient(circle at 78% 62%, rgba(232,54,58,.16), transparent 28%), #0A0A0A; isolation: isolate; --community-progress: 0; }
+    .community-hero-shell::after { content: 'COMMUNITY'; position: absolute; right: -5vw; bottom: -3vw; z-index: 0; font-family: var(--font-display); font-size: clamp(74px, 14vw, 214px); font-weight: 900; letter-spacing: -.08em; color: rgba(255,255,255,.035); transform: translateY(calc(var(--community-progress)*36px)); pointer-events: none; }
+    .community-hero { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 420px); gap: 48px; align-items: end; border-bottom: none; padding-top: 86px; }
+    .community-hero-copy { min-width: 0; }
+    .community-hero h1 { font-size: clamp(46px, 7vw, 92px); letter-spacing: -.055em; }
+    .community-signal-card { padding: 24px; border: 1px solid rgba(255,255,255,.14); background: rgba(10,10,10,.58); backdrop-filter: blur(18px); box-shadow: 0 28px 90px rgba(0,0,0,.42); }
+    .signal-k { font-size: 10px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--score-community); margin-bottom: 15px; }
+    .signal-row { display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.09); }
+    .signal-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .signal-label { color: var(--text-muted); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .signal-title { font-family: var(--font-display); font-size: 1.15rem; font-weight: 900; line-height: 1.05; margin-top: 4px; }
+    .signal-score { font-family: var(--font-mono); font-size: 2.15rem; color: var(--score-community); }
+    .community-stats { grid-column: 1 / -1; position: relative; z-index: 3; }
+    .community-hot-strip { max-width: 1200px; margin: -28px auto 0; position: relative; z-index: 8; padding: 0 48px; }
+    .hot-strip-inner { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .hot-card { min-height: 150px; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,.12); background: var(--surface); padding: 18px; box-shadow: 0 24px 70px rgba(0,0,0,.28); }
+    .hot-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(74,158,255,.15), transparent 58%); opacity: .9; pointer-events: none; }
+    .hot-k { position: relative; z-index: 2; color: var(--score-community); font-size: 10px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; margin-bottom: 10px; }
+    .hot-title { position: relative; z-index: 2; font-family: var(--font-display); font-size: 1.28rem; font-weight: 900; line-height: 1.04; letter-spacing: -.025em; }
+    .hot-meta { position: relative; z-index: 2; margin-top: 9px; color: var(--text-secondary); font-size: 12px; line-height: 1.45; }
+    .community-body { margin-top: 46px; }
+    .write-box { background: linear-gradient(135deg, rgba(17,17,17,.98), rgba(20,20,20,.9)); box-shadow: 0 22px 80px rgba(0,0,0,.22); }
+    .activity-item.signal-feed-card { position: relative; display: grid; grid-template-columns: 74px 1fr; gap: 18px; padding: 22px 0; }
+    .activity-item.signal-feed-card:hover .feed-cover { transform: scale(1.06); filter: brightness(.72) saturate(1.1); }
+    .feed-cover-wrap { position: relative; width: 74px; height: 74px; overflow: hidden; border: 1px solid rgba(255,255,255,.12); background: var(--surface-mid); }
+    .feed-cover { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s, filter .3s; }
+    .feed-avatar { position: absolute; right: -8px; bottom: -8px; width: 34px; height: 34px; border-radius: 50%; background: var(--bg); display: flex; align-items: center; justify-content: center; border: 1px solid var(--score-community); color: var(--score-community); font-size: 11px; font-weight: 800; }
+    .activity-scoreline { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+    .community-score-pill, .critic-score-pill { font-family: var(--font-mono); font-size: 12px; padding: 4px 9px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.045); }
+    .community-score-pill { color: var(--score-community); border-color: rgba(74,158,255,.25); }
+    .critic-score-pill { color: var(--score-critic); border-color: rgba(245,197,24,.25); }
+    .agreement-pill { font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); }
+    .activity-body { position: relative; padding-left: 14px; border-left: 2px solid rgba(74,158,255,.32); }
+    .sidebar-box { background: rgba(17,17,17,.46); border: 1px solid rgba(255,255,255,.08); padding: 18px; box-shadow: 0 18px 60px rgba(0,0,0,.18); }
+    .trending-item, .top-listener { border-bottom-color: rgba(255,255,255,.08); }
+    .featured-comment { border-color: rgba(255,255,255,.10); background: rgba(10,10,10,.46); }
+    @media (max-width: 960px) { .community-hero { grid-template-columns: 1fr; gap: 28px; padding: 58px 24px 42px; } .community-hot-strip { margin-top: 20px; padding: 0 24px; } .hot-strip-inner { grid-template-columns: 1fr; } .community-body { margin-top: 32px; } }
+    @media (max-width: 560px) { .activity-item.signal-feed-card { grid-template-columns: 56px 1fr; gap: 13px; } .feed-cover-wrap { width: 56px; height: 56px; } .feed-avatar { width: 28px; height: 28px; font-size: 10px; } }
+
+    #toast.show { opacity: 1; transform: translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .community-body { grid-template-columns: 1fr; }
+      main { border-right: none; padding: 32px 24px; }
+      aside { padding: 32px 24px; border-top: 1px solid var(--border); }
+      .community-hero { padding: 40px 24px 36px; }
+      .community-stats { gap: 24px; flex-wrap: wrap; }
+      .nav-links { display: none; }
+      .nav-burger { display: block !important; }
+    }
+  
+    .fan-rankings{padding:72px 0 60px;}
+    .fan-rankings-inner{max-width:1200px;margin:0 auto;padding:0 48px;}
+    .rankings-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:36px;padding-bottom:16px;border-bottom:1px solid var(--border);}
+    .rankings-title{font-family:var(--font-display);font-size:28px;font-weight:900;letter-spacing:-.02em;}
+    .rankings-sub{font-size:11px;color:var(--text-muted);letter-spacing:.1em;text-transform:uppercase;margin-top:6px;}
+    .rankings-cols{display:grid;grid-template-columns:1fr 1fr;gap:48px;}
+    .rankings-col-label{font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+    .rankings-col-label span{margin-right:6px;}
+    .rank-row{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05);cursor:pointer;}
+    .rank-row:hover{background:rgba(255,255,255,.03);margin:0 -10px;padding:12px 10px;}
+    .rank-num{font-family:var(--font-mono);font-size:12px;color:var(--text-muted);width:20px;flex-shrink:0;text-align:right;}
+    .rank-cover{width:44px;height:44px;object-fit:cover;border-radius:2px;flex-shrink:0;background:var(--surface-mid);}
+    .rank-info{flex:1;min-width:0;}
+    .rank-artist{font-size:11px;color:var(--text-muted);}
+    .rank-album{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .rank-score{font-family:var(--font-mono);font-size:13px;font-weight:700;flex-shrink:0;text-align:right;min-width:40px;}
+    .rank-score.pos{color:#4A9EFF;}.rank-score.hot{color:var(--score-critic);}
+    .rankings-empty{font-size:13px;color:var(--text-muted);text-align:center;padding:40px 0;}
+    @media(max-width:768px){.rankings-cols{grid-template-columns:1fr;}.fan-rankings-inner{padding:0 20px;}}
+</style>
+
+<style id="reverb-global-footer-style">
+  .reverb-footer { background: #111111; border-top: 1px solid rgba(255,255,255,.10); margin-top: 72px; color: #fff; font-family: Inter, system-ui, sans-serif; }
+  .reverb-footer * { box-sizing: border-box; }
+  .reverb-footer a { color: inherit; text-decoration: none; }
+  .reverb-footer-inner { width: min(1180px, calc(100% - 40px)); margin: 0 auto; padding: 56px 0 28px; }
+  .reverb-footer-newsletter { display: grid; grid-template-columns: 1.15fr .85fr; gap: 28px; align-items: end; padding: 0 0 44px; margin-bottom: 42px; border-bottom: 1px solid rgba(255,255,255,.10); }
+  .reverb-footer-kicker { color: #E8363A; font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 10px; }
+  .reverb-footer-title { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(30px, 4vw, 52px); line-height: .98; font-weight: 900; letter-spacing: -.03em; margin: 0 0 12px; color: #fff; }
+  .reverb-footer-desc { font-family: Lora, Georgia, serif; color: #A0A0A0; line-height: 1.65; max-width: 620px; margin: 0; font-size: 15px; }
+  .reverb-footer-form { display: flex; gap: 0; width: 100%; max-width: 440px; margin-left: auto; }
+  .reverb-footer-input { flex: 1; min-width: 0; background: #0A0A0A; border: 1px solid #2A2A2A; border-right: 0; color: #fff; padding: 15px 16px; font: 500 14px Inter, system-ui, sans-serif; border-radius: 2px 0 0 2px; }
+  .reverb-footer-input:focus { outline: none; border-color: #E8363A; }
+  .reverb-footer-input::placeholder { color: #5A5A5A; }
+  .reverb-footer-button { background: #E8363A; border: 0; color: #fff; padding: 0 22px; border-radius: 0 2px 2px 0; font: 800 12px Inter, system-ui, sans-serif; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: background .2s ease, opacity .2s ease; }
+  .reverb-footer-button:hover { background: #B22327; }
+  .reverb-footer-button:disabled { opacity: .65; cursor: wait; }
+  .reverb-footer-note { margin: 10px 0 0; color: #5A5A5A; font-size: 12px; line-height: 1.5; text-align: right; }
+  .reverb-footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
+  .reverb-footer-logo { font-family: 'Playfair Display', Georgia, serif; font-size: 32px; font-weight: 900; letter-spacing: -.02em; margin-bottom: 12px; color: #fff; }
+  .reverb-footer-logo span { color: #E8363A; }
+  .reverb-footer-tagline { font-family: Lora, Georgia, serif; font-style: italic; color: #A0A0A0; font-size: 14px; line-height: 1.6; max-width: 280px; margin: 0; }
+  .reverb-footer-heading { color: #5A5A5A; font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 15px; }
+  .reverb-footer-links { display: grid; gap: 10px; list-style: none; padding: 0; margin: 0; }
+  .reverb-footer-links a { color: #A0A0A0; font-size: 14px; transition: color .2s ease; }
+  .reverb-footer-links a:hover { color: #fff; }
+  .reverb-footer-bottom { display: flex; justify-content: space-between; gap: 20px; align-items: center; border-top: 1px solid rgba(255,255,255,.10); margin-top: 42px; padding-top: 24px; }
+  .reverb-footer-copy { color: #5A5A5A; font-size: 12px; }
+  .reverb-footer-social { display: flex; gap: 18px; flex-wrap: wrap; }
+  .reverb-footer-social a { color: #5A5A5A; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; transition: color .2s ease; }
+  .reverb-footer-social a:hover { color: #E8363A; }
+  @media (max-width: 860px) {
+    .reverb-footer { margin-top: 48px; }
+    .reverb-footer-inner { width: min(100% - 28px, 1180px); padding-top: 42px; }
+    .reverb-footer-newsletter, .reverb-footer-grid { grid-template-columns: 1fr; }
+    .reverb-footer-form { margin-left: 0; max-width: none; }
+    .reverb-footer-note { text-align: left; }
+    .reverb-footer-bottom { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 520px) {
+    .reverb-footer-form { flex-direction: column; gap: 10px; }
+    .reverb-footer-input { border-right: 1px solid #2A2A2A; border-radius: 2px; }
+    .reverb-footer-button { min-height: 46px; border-radius: 2px; }
+  }
+</style>
+
+
+  <!-- REVERB × SR7 Motion Layer -->
+  <style id="reverb-sr7-css">
+/* ============================================================
+   REVERB × Slider Revolution 7 — Native Motion Layer
+   Extracted from revslider/public/ — adapted for static deploy
+   ============================================================ */
+
+/* ── 1. SR7 KEYFRAMES ──────────────────────────────────────── */
+@keyframes sr7-ani-mouse{0%{opacity:1;top:29%}15%{opacity:1;top:70%}50%{opacity:0;top:70%}100%{opacity:0;top:29%}}
+@keyframes tp-rotateplane{0%{transform:perspective(120px) rotateX(0deg) rotateY(0deg)}50%{transform:perspective(120px) rotateX(-180.1deg) rotateY(0deg)}100%{transform:perspective(120px) rotateX(-180deg) rotateY(-179.9deg)}}
+@keyframes tp-fade-in{0%{opacity:0}20%{opacity:0}100%{opacity:1}}
+@keyframes tp-rotate{100%{transform:rotate(360deg)}}
+@keyframes sr--anim--rotate{0%{transform:rotate(0deg)}50%{transform:rotate(180deg)}100%{transform:rotate(360deg)}}
+@keyframes sr-pop{0%{transform:scale(0.7);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes sr-elastic-pop{0%{transform:scale(0.7)}60%{transform:scale(1.1)}80%{transform:scale(0.95)}100%{transform:scale(1)}}
+@keyframes shimmer{from{background-position:200% 0}to{background-position:0% 0}}
+@keyframes tp-scaleout{0%{transform:scale(0)}100%{transform:scale(1);opacity:0}}
+@keyframes tp-bouncedelay{0%,80%,100%{transform:scale(0)}40%{transform:scale(1)}}
+@keyframes tp-bounce{0%,100%{transform:scale(0)}50%{transform:scale(1)}}
+@keyframes rs-revealer-6{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes rs-revealer-8{0%{transform:scale(0,0);opacity:.5}100%{transform:scale(1,1);opacity:0}}
+@keyframes rs-revealer-9{0%,100%{transform:scale(0)}50%{transform:scale(1)}}
+@keyframes rs-revealer-10{0%,100%,40%{transform:scaleY(.4)}20%{transform:scaleY(1)}}
+@keyframes rs-revealer-11{0%,100%,70%{transform:scale3D(1,1,1)}35%{transform:scale3D(0,0,1)}}
+@keyframes rs-revealer-12{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+@keyframes rs-revealer-13{0%,100%{transform:translate(0)}25%{transform:translate(160%)}50%{transform:translate(160%,160%)}75%{transform:translate(0,160%)}}
+@keyframes rs-revealer-15{25%{transform:translateX(30px) rotate(-90deg) scale(.5)}50%{transform:translateX(30px) translateY(30px) rotate(-179deg)}75%{transform:translateX(0) translateY(30px) rotate(-270deg) scale(.5)}100%{transform:rotate(-360deg)}}
+
+/* ── 2. SR7 PRELOADER SKINS (REVERB-themed) ────────────────── */
+/* tp-bouncedelay: 3-dot bounce (used for data loading) */
+.reverb-loader { display:flex; gap:6px; align-items:center; justify-content:center; padding:24px; }
+.reverb-loader span {
+  width:10px; height:10px; border-radius:50%;
+  background: #E8363A;
+  display:inline-block;
+  animation: tp-bouncedelay 1.4s infinite ease-in-out both;
+}
+.reverb-loader span:nth-child(1){animation-delay:-0.32s}
+.reverb-loader span:nth-child(2){animation-delay:-0.16s}
+
+/* tp-rotateplane: spinning square (score loading) */
+.reverb-score-loader {
+  width:20px; height:20px;
+  background: #F5C518;
+  animation: tp-rotateplane 1.2s infinite ease-in-out;
+  border-radius:2px;
+  display:inline-block;
+}
+
+/* shimmer: skeleton loading on cards */
+.reverb-shimmer {
+  background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* ── 3. SR7 INSTAGRAM-STYLE PHOTO FILTERS ──────────────────── */
+/* Applied to album cover art via .cover-filter-{name} */
+.cover-filter-inkwell  { filter:sepia(.3) contrast(1.1) brightness(1.1) grayscale(1) }
+.cover-filter-moon     { filter:grayscale(1) contrast(1.1) brightness(1.1) }
+.cover-filter-lofi     { filter:saturate(1.1) contrast(1.5) }
+.cover-filter-clarendon{ filter:contrast(1.2) saturate(1.35) }
+.cover-filter-toaster  { filter:contrast(1.5) brightness(.9) }
+.cover-filter-mayfair  { filter:contrast(1.1) saturate(1.1) }
+.cover-filter-reyes    { filter:sepia(.22) brightness(1.1) contrast(.85) saturate(.75) }
+.cover-filter-walden   { filter:brightness(1.1) hue-rotate(-10deg) sepia(.3) saturate(1.6) }
+.cover-filter-nashville{ filter:sepia(.2) contrast(1.2) brightness(1.05) saturate(1.2) }
+.cover-filter-lark     { filter:contrast(.9) }
+.cover-filter-willow   { filter:grayscale(.5) contrast(.95) brightness(.9) }
+.cover-filter-rise     { filter:brightness(1.05) sepia(.2) contrast(.9) saturate(.9) }
+.cover-filter-slumber  { filter:saturate(.66) brightness(1.05) }
+.cover-filter-brooklyn { filter:contrast(.9) brightness(1.1) }
+.cover-filter-hudson   { filter:brightness(1.2) contrast(.9) saturate(1.1) }
+.cover-filter-aden     { filter:hue-rotate(-20deg) contrast(.9) saturate(.85) brightness(1.2) }
+
+/* Transition on filter change */
+[class*="cover-filter-"] { transition: filter 0.4s ease; }
+
+/* ── 4. SR7 ENTRY ANIMATIONS (utility classes) ─────────────── */
+/* Slide-in from directions */
+.sr7-enter-up    { animation: sr7-enter-up 0.6s cubic-bezier(.16,1,.3,1) both }
+.sr7-enter-down  { animation: sr7-enter-down 0.6s cubic-bezier(.16,1,.3,1) both }
+.sr7-enter-left  { animation: sr7-enter-left 0.6s cubic-bezier(.16,1,.3,1) both }
+.sr7-enter-right { animation: sr7-enter-right 0.6s cubic-bezier(.16,1,.3,1) both }
+.sr7-pop         { animation: sr-pop 0.4s cubic-bezier(.16,1,.3,1) both }
+.sr7-elastic-pop { animation: sr-elastic-pop 0.5s cubic-bezier(.16,1,.3,1) both }
+.sr7-fade-in     { animation: tp-fade-in 0.5s ease both }
+
+@keyframes sr7-enter-up    { from{transform:translateY(30px);opacity:0} to{transform:none;opacity:1} }
+@keyframes sr7-enter-down  { from{transform:translateY(-30px);opacity:0} to{transform:none;opacity:1} }
+@keyframes sr7-enter-left  { from{transform:translateX(40px);opacity:0} to{transform:none;opacity:1} }
+@keyframes sr7-enter-right { from{transform:translateX(-40px);opacity:0} to{transform:none;opacity:1} }
+
+/* Stagger delays */
+.sr7-delay-1 { animation-delay:.1s }
+.sr7-delay-2 { animation-delay:.2s }
+.sr7-delay-3 { animation-delay:.3s }
+.sr7-delay-4 { animation-delay:.4s }
+.sr7-delay-5 { animation-delay:.5s }
+.sr7-delay-6 { animation-delay:.6s }
+
+/* ── 5. SCORE CHIP — elastic pop on load ──────────────────── */
+.score-chip, .score-badge, [class*="rating"] {
+  animation: sr-elastic-pop 0.5s cubic-bezier(.16,1,.3,1) both;
+  animation-delay: 0.3s;
+}
+
+/* ── 6. HERO SLIDE WIPE TRANSITIONS (rs-revealer style) ─────── */
+/* Overlay that wipes out between hero slides */
+.hero-wipe {
+  position:absolute; inset:0; z-index:10; pointer-events:none;
+  background: #0A0A0A;
+  transform-origin: left;
+}
+.hero-wipe.wipe-enter  { animation: hero-wipe-in  0.7s cubic-bezier(.77,0,.18,1) forwards }
+.hero-wipe.wipe-exit   { animation: hero-wipe-out 0.7s cubic-bezier(.77,0,.18,1) forwards }
+
+@keyframes hero-wipe-in  { from{transform:scaleX(0)} to{transform:scaleX(1)} }
+@keyframes hero-wipe-out { from{transform:scaleX(1)} to{transform:scaleX(0); transform-origin:right} }
+
+/* ── 7. MOOD FILMSTRIP — rs-revealer hover pulse ────────────── */
+.mood-card:hover .mood-score {
+  animation: sr-elastic-pop 0.35s cubic-bezier(.16,1,.3,1);
+}
+
+/* ── 8. SCROLL-REVEAL (IntersectionObserver hook) ───────────── */
+.sr7-reveal {
+  opacity:0; transform:translateY(24px);
+  transition: opacity 0.6s cubic-bezier(.16,1,.3,1), transform 0.6s cubic-bezier(.16,1,.3,1);
+}
+.sr7-reveal.is-visible {
+  opacity:1; transform:none;
+}
+
+/* ── 9. REVERB LOADING SCREEN (tp-bouncedelay branded) ──────── */
+#reverb-loading-screen {
+  position:fixed; inset:0; z-index:9999;
+  background:#0A0A0A;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:20px;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+#reverb-loading-screen.hidden { opacity:0; visibility:hidden; pointer-events:none; }
+#reverb-loading-screen .reverb-loader span { background:#E8363A; width:14px; height:14px; }
+#reverb-loading-screen .load-logo {
+  font-family:'Playfair Display', serif;
+  font-size:2rem; font-weight:700; letter-spacing:0.15em;
+  color:#fff;
+}
+#reverb-loading-screen .load-logo span { color:#E8363A; }
+
+  </style>
+</head>
+<body>
+<div class="community-progress" aria-hidden="true"></div>
+
+<nav>
+  <a class="nav-logo" href="/">REVER<span>B</span></a>
+  <ul class="nav-links">
+      <li><a href="/new">New</a></li>
+      <li><a href="/browse">Reviews</a></li>
+      <li><a href="/browse">Browse</a></li>
+      <li><a href="/browse?view=lists">Lists</a></li>
+      <li><a href="/community" class="active">Community</a></li>
+    </ul>
+  <div class="nav-right">
+      <button type="button" class="nav-search" data-search-trigger aria-label="Search REVERB (⌘K)">⌕ <span class="search-kbd" style="font-family:var(--font-mono,monospace);font-size:.6rem;color:#5A5A5A;background:#1A1A1A;border:1px solid #2A2A2A;padding:2px 6px;border-radius:3px;margin-left:4px">⌘K</span></button>
+
+    <button class="nav-burger" style="display:none;background:none;border:none;color:#fff;font-size:22px;cursor:pointer;">☰</button>
+    <a class="nav-signin" href="/profile">Sign In</a>
+  </div>
+</nav>
+
+<section class="fan-rankings">
+  <div class="fan-rankings-inner">
+    <div class="rankings-header">
+      <div><div class="rankings-title">Fan Rankings</div><div class="rankings-sub">Based on community up/down votes &middot; Updated live</div></div>
+    </div>
+    <div class="rankings-cols">
+      <div><div class="rankings-col-label"><span style="color:#4A9EFF">&#9650;</span> Most Loved</div><div id="rankingsMostLoved"><div class="rankings-empty">Loading&hellip;</div></div></div>
+      <div><div class="rankings-col-label"><span style="color:var(--score-critic)">&#9889;</span> Most Controversial</div><div id="rankingsMostControversial"><div class="rankings-empty">Loading&hellip;</div></div></div>
+    </div>
+  </div>
+</section>
+<section class="community-hero-shell">
+  <div class="community-hero">
+    <div class="community-hero-copy">
+      <div class="community-hero-label">Community</div>
+      <h1>The Conversation<br>Around the Music</h1>
+      <p>Real listeners, real opinions. REVERB's community is where criticism meets experience — no algorithm, no follower counts.</p>
+    </div>
+    <aside class="community-signal-card" aria-label="Community signal">
+      <div class="signal-k">Live consensus</div>
+      <div class="signal-row">
+        <div><div class="signal-label">Fan favorite</div><div class="signal-title" id="signalFanAlbum">—</div></div>
+        <div class="signal-score" id="signalFanScore">—</div>
+      </div>
+      <div class="signal-row">
+        <div><div class="signal-label">Biggest debate</div><div class="signal-title" id="signalDebateAlbum">—</div></div>
+        <div class="signal-score" id="signalDebateGap">—</div>
+      </div>
+      <div class="signal-row">
+        <div><div class="signal-label">Most active voice</div><div class="signal-title" id="signalTopVoice">—</div></div>
+        <div class="signal-score" id="signalTopVoiceCount">—</div>
+      </div>
+    </aside>
+    <div class="community-stats">
+      <div class="stat-item">
+        <span class="stat-num" id="stat-reviews">—</span>
+        <span class="stat-label">Reviews Published</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" id="stat-comments">—</span>
+        <span class="stat-label">Community Ratings</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" id="stat-genres">—</span>
+        <span class="stat-label">Genres Covered</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" id="stat-bnm">—</span>
+        <span class="stat-label">Best New Music</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="community-hot-strip" aria-label="Community highlights">
+  <div class="hot-strip-inner" id="communityHotStrip">
+    <article class="hot-card"><div class="hot-k">Loading</div><div class="hot-title">Reading the room…</div><div class="hot-meta">Community signal is warming up.</div></article>
+  </div>
+</section>
+
+<div class="community-body">
+  <main>
+
+    <!-- WRITE A COMMENT -->
+    <div class="write-box" id="write-box">
+      <div class="write-box-title">Leave a Rating</div>
+      <select class="write-select" id="write-album">
+        <option value="">Select an album…</option>
+      </select>
+      <textarea class="write-textarea" id="write-body" placeholder="What did this album mean to you?"></textarea>
+      <div class="write-footer">
+        <span class="write-rating-label">Your score:</span>
+        <div class="write-stars" id="write-stars">
+          <span class="write-star" data-v="1">★</span>
+          <span class="write-star" data-v="2">★</span>
+          <span class="write-star" data-v="3">★</span>
+          <span class="write-star" data-v="4">★</span>
+          <span class="write-star" data-v="5">★</span>
+          <span class="write-star" data-v="6">★</span>
+          <span class="write-star" data-v="7">★</span>
+          <span class="write-star" data-v="8">★</span>
+          <span class="write-star" data-v="9">★</span>
+          <span class="write-star" data-v="10">★</span>
+        </div>
+        <button class="write-submit" id="write-submit">Post Rating</button>
+      </div>
+    </div>
+
+    <!-- FEED TABS -->
+    <div class="feed-tabs">
+      <button class="feed-tab active" data-tab="recent">Recent</button>
+      <button class="feed-tab" data-tab="top">Top Rated</button>
+      <button class="feed-tab" data-tab="featured">Editor's Picks</button>
+    </div>
+
+    <!-- ACTIVITY FEED -->
+    <div class="activity-feed" id="activity-feed">
+      <div style="padding: 40px 0; text-align: center; color: var(--text-muted); font-size: 14px;">Loading community activity…</div>
+    </div>
+
+    <button class="load-more-btn" id="load-more-btn" style="display:none;" data-load-more-comments>Load More</button>
+
+  </main>
+
+  <aside>
+
+    <!-- TRENDING -->
+    <div class="sidebar-box">
+      <div class="sidebar-title">Trending This Week</div>
+      <div id="trending-list">
+        <div style="color:var(--text-muted);font-size:13px;">Loading…</div>
+      </div>
+    </div>
+
+    <!-- TOP COMMUNITY VOICES -->
+    <div class="sidebar-box">
+      <div class="sidebar-title">Top Community Voices</div>
+      <div id="top-listeners">
+        <div style="color:var(--text-muted);font-size:13px;">Loading…</div>
+      </div>
+    </div>
+
+    <!-- GENRE BREAKDOWN -->
+    <div class="sidebar-box">
+      <div class="sidebar-title">Coverage by Genre</div>
+      <div id="genre-breakdown">
+        <div style="color:var(--text-muted);font-size:13px;">Loading…</div>
+      </div>
+    </div>
+
+    <!-- FEATURED COMMENTS -->
+    <div class="sidebar-box">
+      <div class="sidebar-title">Highlighted Reactions</div>
+      <div class="featured-comments" data-sr7-stagger id="featured-comments">
+        <div style="color:var(--text-muted);font-size:13px;">Loading…</div>
+      </div>
+    </div>
+
+  </aside>
+</div>
+
+<div id="toast">✓ Your rating was posted!</div>
+
+<script>
+const REVERB_API_URL = 'https://shopify-copy-f62a1de4.base44.app/functions/reverbData';
+
+const HOME_URL = '/';
+const BROWSE_URL = '/browse';
+const REVIEW_URL = '/review';
+const PROFILE_URL = '/profile/Sofia%20Reyes';
+const ARTIST_URL = '/artist/Aphex%20Twin';
+const COMMUNITY_URL = '/community';
+
+const STATIC_REVIEWS = [{"id": "6a2fa073942706375ccb2dae", "artist": "Aphex Twin", "album": "Blackbox Life Recorder", "genre": "Electronic", "rating": 9.5, "community_score": 8.7, "is_best_new_music": true, "cover_image": "https://cdn-images.dzcdn.net/images/cover/8ff06016c4666391fcc48ef07cea177e/1000x1000-000000-80-0-0.jpg"}, {"id": "6a2fa073942706375ccb2daf", "artist": "SZA", "album": "SOS", "genre": "R&B", "rating": 9.0, "community_score": 8.2, "is_best_new_music": true, "cover_image": "https://cdn-images.dzcdn.net/images/cover/a3c3b409f0d5bd781821ec0fd79d5b15/1000x1000-000000-80-0-0.jpg"}, {"id": "6a2fa073942706375ccb2db0", "artist": "Kendrick Lamar", "album": "GNX", "genre": "Hip-Hop", "rating": 9.0, "community_score": 9.1, "is_best_new_music": true, "cover_image": "https://cdn-images.dzcdn.net/images/cover/da5256ff8cacfe9ad90521f6e3792259/1000x1000-000000-80-0-0.jpg"}, {"id": "6a2fa073942706375ccb2db1", "artist": "The Smile", "album": "Wall of Eyes", "genre": "Alternative", "rating": 8.5, "community_score": 7.9, "is_best_new_music": false, "cover_image": "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02ec5757cdfeb9a29df135c96d"}, {"id": "6a2fa073942706375ccb2db2", "artist": "Charli XCX", "album": "Brat", "genre": "Pop", "rating": 8.0, "community_score": 8.6, "is_best_new_music": false, "cover_image": "https://cdn-images.dzcdn.net/images/cover/de9e79511cda59914de9add50946e43c/1000x1000-000000-80-0-0.jpg"}, {"id": "6a2fa073942706375ccb2db3", "artist": "Johnny Blue Skies", "album": "Passage du Desir", "genre": "Country", "rating": 7.5, "community_score": 7.1, "is_best_new_music": false, "cover_image": "https://cdn-images.dzcdn.net/images/cover/056aa3fb4a910b287889205eaa45f9ee/1000x1000-000000-80-0-0.jpg"}, {"id": "6a2fd4d47ba31d7baa22fcfa", "artist": "Mitski", "album": "The Land Is Inhospitable and So Are We", "genre": "Alternative", "rating": 9.2, "community_score": 8.9, "is_best_new_music": true, "cover_image": "https://cdn-images.dzcdn.net/images/cover/db69f7d3ea280f1155256705735648cd/1000x1000-000000-80-0-0.jpg"}, {"id": "6a2fd4d47ba31d7baa22fcfb", "artist": "Sufjan Stevens", "album": "Javelin", "genre": "Folk", "rating": 9.3, "community_score": 8.8, "is_best_new_music": true, "cover_image": "https://cdn-images.dzcdn.net/images/cover/e27baa7ae983b626fc5434e3175e32c6/1000x1000-000000-80-0-0.jpg"}, {"id": "6a2fd4d47ba31d7baa22fcfd", "artist": "Caroline Polachek", "album": "Desire, I Want to Turn Into You", "genre": "Art Pop", "rating": 9.4, "community_score": 9.0, "is_best_new_music": true, "cover_image": "https://cdn-images.dzcdn.net/images/cover/67e9a8272d715c88adf400c554f68f33/1000x1000-000000-80-0-0.jpg"}, {"id": "6a2fd4d47ba31d7baa22fcff", "artist": "Billy Woods", "album": "Maps", "genre": "Hip-Hop", "rating": 9.1, "community_score": 8.4, "is_best_new_music": true, "cover_image": "https://cdn-images.dzcdn.net/images/cover/bcafcc7b293eeb0cdb59720b33cba541/1000x1000-000000-80-0-0.jpg"}, {"id": "6a2fd4d47ba31d7baa22fd00", "artist": "Fred Again..", "album": "Actual Life 3", "genre": "Electronic", "rating": 8.6, "community_score": 8.8, "is_best_new_music": false, "cover_image": "https://cdn-images.dzcdn.net/images/cover/0c79babffc5400d88fc40db5806858a6/1000x1000-000000-80-0-0.jpg"}, {"id": "6a2fd4d47ba31d7baa22fd01", "artist": "Zach Bryan", "album": "Zach Bryan", "genre": "Country", "rating": 8.1, "community_score": 8.9, "is_best_new_music": false, "cover_image": "https://cdn-images.dzcdn.net/images/cover/6c6a9089cda16da7f524b9ef1f965270/1000x1000-000000-80-0-0.jpg"}, {"id": "6a2fd4d47ba31d7baa22fcfe", "artist": "Yo-Yo Ma", "album": "Six Unaccompanied Cello Suites", "genre": "Classical", "rating": 10.0, "community_score": 9.7, "is_best_new_music": false, "cover_image": "https://cdn-images.dzcdn.net/images/cover/8b69cdda334c287b93acb0aefad12b0d/1000x1000-000000-80-0-0.jpg"}, {"id": "6a2fd4d47ba31d7baa22fcfc", "artist": "Show Me the Body", "album": "Endure", "genre": "Hardcore", "rating": 8.3, "community_score": 7.8, "is_best_new_music": false, "cover_image": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/32/0e/cb/320ecbe4-b530-a00a-5ff0-afe746c22b50/00888072089433.rgb.jpg/1000x1000bb.jpg"}];
+
+
+const COVER_IMGS = {
+  'aphex twin':       'https://cdn-images.dzcdn.net/images/cover/8ff06016c4666391fcc48ef07cea177e/1000x1000-000000-80-0-0.jpg',
+  'sza':              'https://cdn-images.dzcdn.net/images/cover/a3c3b409f0d5bd781821ec0fd79d5b15/1000x1000-000000-80-0-0.jpg',
+  'kendrick lamar':   'https://cdn-images.dzcdn.net/images/cover/da5256ff8cacfe9ad90521f6e3792259/1000x1000-000000-80-0-0.jpg',
+  'radiohead':        'https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02ec5757cdfeb9a29df135c96d',
+  'charli xcx':       'https://cdn-images.dzcdn.net/images/cover/de9e79511cda59914de9add50946e43c/1000x1000-000000-80-0-0.jpg',
+  'sturgill simpson': 'https://cdn-images.dzcdn.net/images/cover/056aa3fb4a910b287889205eaa45f9ee/1000x1000-000000-80-0-0.jpg',
+  'mitski':           'https://cdn-images.dzcdn.net/images/cover/db69f7d3ea280f1155256705735648cd/1000x1000-000000-80-0-0.jpg',
+  'sufjan stevens':   'https://cdn-images.dzcdn.net/images/cover/e27baa7ae983b626fc5434e3175e32c6/1000x1000-000000-80-0-0.jpg',
+  'caroline polachek':'https://cdn-images.dzcdn.net/images/cover/67e9a8272d715c88adf400c554f68f33/1000x1000-000000-80-0-0.jpg',
+  'billy woods':      'https://cdn-images.dzcdn.net/images/cover/bcafcc7b293eeb0cdb59720b33cba541/1000x1000-000000-80-0-0.jpg',
+  'fred again':       'https://cdn-images.dzcdn.net/images/cover/0c79babffc5400d88fc40db5806858a6/1000x1000-000000-80-0-0.jpg',
+  'zach bryan':       'https://cdn-images.dzcdn.net/images/cover/6c6a9089cda16da7f524b9ef1f965270/1000x1000-000000-80-0-0.jpg',
+  'yo-yo ma':         'https://cdn-images.dzcdn.net/images/cover/8b69cdda334c287b93acb0aefad12b0d/1000x1000-000000-80-0-0.jpg',
+  'show me the body': 'https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/32/0e/cb/320ecbe4-b530-a00a-5ff0-afe746c22b50/00888072089433.rgb.jpg/1000x1000bb.jpg',
+};
+function getCoverImg(artist) {
+  const key = (artist||'').toLowerCase();
+  for (const [k,v] of Object.entries(COVER_IMGS)) { if (key.includes(k)||k.includes(key.split(' ')[0])) return v; }
+  return 'https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02ec5757cdfeb9a29df135c96d';
+}
+function scoreColor(s) {
+  const n = parseFloat(s);
+  if (n >= 9) return '#1DB954';
+  if (n >= 8) return '#F5C518';
+  if (n >= 7) return '#FF9800';
+  return '#E8363A';
+}
+function timeAgo(dateStr) {
+  if (!dateStr) return 'recently';
+  const diff = Date.now() - new Date(dateStr).getTime();
+  const h = Math.floor(diff / 3600000);
+  if (h < 1) return 'just now';
+  if (h < 24) return `${h}h ago`;
+  const d = Math.floor(h / 24);
+  if (d < 7) return `${d}d ago`;
+  return `${Math.floor(d/7)}w ago`;
+}
+
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+}
+function reviewUrl(id) { return REVIEW_URL + '?id=' + encodeURIComponent(id || ''); }
+function fetchWithTimeout(url, options = {}, timeoutMs = 5000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  return fetch(url, { ...options, signal: controller.signal }).finally(() => clearTimeout(timer));
+}
+function scoreGap(r) { return Math.abs(Number(r.rating || 0) - Number(r.community_score || 0)); }
+function initCommunityMotion() {
+  const hero = document.querySelector('.community-hero-shell');
+  const progress = document.querySelector('.community-progress');
+  if (!hero || hero.dataset.motionWired === '1') return;
+  hero.dataset.motionWired = '1';
+  const update = () => {
+    const hp = Math.min(1, Math.max(0, -hero.getBoundingClientRect().top / Math.max(1, hero.offsetHeight)));
+    hero.style.setProperty('--community-progress', hp.toFixed(4));
+    if (progress) {
+      const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      progress.style.transform = `scaleX(${Math.min(1, Math.max(0, window.scrollY / max)).toFixed(4)})`;
+    }
+  };
+  update(); window.addEventListener('scroll', update, { passive:true }); window.addEventListener('resize', update);
+}
+function updateCommunitySignals() {
+  const fan = [...allReviews].filter(r => r.community_score).sort((a,b)=>Number(b.community_score||0)-Number(a.community_score||0))[0];
+  const debate = [...allReviews].filter(r => r.community_score && r.rating).sort((a,b)=>scoreGap(b)-scoreGap(a))[0];
+  const userMap = {};
+  allComments.forEach(c => { const u = c.author_name || 'Anonymous'; userMap[u] = (userMap[u] || 0) + 1; });
+  const topVoice = Object.entries(userMap).sort((a,b)=>b[1]-a[1])[0];
+  if (fan) { document.getElementById('signalFanAlbum').textContent = `${fan.artist}: ${fan.album}`; document.getElementById('signalFanScore').textContent = Number(fan.community_score||0).toFixed(1); }
+  if (debate) { document.getElementById('signalDebateAlbum').textContent = `${debate.artist}: ${debate.album}`; document.getElementById('signalDebateGap').textContent = scoreGap(debate).toFixed(1); }
+  if (topVoice) { document.getElementById('signalTopVoice').textContent = topVoice[0]; document.getElementById('signalTopVoiceCount').textContent = topVoice[1]; }
+}
+function renderHotStrip() {
+  const el = document.getElementById('communityHotStrip'); if (!el) return;
+  const fan = [...allReviews].filter(r => r.community_score).sort((a,b)=>Number(b.community_score||0)-Number(a.community_score||0))[0];
+  const debate = [...allReviews].filter(r => r.community_score && r.rating).sort((a,b)=>scoreGap(b)-scoreGap(a))[0];
+  const featured = allComments.filter(c => c.is_featured).sort((a,b)=>Number(b.likes||0)-Number(a.likes||0))[0] || allComments[0];
+  const featuredReview = featured ? allReviews.find(r => r.id === featured.review_id) : null;
+  const cards = [
+    { k:'Fan favorite', title: fan ? `${fan.album}` : 'No signal yet', meta: fan ? `${fan.artist} · ${Number(fan.community_score||0).toFixed(1)} community score` : 'Ratings will appear here.' },
+    { k:'Critic/fan split', title: debate ? `${debate.album}` : 'No split yet', meta: debate ? `${scoreGap(debate).toFixed(1)} point gap between critic and community` : 'Consensus is still forming.' },
+    { k:'Quoted reaction', title: featured ? `“${String(featured.body || '').slice(0,68)}${String(featured.body || '').length>68?'…':''}”` : 'No reactions yet', meta: featured ? `${featured.author_name || 'Anonymous'} on ${featuredReview?.album || 'a review'}` : 'Community quotes will appear here.' }
+  ];
+  el.innerHTML = cards.map(c => `<article class="hot-card"><div class="hot-k">${escapeHtml(c.k)}</div><div class="hot-title">${escapeHtml(c.title)}</div><div class="hot-meta">${escapeHtml(c.meta)}</div></article>`).join('');
+}
+
+let allReviews = [];
+let allComments = [];
+let currentTab = 'recent';
+let displayCount = 8;
+let selectedRating = 0;
+
+async function loadCommunityData() {
+  try {
+    const res = await fetchWithTimeout(`${REVERB_API_URL}?endpoint=browse&limit=50`, {}, 5500);
+    const data = await res.json();
+    allReviews = Array.isArray(data.reviews) && data.reviews.length ? data.reviews : STATIC_REVIEWS;
+  } catch(e) {
+    console.warn('reviews error, using embedded data', e);
+    allReviews = STATIC_REVIEWS;
+  }
+
+  // Public Vercel pages cannot read Base44 entities directly without auth, so keep
+  // the community feed instant and reliable with the embedded editorial seed set.
+  allComments = STATIC_COMMENTS;
+
+  renderStats();
+  updateCommunitySignals();
+  renderHotStrip();
+  initCommunityMotion();
+  renderFeed();
+  renderTrending();
+  renderTopListeners();
+  renderGenreBreakdown();
+  renderFeaturedComments();
+  populateAlbumSelect();
+  initScrollReveal();
+}
+
+function renderStats() {
+  const genreSet = new Set(allReviews.map(r => r.genre).filter(Boolean));
+  const bnm = allReviews.filter(r => r.is_best_new_music).length;
+  animateCount('stat-reviews', allReviews.length);
+  animateCount('stat-comments', allComments.length);
+  animateCount('stat-genres', genreSet.size);
+  animateCount('stat-bnm', bnm);
+}
+
+function animateCount(id, target) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  let cur = 0;
+  const step = Math.ceil(target / 30);
+  const iv = setInterval(() => {
+    cur = Math.min(cur + step, target);
+    el.textContent = cur;
+    if (cur >= target) clearInterval(iv);
+  }, 40);
+}
+
+function renderFeed(tab) {
+  if (tab) currentTab = tab;
+  const feed = document.getElementById('activity-feed');
+  let comments = [...allComments];
+
+  if (currentTab === 'top') {
+    comments.sort((a, b) => (b.rating||0) - (a.rating||0));
+  } else if (currentTab === 'featured') {
+    comments = comments.filter(c => c.is_featured);
+  } else {
+    comments.sort((a, b) => new Date(b.created_date||0) - new Date(a.created_date||0));
+  }
+
+  const visible = comments.slice(0, displayCount);
+  const loadMoreBtn = document.getElementById('load-more-btn');
+  if (loadMoreBtn) loadMoreBtn.style.display = comments.length > displayCount ? '' : 'none';
+
+  if (!visible.length) {
+    feed.innerHTML = '<div style="padding:40px 0;text-align:center;color:var(--text-muted);font-size:14px;">No community ratings yet. Be the first to weigh in.</div>';
+    return;
+  }
+
+  feed.innerHTML = visible.map(c => {
+    const review = allReviews.find(r => r.id === c.review_id) || {};
+    const coverImg = review.cover_image || getCoverImg(review.artist || '');
+    const initials = (c.author_initials||c.author_name?.slice(0,2)||'??').toUpperCase();
+    const agreement = review.rating && c.rating ? (Math.abs(Number(c.rating)-Number(review.rating)) <= 1 ? 'Close read' : Number(c.rating) > Number(review.rating) ? 'Fans higher' : 'Critic higher') : 'Community read';
+    return `
+    <article class="activity-item signal-feed-card">
+      <div class="feed-cover-wrap">
+        <img class="feed-cover" src="${coverImg}" alt="${escapeHtml(review.album || '')}" loading="lazy" onerror="this.style.background='#1A1A1A'">
+        <div class="feed-avatar">${escapeHtml(initials)}</div>
+      </div>
+      <div class="activity-content">
+        <div class="activity-header">
+          <span class="activity-user">${escapeHtml(c.author_name||'Anonymous')}</span>
+          <span class="activity-verb">rated</span>
+          <a class="activity-target" href="${reviewUrl(c.review_id)}">${escapeHtml(review.album||'an album')}</a>
+          ${review.artist ? `<span class="activity-verb">by ${escapeHtml(review.artist)}</span>` : ''}
+          <span class="activity-time">${timeAgo(c.created_date)}</span>
+        </div>
+        ${c.body ? `<div class="activity-body">“${escapeHtml(c.body)}”</div>` : ''}
+        <div class="activity-scoreline">
+          ${c.rating ? `<span class="community-score-pill">Fan ${Number(c.rating||0).toFixed(1)}</span>` : ''}
+          ${review.rating ? `<span class="critic-score-pill">Critic ${Number(review.rating||0).toFixed(1)}</span>` : ''}
+          <span class="agreement-pill">${escapeHtml(agreement)}</span>
+          <button class="activity-likes" type="button" data-like-comment>♡ ${c.likes||0}</button>
+          <a class="activity-album-link" href="${reviewUrl(c.review_id)}">Read review →</a>
+        </div>
+      </div>
+    </article>`;
+  }).join('');
+
+  feed.querySelectorAll('.activity-item').forEach((el, i) => {
+    setTimeout(() => el.classList.add('revealed'), i * 60);
+  });
+}
+
+
+function renderTrending() {
+  const trending = document.getElementById('trending-list');
+  if (!trending) return;
+  const sorted = [...allReviews].sort((a, b) => (b.community_score||0) - (a.community_score||0)).slice(0, 6);
+  trending.innerHTML = sorted.map((r, i) => `
+    <a class="trending-item" href="${reviewUrl(r.id)}">
+      <span class="trending-num">${i+1}</span>
+      <img class="trending-img" src="${r.cover_image || getCoverImg(r.artist)}" alt="" onerror="this.style.background='#1A1A1A'" loading="lazy">
+      <div class="trending-info">
+        <div class="trending-album">${r.album}</div>
+        <div class="trending-artist">${r.artist}</div>
+      </div>
+      <span class="trending-score" style="color:${scoreColor(r.community_score)}">${parseFloat(r.community_score||0).toFixed(1)}</span>
+    </a>`).join('');
+}
+
+function renderTopListeners() {
+  const el = document.getElementById('top-listeners');
+  if (!el) return;
+  // Aggregate comment counts by user
+  const userMap = {};
+  allComments.forEach(c => {
+    const u = c.author_name || 'anon';
+    const init = (c.author_initials || u.slice(0,2)).toUpperCase();
+    if (!userMap[u]) userMap[u] = { name: u, initials: init, count: 0, totalLikes: 0 };
+    userMap[u].count++;
+    userMap[u].totalLikes += (c.likes||0);
+  });
+  const top = Object.values(userMap).sort((a,b) => b.totalLikes - a.totalLikes).slice(0, 6);
+  el.innerHTML = top.map((u, i) => `
+    <div class="top-listener">
+      <span class="tl-rank">${i+1}</span>
+      <div class="tl-avatar">${u.initials}</div>
+      <span class="tl-name">${u.name}</span>
+      <span class="tl-count">${u.totalLikes} ♡</span>
+    </div>`).join('');
+}
+
+function renderGenreBreakdown() {
+  const el = document.getElementById('genre-breakdown');
+  if (!el) return;
+  const genreMap = {};
+  allReviews.forEach(r => { if (r.genre) genreMap[r.genre] = (genreMap[r.genre]||0) + 1; });
+  const total = Object.values(genreMap).reduce((a,b)=>a+b,0);
+  const sorted = Object.entries(genreMap).sort((a,b)=>b[1]-a[1]).slice(0, 7);
+  el.innerHTML = sorted.map(([genre, count]) => {
+    const pct = Math.round((count/total)*100);
+    return `
+    <div class="genre-row">
+      <span class="genre-label">${genre}</span>
+      <div class="genre-bar-wrap"><div class="genre-bar-fill" data-pct="${pct}"></div></div>
+      <span class="genre-pct">${pct}%</span>
+    </div>`;
+  }).join('');
+  // Animate bars
+  setTimeout(() => {
+    el.querySelectorAll('.genre-bar-fill').forEach(bar => {
+      bar.style.width = bar.dataset.pct + '%';
+    });
+  }, 400);
+}
+
+function renderFeaturedComments() {
+  const el = document.getElementById('featured-comments');
+  if (!el) return;
+  const featured = allComments.filter(c => c.is_featured).slice(0, 4);
+  if (!featured.length) { el.innerHTML = '<div style="color:var(--text-muted);font-size:13px;">No featured comments yet.</div>'; return; }
+  el.innerHTML = featured.map(c => {
+    const review = allReviews.find(r => r.id === c.review_id) || {};
+    return `
+    <div class="featured-comment">
+      <div class="fc-header">
+        <div class="fc-avatar">${(c.author_initials||c.author_name?.slice(0,2)||'??').toUpperCase()}</div>
+        <span class="fc-user">${c.author_name}</span>
+        <span class="fc-album">${review.album||''}</span>
+        ${c.rating ? `<span class="fc-rating-badge">${c.rating}/10</span>` : ''}
+      </div>
+      <div class="fc-body">"${c.body}"</div>
+      <div class="fc-likes">♡ ${c.likes||0} likes</div>
+    </div>`;
+  }).join('');
+}
+
+function populateAlbumSelect() {
+  const sel = document.getElementById('write-album');
+  if (!sel) return;
+  allReviews.forEach(r => {
+    const opt = document.createElement('option');
+    opt.value = r.id;
+    opt.textContent = `${r.album} — ${r.artist}`;
+    sel.appendChild(opt);
+  });
+}
+
+function likeComment(el) {
+  const cur = parseInt(el.textContent.replace(/\D/g,'')) || 0;
+  el.textContent = `♥ ${cur + 1}`;
+  el.style.color = 'var(--accent)';
+  el.disabled = true;
+}
+
+function loadMoreComments() {
+  displayCount += 8;
+  renderFeed(currentTab);
+  initScrollReveal();
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = '✓ ' + msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function initScrollReveal() {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); io.unobserve(e.target); } });
+  }, { threshold: 0.05 });
+  document.querySelectorAll('.featured-comment, .stat-item, .hot-card, .signal-feed-card').forEach(el => io.observe(el));
+}
+
+// Star rating interaction
+const stars = document.querySelectorAll('.write-star');
+stars.forEach(star => {
+  star.addEventListener('mouseover', () => {
+    const v = parseInt(star.dataset.v);
+    stars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.v) <= v));
+  });
+  star.addEventListener('mouseout', () => {
+    stars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.v) <= selectedRating));
+  });
+  star.addEventListener('click', () => {
+    selectedRating = parseInt(star.dataset.v);
+    stars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.v) <= selectedRating));
+  });
+});
+
+// Submit comment (client-side only for now, shows toast)
+document.getElementById('write-submit').addEventListener('click', () => {
+  const albumId = document.getElementById('write-album').value;
+  const body = document.getElementById('write-body').value.trim();
+  if (!albumId) { alert('Please select an album first.'); return; }
+  if (!body) { alert('Please write something before posting.'); return; }
+  if (!selectedRating) { alert('Please give a score.'); return; }
+
+  // Optimistically add to feed
+  const review = allReviews.find(r => r.id === albumId) || {};
+  const newComment = {
+    id: 'local-' + Date.now(),
+    review_id: albumId,
+    author_name: 'You',
+    author_initials: 'YO',
+    body: body,
+    rating: selectedRating,
+    likes: 0,
+    is_featured: false,
+    created_date: new Date().toISOString()
+  };
+  allComments.unshift(newComment);
+  displayCount = Math.max(displayCount, 8);
+  renderFeed('recent');
+  updateCommunitySignals();
+  renderHotStrip();
+  renderTopListeners();
+  animateCount('stat-comments', allComments.length);
+
+  // Reset form
+  document.getElementById('write-body').value = '';
+  document.getElementById('write-album').selectedIndex = 0;
+  selectedRating = 0;
+  stars.forEach(s => s.classList.remove('active'));
+  showToast('Your rating was posted!');
+});
+
+// Tab switching
+document.querySelectorAll('.feed-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.feed-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    displayCount = 8;
+    renderFeed(btn.dataset.tab);
+  });
+});
+
+const loadMoreBtn = document.getElementById('load-more-btn');
+if (loadMoreBtn) loadMoreBtn.addEventListener('click', loadMoreComments);
+const activityFeed = document.getElementById('activity-feed');
+if (activityFeed) activityFeed.addEventListener('click', e => {
+  const likeBtn = e.target.closest('[data-like-comment]');
+  if (!likeBtn) return;
+  e.preventDefault();
+  likeComment(likeBtn);
+});
+
+// Mobile nav
+const burger = document.querySelector('.nav-burger');
+const navLinks = document.querySelector('.nav-links');
+if (burger && navLinks) {
+  burger.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('mobile-open');
+    burger.innerHTML = open ? '✕' : '☰';
+  });
+}
+
+// Inject mobile nav styles
+const mobileStyle = document.createElement('style');
+mobileStyle.textContent = `
+  @media (max-width: 768px) {
+    .nav-links.mobile-open { display: flex !important; position: absolute; top: 60px; left: 0; right: 0; background: rgba(10,10,10,0.98); border-bottom: 1px solid #1A1A1A; flex-direction: column; padding: 16px 24px 24px; z-index: 200; }
+    .nav-links li { border-bottom: 1px solid #1A1A1A; }
+    .nav-links a { display: block; padding: 14px 0; }
+  }
+`;
+document.head.appendChild(mobileStyle);
+
+// Fallback static comments if API unreachable
+const STATIC_COMMENTS = [
+  { id: 's1', review_id: '6a2fa073942706375ccb2daf', author_name: 'james_k', author_initials: 'JK', body: "Listened four times in a row. This is the one.", rating: 9, likes: 42, is_featured: true, created_date: new Date(Date.now() - 3600000*2).toISOString() },
+  { id: 's2', review_id: '6a2fa073942706375ccb2daf', author_name: 'tara_r', author_initials: 'TR', body: "Perfect 10. 'F2F' made me cry in a Trader Joe's parking lot.", rating: 10, likes: 67, is_featured: true, created_date: new Date(Date.now() - 3600000*5).toISOString() },
+  { id: 's3', review_id: '6a2fa073942706375ccb2db0', author_name: 'sonik_fan', author_initials: 'SF', body: "'Squabble Up' alone is worth it. Kendrick is just built different.", rating: 10, likes: 88, is_featured: true, created_date: new Date(Date.now() - 3600000*8).toISOString() },
+];
+
+// Boot
+document.addEventListener('DOMContentLoaded', loadCommunityData);
+</script>
+
+<!-- UNIVERSAL SEARCH OVERLAY -->
+
+<script>
+(function(){
+var SR=[
+  {id:'6a2fa073942706375ccb2dae',artist:'Aphex Twin',album:'Blackbox Life Recorder',genre:'Electronic',rating:9.5,is_best_new_music:true,cover_image:'https://cdn-images.dzcdn.net/images/cover/8ff06016c4666391fcc48ef07cea177e/1000x1000-000000-80-0-0.jpg'},
+  {id:'6a2fa073942706375ccb2daf',artist:'SZA',album:'SOS',genre:'R&B',rating:9.0,is_best_new_music:true,cover_image:'https://cdn-images.dzcdn.net/images/cover/a3c3b409f0d5bd781821ec0fd79d5b15/1000x1000-000000-80-0-0.jpg'},
+  {id:'6a2fa073942706375ccb2db0',artist:'Kendrick Lamar',album:'GNX',genre:'Hip-Hop',rating:9.0,is_best_new_music:true,cover_image:'https://cdn-images.dzcdn.net/images/cover/da5256ff8cacfe9ad90521f6e3792259/1000x1000-000000-80-0-0.jpg'},
+  {id:'6a2fa073942706375ccb2db1',artist:'The Smile',album:'Wall of Eyes',genre:'Alternative',rating:8.5,is_best_new_music:false,cover_image:'https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02ec5757cdfeb9a29df135c96d'},
+  {id:'6a2fa073942706375ccb2db2',artist:'Charli XCX',album:'Brat',genre:'Pop',rating:8.0,is_best_new_music:false,cover_image:'https://cdn-images.dzcdn.net/images/cover/de9e79511cda59914de9add50946e43c/1000x1000-000000-80-0-0.jpg'},
+  {id:'6a2fa073942706375ccb2db3',artist:'Johnny Blue Skies',album:'Passage du Desir',genre:'Country',rating:7.5,is_best_new_music:false,cover_image:'https://cdn-images.dzcdn.net/images/cover/056aa3fb4a910b287889205eaa45f9ee/1000x1000-000000-80-0-0.jpg'},
+  {id:'6a2fd4d47ba31d7baa22fcfa',artist:'Mitski',album:'The Land Is Inhospitable and So Are We',genre:'Alternative',rating:9.2,is_best_new_music:true,cover_image:'https://cdn-images.dzcdn.net/images/cover/db69f7d3ea280f1155256705735648cd/1000x1000-000000-80-0-0.jpg'},
+  {id:'6a2fd4d47ba31d7baa22fcfb',artist:'Sufjan Stevens',album:'Javelin',genre:'Folk',rating:9.3,is_best_new_music:true,cover_image:'https://cdn-images.dzcdn.net/images/cover/e27baa7ae983b626fc5434e3175e32c6/1000x1000-000000-80-0-0.jpg'},
+  {id:'6a2fd4d47ba31d7baa22fcfc',artist:'Show Me the Body',album:'Endure',genre:'Hardcore',rating:8.3,is_best_new_music:false,cover_image:'https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/32/0e/cb/320ecbe4-b530-a00a-5ff0-afe746c22b50/00888072089433.rgb.jpg/1000x1000bb.jpg'},
+  {id:'6a2fd4d47ba31d7baa22fcfd',artist:'Caroline Polachek',album:'Desire, I Want to Turn Into You',genre:'Art Pop',rating:9.4,is_best_new_music:true,cover_image:'https://cdn-images.dzcdn.net/images/cover/67e9a8272d715c88adf400c554f68f33/1000x1000-000000-80-0-0.jpg'},
+  {id:'6a2fd4d47ba31d7baa22fcfe',artist:'Yo-Yo Ma',album:'Six Unaccompanied Cello Suites',genre:'Classical',rating:10.0,is_best_new_music:false,cover_image:'https://cdn-images.dzcdn.net/images/cover/8b69cdda334c287b93acb0aefad12b0d/1000x1000-000000-80-0-0.jpg'},
+  {id:'6a2fd4d47ba31d7baa22fcff',artist:'Billy Woods',album:'Maps',genre:'Hip-Hop',rating:9.1,is_best_new_music:true,cover_image:'https://cdn-images.dzcdn.net/images/cover/bcafcc7b293eeb0cdb59720b33cba541/1000x1000-000000-80-0-0.jpg'},
+  {id:'6a2fd4d47ba31d7baa22fd00',artist:'Fred Again..',album:'Actual Life 3',genre:'Electronic',rating:8.6,is_best_new_music:false,cover_image:'https://cdn-images.dzcdn.net/images/cover/0c79babffc5400d88fc40db5806858a6/1000x1000-000000-80-0-0.jpg'},
+  {id:'6a2fd4d47ba31d7baa22fd01',artist:'Zach Bryan',album:'Zach Bryan',genre:'Country',rating:8.1,is_best_new_music:false,cover_image:'https://cdn-images.dzcdn.net/images/cover/6c6a9089cda16da7f524b9ef1f965270/1000x1000-000000-80-0-0.jpg'}
+];
+var ov=document.getElementById('searchOverlay');
+var inp=document.getElementById('uSearchInput');
+var res=document.getElementById('uSearchResults');
+var hint=document.getElementById('uSearchHint');
+var selIdx=-1;
+window.uOpenSearch=function(){ov.style.display='flex';inp.focus();selIdx=-1};
+window.uCloseSearch=function(){ov.style.display='none';inp.value='';res.innerHTML='';hint.style.display='flex'};
+window.uDoSearch=function(el,q){inp.value=q;inp.dispatchEvent(new Event('input'))};
+ov.addEventListener('click',function(e){if(e.target===ov)uCloseSearch()});
+document.addEventListener('keydown',function(e){
+  if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();uOpenSearch()}
+  if(e.key==='Escape'&&ov.style.display==='flex')uCloseSearch();
+  if(ov.style.display==='flex'){
+    var items=res.querySelectorAll('[data-idx]');
+    if(e.key==='ArrowDown'){selIdx=Math.min(selIdx+1,items.length-1);items.forEach(function(el,i){el.style.background=i===selIdx?'#1A1A1A':'transparent'});e.preventDefault()}
+    if(e.key==='ArrowUp'){selIdx=Math.max(selIdx-1,0);items.forEach(function(el,i){el.style.background=i===selIdx?'#1A1A1A':'transparent'});e.preventDefault()}
+    if(e.key==='Enter'&&selIdx>=0&&items[selIdx])items[selIdx].click();
+  }
+});
+inp.addEventListener('input',function(){
+  var q=inp.value.toLowerCase().trim();
+  hint.style.display=q?'none':'flex';
+  selIdx=-1;
+  if(!q){res.innerHTML='';return}
+  var isBnm=q.includes('best new')||q.includes('bnm');
+  var scoreMin=q.match(/(\d+)\+/)?parseFloat(q.match(/(\d+)\+/)[1]):null;
+  var matches=SR.filter(function(r){
+    if(isBnm)return r.is_best_new_music;
+    if(scoreMin!==null)return r.rating>=scoreMin;
+    return r.album.toLowerCase().includes(q)||r.artist.toLowerCase().includes(q)||r.genre.toLowerCase().includes(q);
+  });
+  if(!matches.length){res.innerHTML='<div style="padding:40px;text-align:center;color:#6B6B6B;font-size:.9rem">No results for \"'+inp.value+'\"</div>';return}
+  res.innerHTML=matches.map(function(r,i){
+    return `<button type="button" data-idx="${i}" data-review-id="${encodeURIComponent(r.id)}" style="display:flex;align-items:center;gap:16px;width:100%;text-align:left;background:transparent;border:0;color:inherit;padding:14px 24px;border-bottom:1px solid #1A1A1A;cursor:pointer;transition:background .15s"><img style="width:44px;height:44px;border-radius:4px;object-fit:cover" src="${r.cover_image || ''}" onerror="this.style.background='#1a1a1a'" loading="lazy" alt="Album cover"><div style="flex:1"><div style="font-family:Playfair Display,Georgia,serif;font-size:.95rem;font-weight:700">${r.album || ''}</div><div style="font-size:.75rem;color:#A0A0A0;margin-top:2px">${r.artist || ''} &middot; ${r.genre || ''}${r.is_best_new_music?' &middot; <span style="color:#E8363A">★ BNM</span>':''}</div></div><div style="font-family:DM Mono,monospace;font-size:1rem;color:#F5C518">${Number(r.rating || 0).toFixed(1)}</div></button>`;
+  }).join('');
+});
+document.querySelectorAll('[data-u-search-close]').forEach(function(el){el.addEventListener('click',function(e){e.preventDefault();uCloseSearch();});});
+document.querySelectorAll('[data-u-search-query]').forEach(function(el){el.addEventListener('click',function(e){e.preventDefault();uDoSearch(el, el.dataset.uSearchQuery || '');});});
+res.addEventListener('click', function(e){
+  var row=e.target.closest('[data-review-id]');
+  if(!row)return;
+  window.location.href='/review?id='+row.dataset.reviewId;
+  uCloseSearch();
+});
+
+// Wire up any existing nav search triggers
+document.querySelectorAll('[id="navSearchTrigger"],[data-search-trigger]').forEach(function(el){
+  el.addEventListener('click',function(e){e.stopPropagation();uOpenSearch()});
+});
+})();
+</script>
+
+<footer class="reverb-footer" aria-label="REVERB footer">
+  <div class="reverb-footer-inner">
+    <section class="reverb-footer-newsletter" id="digest-signup">
+      <div>
+        <div class="reverb-footer-kicker">The REVERB Digest</div>
+        <h2 class="reverb-footer-title">Music that stays<br>in your inbox.</h2>
+        <p class="reverb-footer-desc">Monday mornings. The week’s best reviews, the albums you can’t miss, and one sharp editorial read. No noise. No ads. Just music.</p>
+      </div>
+      <div>
+        <form class="reverb-footer-form" data-digest-form novalidate>
+          <input class="reverb-footer-input" name="email" type="email" placeholder="your@email.com" autocomplete="email" required aria-label="Email address">
+          <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;height:0;width:0" aria-hidden="true">
+          <button class="reverb-footer-button" type="submit">Subscribe</button>
+        </form>
+        <p class="reverb-footer-note" data-digest-note>Unsubscribe anytime. We hate spam as much as a 3/10 album.</p>
+      </div>
+    </section>
+
+    <div class="reverb-footer-grid">
+      <div>
+        <div class="reverb-footer-logo">REVERB<span>.</span></div>
+        <p class="reverb-footer-tagline">“Music that stays with you.” Serious criticism, community ratings, and records worth arguing about.</p>
+      </div>
+      <nav aria-label="Review links">
+        <div class="reverb-footer-heading">Reviews</div>
+        <ul class="reverb-footer-links">
+          <li><a href="/browse">Latest Reviews</a></li>
+          <li><a href="/new">Best New Music</a></li>
+          <li><a href="/browse?min=8">8.0+ Reviews</a></li>
+          <li><a href="/browse?view=lists">Lists</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Browse links">
+        <div class="reverb-footer-heading">Browse</div>
+        <ul class="reverb-footer-links">
+          <li><a href="/browse?genre=Hip-Hop">Hip-Hop</a></li>
+          <li><a href="/browse?genre=Electronic">Electronic</a></li>
+          <li><a href="/browse?genre=Indie">Indie</a></li>
+          <li><a href="/community">Community</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Community links">
+        <div class="reverb-footer-heading">Community</div>
+        <ul class="reverb-footer-links">
+          <li><a href="/community">User Reviews</a></li>
+          <li><a href="/profile">Profile</a></li>
+          <li><a href="/admin">Editorial Admin</a></li>
+          <li><a href="#digest-signup">Newsletter</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="reverb-footer-bottom">
+      <span class="reverb-footer-copy">© 2026 REVERB. All rights reserved.</span>
+      <div class="reverb-footer-social" aria-label="Social links">
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://x.com/" target="_blank" rel="noopener">Twitter/X</a>
+        <a href="https://www.tiktok.com/" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://open.spotify.com/" target="_blank" rel="noopener">Spotify</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script id="reverb-global-footer-script">
+(function(){
+  function wireDigestForm(form){
+    if (!form || form.dataset.digestWired === '1') return;
+    form.dataset.digestWired = '1';
+    const email = form.querySelector('input[name="email"]');
+    const hp = form.querySelector('input[name="website"]');
+    const btn = form.querySelector('button[type="submit"], button');
+    const note = form.parentElement ? form.parentElement.querySelector('[data-digest-note], .newsletter-note') : null;
+    function setNote(msg, color){ if(note){ note.textContent = msg; note.style.color = color || ''; } }
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+      const value = (email && email.value || '').trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+        setNote('Drop in a valid email and we’ll add you to Monday’s digest.', '#E8363A');
+        if(email) email.focus();
+        return;
+      }
+      const oldText = btn ? btn.textContent : '';
+      if(btn){ btn.disabled = true; btn.textContent = 'Subscribing…'; }
+      try {
+        const res = await fetch('/api/reverbSubscribers?endpoint=subscribe', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: value, website: hp ? hp.value || '' : '', source: location.pathname === '/' ? 'homepage' : location.pathname.replace(/^\//,'') || 'homepage' })
+        });
+        const data = await res.json();
+        if (data.ok) { if(email) email.value = ''; setNote(data.message || 'You’re subscribed to The REVERB Digest. See you Monday.', '#4A9EFF'); }
+        else setNote(data.error || 'Could not subscribe right now. Try again in a minute.', '#E8363A');
+      } catch(err) { setNote('Network hiccup. Try again in a minute.', '#E8363A'); }
+      finally { if(btn){ btn.disabled = false; btn.textContent = oldText || 'Subscribe'; } }
+    });
+  }
+  document.querySelectorAll('[data-digest-form], #newsletterForm').forEach(wireDigestForm);
+})();
+</script>
+
+
+<!-- ⌘K SEARCH OVERLAY -->
+<div id="reverbSearchOverlay" role="dialog" aria-modal="true" aria-label="Search REVERB" style="position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.88);backdrop-filter:blur(14px);display:none;align-items:flex-start;justify-content:center;padding-top:100px">
+  <div style="width:100%;max-width:700px;background:#111;border:1px solid #2A2A2A;border-radius:12px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.8)">
+    <div style="display:flex;align-items:center;gap:14px;padding:22px 28px;border-bottom:1px solid #2A2A2A">
+      <svg width="18" height="18" fill="none" stroke="#6B6B6B" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input id="reverbSearchInput" autocomplete="off" spellcheck="false" style="flex:1;background:none;border:none;color:#fff;font-size:1.15rem;font-family:Inter,system-ui,sans-serif;outline:none" placeholder="Search albums, artists, genres…" aria-label="Search">
+      <span id="reverbSearchEsc" style="font-family:DM Mono,monospace;font-size:.65rem;color:#6B6B6B;background:#1A1A1A;padding:3px 8px;border-radius:3px;cursor:pointer;user-select:none">ESC</span>
+    </div>
+    <div id="reverbSearchHints" style="padding:14px 28px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid #1A1A1A">
+      <span style="font-size:.68rem;color:#5A5A5A;width:100%;margin-bottom:2px;font-family:Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase">Quick filters</span>
+      <button type="button" onclick="reverbSearch('hip-hop')" style="font-size:.7rem;font-weight:700;letter-spacing:.06em;color:#A0A0A0;background:#1A1A1A;border:1px solid #2A2A2A;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif">Hip-Hop</button>
+      <button type="button" onclick="reverbSearch('electronic')" style="font-size:.7rem;font-weight:700;letter-spacing:.06em;color:#A0A0A0;background:#1A1A1A;border:1px solid #2A2A2A;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif">Electronic</button>
+      <button type="button" onclick="reverbSearch('folk')" style="font-size:.7rem;font-weight:700;letter-spacing:.06em;color:#A0A0A0;background:#1A1A1A;border:1px solid #2A2A2A;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif">Folk</button>
+      <button type="button" onclick="reverbSearch('r&b')" style="font-size:.7rem;font-weight:700;letter-spacing:.06em;color:#A0A0A0;background:#1A1A1A;border:1px solid #2A2A2A;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif">R&amp;B</button>
+      <button type="button" onclick="reverbSearch('best new')" style="font-size:.7rem;font-weight:700;letter-spacing:.06em;color:#A0A0A0;background:#1A1A1A;border:1px solid #2A2A2A;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif">&#9733; BNM</button>
+      <button type="button" onclick="reverbSearch('9')" style="font-size:.7rem;font-weight:700;letter-spacing:.06em;color:#A0A0A0;background:#1A1A1A;border:1px solid #2A2A2A;padding:4px 12px;border-radius:20px;cursor:pointer;font-family:Inter,sans-serif">Score 9+</button>
+    </div>
+    <div id="reverbSearchResults" style="max-height:460px;overflow-y:auto"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var DATA_API='https://shopify-copy-f62a1de4.base44.app/functions/reverbData';
+  var _idx=null,_open=false;
+  function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function ensureIdx(){
+    if(_idx)return Promise.resolve(_idx);
+    return fetch(DATA_API+'?endpoint=browse&limit=50').then(function(r){return r.json();}).then(function(d){_idx=d.reviews||[];return _idx;}).catch(function(){_idx=[];return _idx;});
+  }
+  function hi(s,q){
+    if(!q)return esc(s);
+    return esc(s).replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark style="background:rgba(232,54,58,.35);color:#fff;border-radius:2px">$1</mark>');
+  }
+  window.reverbSearch=function(q){
+    var inp=document.getElementById('reverbSearchInput');
+    var res=document.getElementById('reverbSearchResults');
+    var hints=document.getElementById('reverbSearchHints');
+    if(inp&&q&&inp.value!==q)inp.value=q;
+    q=((q||(inp&&inp.value)||'').trim()).toLowerCase();
+    if(!res)return;
+    if(!q){res.innerHTML='';if(hints)hints.style.display='';return;}
+    if(hints)hints.style.display='none';
+    res.innerHTML='<div style="padding:28px;text-align:center;color:#5A5A5A;font-family:Inter,sans-serif;font-size:.85rem">Searching\u2026</div>';
+    ensureIdx().then(function(idx){
+      var hits=idx.filter(function(r){
+        var hay=[r.artist,r.album,r.title,r.genre].concat(r.mood_tags||[]).concat(r.tags||[]).join(' ').toLowerCase();
+        if(q==='best new')return r.is_best_new_music;
+        if(q==='9')return(r.rating||0)>=9;
+        return hay.indexOf(q)>=0;
+      }).slice(0,10);
+      if(!hits.length){res.innerHTML='<div style="padding:40px 28px;text-align:center;color:#5A5A5A;font-family:Inter,sans-serif;font-size:.9rem">No results for &ldquo;<strong style=\'color:#A0A0A0\'>'+esc(q)+'</strong>&rdquo;</div>';return;}
+      res.innerHTML=hits.map(function(r){
+        var score=Number(r.rating||0).toFixed(1);
+        var bnm=r.is_best_new_music?'<span style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:#E8363A;color:#fff;padding:2px 6px;border-radius:2px;flex-shrink:0">BNM</span>':'';
+        return '<a href="/review?id='+esc(r.id)+'" style="display:flex;align-items:center;gap:14px;padding:14px 28px;border-bottom:1px solid #1A1A1A;text-decoration:none;transition:background .12s" onmouseover="this.style.background=\'#1A1A1A\'" onmouseout="this.style.background=\'\'">'
+          +'<img src="'+esc(r.cover_image||'')+'" alt="'+esc(r.album)+'" style="width:44px;height:44px;object-fit:cover;border-radius:3px;flex-shrink:0;background:#222" loading="lazy" onerror="this.style.opacity=.15">'
+          +'<div style="flex:1;min-width:0">'
+            +'<div style="font-size:.88rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+hi(r.artist||'',q)+' \u2014 '+hi(r.album||r.title||'',q)+'</div>'
+            +'<div style="font-size:.75rem;color:#6B6B6B;margin-top:3px;font-family:Inter,sans-serif">'+esc(r.genre||'')+(r.is_best_new_music?' \xb7 Best New Music':'')+'</div>'
+          +'</div>'
+          +'<span style="font-family:\'DM Mono\',monospace;font-size:1rem;font-weight:700;color:#F5C518;flex-shrink:0">'+score+'</span>'
+          +bnm+'</a>';
+      }).join('');
+    });
+  };
+  window.openReverbSearch=function(){
+    var o=document.getElementById('reverbSearchOverlay');
+    if(!o)return;
+    o.style.display='flex';_open=true;document.body.style.overflow='hidden';
+    setTimeout(function(){var i=document.getElementById('reverbSearchInput');if(i){i.focus();i.select();}},60);
+    ensureIdx();
+  };
+  window.closeReverbSearch=function(){
+    var o=document.getElementById('reverbSearchOverlay');
+    if(!o)return;
+    o.style.display='none';_open=false;document.body.style.overflow='';
+    var r=document.getElementById('reverbSearchResults');
+    var h=document.getElementById('reverbSearchHints');
+    var i=document.getElementById('reverbSearchInput');
+    if(r)r.innerHTML='';if(h)h.style.display='';if(i)i.value='';
+  };
+  function boot(){
+    var o=document.getElementById('reverbSearchOverlay');
+    if(!o)return;
+    o.addEventListener('click',function(e){if(e.target===o)window.closeReverbSearch();});
+    var eb=document.getElementById('reverbSearchEsc');
+    if(eb)eb.addEventListener('click',window.closeReverbSearch);
+    var inp=document.getElementById('reverbSearchInput');
+    if(inp){
+      inp.addEventListener('input',function(){window.reverbSearch(this.value);});
+      inp.addEventListener('keydown',function(e){
+        if(e.key==='Escape')window.closeReverbSearch();
+        if(e.key==='Enter'){var f=document.querySelector('#reverbSearchResults a');if(f){window.closeReverbSearch();location.href=f.href;}}
+      });
+    }
+    document.querySelectorAll('[data-search-trigger],[data-reverb-search],[data-search-trigger]').forEach(function(el){
+      var fresh=el.cloneNode(true);
+      if(el.parentNode)el.parentNode.replaceChild(fresh,el);
+      fresh.addEventListener('click',function(e){e.preventDefault();window.openReverbSearch();});
+    });
+    document.addEventListener('keydown',function(e){
+      if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();_open?window.closeReverbSearch():window.openReverbSearch();}
+      if(e.key==='Escape'&&_open)window.closeReverbSearch();
+    });
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',boot);}else{boot();}
+})();
+</script>
+<script>
+(function(){
+  var VOTE_API='https://shopify-copy-f62a1de4.base44.app/functions/reverbCommunityVote';
+  var DATA_API='https://shopify-copy-f62a1de4.base44.app/functions/reverbData';
+  var _ri={};
+  function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function row(rank,r,scoreHtml){
+    return '<div class="rank-row" onclick="location.href=\'/review?id='+esc(r.id)+'\'" tabindex="0">'
+      +'<span class="rank-num">'+rank+'</span>'
+      +'<img class="rank-cover" src="'+esc(r.cover_image||'')+'" alt="'+esc(r.album||'')+'" loading="lazy" onerror="this.style.opacity=.15">'
+      +'<div class="rank-info"><div class="rank-artist">'+esc(r.artist||'')+'</div><div class="rank-album">'+esc(r.album||r.title||'')+'</div></div>'
+      +scoreHtml+'</div>';
+  }
+  function load(){
+    var le=document.getElementById('rankingsMostLoved');
+    var ce=document.getElementById('rankingsMostControversial');
+    if(!le&&!ce)return;
+    fetch(DATA_API+'?endpoint=browse&limit=50').then(function(r){return r.json();}).then(function(d){
+      (d.reviews||[]).forEach(function(r){_ri[r.id]=r;});
+      var ids=Object.keys(_ri);
+      if(!ids.length)return;
+      return Promise.all(ids.map(function(id){
+        return fetch(VOTE_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'summary',review_id:id})})
+          .then(function(r){return r.json();}).catch(function(){return null;});
+      })).then(function(results){
+        var scores=[];
+        results.forEach(function(res,i){
+          if(!res||!res.ok)return;
+          var a=res.album||{};
+          if(!a.total)return;
+          scores.push({id:ids[i],up:a.up||0,down:a.down||0,score:a.score||0,total:a.total||0,controversy:Math.min(a.up||0,a.down||0)/(a.total||1)});
+        });
+        var loved=scores.slice().sort(function(a,b){return b.score-a.score;}).slice(0,8);
+        var contro=scores.filter(function(s){return s.total>=3;}).sort(function(a,b){return b.controversy-a.controversy;}).slice(0,8);
+        if(le){
+          le.innerHTML=loved.length?loved.map(function(s,i){
+            var r=_ri[s.id]||{artist:'',album:'',id:s.id};
+            return row(i+1,r,'<span class="rank-score pos">+'+(s.score)+'<br><small style="font-size:9px;color:var(--text-muted)">'+s.up+'\u2191 '+s.down+'\u2193</small></span>');
+          }).join(''):'<div class="rankings-empty">No votes yet \u2014 be the first to vote on a review!</div>';
+        }
+        if(ce){
+          ce.innerHTML=contro.length?contro.map(function(s,i){
+            var r=_ri[s.id]||{artist:'',album:'',id:s.id};
+            var pct=Math.round(s.controversy*100);
+            return row(i+1,r,'<span class="rank-score hot">'+pct+'%<br><small style="font-size:9px;color:var(--text-muted)">'+s.up+'\u2191 '+s.down+'\u2193</small></span>');
+          }).join(''):'<div class="rankings-empty">Not enough votes yet.</div>';
+        }
+      });
+    }).catch(function(e){console.warn('Rankings error',e);});
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',load);}else{load();}
+})();
+</script>
+
+  <!-- REVERB × SR7 Motion System -->
+  <script>
+/* ============================================================
+   REVERB × SR7 — Motion System JS
+   Scroll-reveal + filter cycling + loading screen
+   ============================================================ */
+(function() {
+  'use strict';
+
+  /* ── 1. Loading screen ──────────────────────────────────── */
+  function initLoadingScreen() {
+    const screen = document.getElementById('reverb-loading-screen');
+    if (!screen) return;
+    window.addEventListener('load', () => {
+      setTimeout(() => screen.classList.add('hidden'), 400);
+    });
+    // Safety fallback
+    setTimeout(() => screen && screen.classList.add('hidden'), 2500);
+  }
+
+  /* ── 2. Scroll-reveal (IntersectionObserver) ────────────── */
+  function initScrollReveal() {
+    const els = document.querySelectorAll('.sr7-reveal');
+    if (!els.length) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(el => io.observe(el));
+  }
+
+  /* ── 3. Album cover filter cycling ─────────────────────── */
+  // Applies a genre-appropriate SR7 filter to each album cover
+  const GENRE_FILTERS = {
+    'hip-hop':    'cover-filter-lofi',
+    'rap':        'cover-filter-lofi',
+    'electronic': 'cover-filter-clarendon',
+    'dance':      'cover-filter-walden',
+    'indie':      'cover-filter-lark',
+    'indie rock': 'cover-filter-lark',
+    'alternative':'cover-filter-reyes',
+    'folk':       'cover-filter-inkwell',
+    'classical':  'cover-filter-moon',
+    'r&b':        'cover-filter-slumber',
+    'soul':       'cover-filter-slumber',
+    'pop':        'cover-filter-nashville',
+    'country':    'cover-filter-rise',
+    'punk':       'cover-filter-toaster',
+    'metal':      'cover-filter-toaster',
+    'jazz':       'cover-filter-mayfair',
+    'default':    'cover-filter-clarendon'
+  };
+
+  function applyGenreFilter(imgEl, genre) {
+    const key = (genre || '').toLowerCase();
+    const filter = GENRE_FILTERS[key] || GENRE_FILTERS['default'];
+    // Apply to parent wrapper so ::after pseudo works
+    const wrap = imgEl.closest('.album-art-wrap, .cover-wrap, .mood-img-wrap, .hero-cover-wrap') || imgEl.parentElement;
+    if (wrap) {
+      wrap.classList.add(filter);
+      wrap.dataset.srFilter = filter;
+    }
+  }
+
+  function initCoverFilters() {
+    // Hook into hydrated review cards
+    document.querySelectorAll('[data-genre]').forEach(card => {
+      const img = card.querySelector('img');
+      if (img) applyGenreFilter(img, card.dataset.genre);
+    });
+    // Also hook mood filmstrip items
+    document.querySelectorAll('.mood-card[data-genre] img').forEach(img => {
+      applyGenreFilter(img, img.closest('[data-genre]').dataset.genre);
+    });
+  }
+
+  /* ── 4. Hero wipe transition (between slides) ───────────── */
+  window.REVERB_SR7 = {
+    wipe: function(container) {
+      if (!container) return;
+      const wipe = document.createElement('div');
+      wipe.className = 'hero-wipe';
+      container.style.position = 'relative';
+      container.appendChild(wipe);
+      wipe.classList.add('wipe-enter');
+      setTimeout(() => {
+        wipe.classList.remove('wipe-enter');
+        wipe.classList.add('wipe-exit');
+        setTimeout(() => wipe.remove(), 700);
+      }, 700);
+    },
+
+    // Apply filter to any img by genre
+    applyFilter: applyGenreFilter,
+
+    // Shimmer placeholder on any element
+    shimmer: function(el) {
+      if (!el) return;
+      el.classList.add('reverb-shimmer');
+      return { done: () => el.classList.remove('reverb-shimmer') };
+    }
+  };
+
+  /* ── 5. Score chips — elastic pop on intersect ──────────── */
+  function initScorePop() {
+    const chips = document.querySelectorAll('.score-display, .rating-badge, .community-score, .score-chip');
+    if (!chips.length) return;
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.animation = 'none';
+          requestAnimationFrame(() => {
+            e.target.style.animation = '';
+            e.target.classList.add('sr7-elastic-pop');
+          });
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    chips.forEach(c => io.observe(c));
+  }
+
+  /* ── 6. Stagger sr7-reveal children inside sections ────── */
+  function initStaggeredSections() {
+    document.querySelectorAll('[data-sr7-stagger]').forEach(section => {
+      const children = section.children;
+      Array.from(children).forEach((child, i) => {
+        child.classList.add('sr7-reveal');
+        child.style.transitionDelay = `${i * 0.08}s`;
+      });
+    });
+    // Re-run scroll reveal to pick up new elements
+    initScrollReveal();
+  }
+
+  /* ── Boot ───────────────────────────────────────────────── */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+
+  function boot() {
+    initLoadingScreen();
+    initScrollReveal();
+    initCoverFilters();
+    initScorePop();
+    initStaggeredSections();
+    // Re-apply after hydration (data arrives async)
+    setTimeout(initCoverFilters, 1200);
+    setTimeout(initCoverFilters, 3000);
+  }
+})();
+
+  </script>
+
+  <!-- SR7 motion for community cards -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      document.querySelectorAll('.featured-comment, .comment-card, .community-item').forEach(function(card, i) {
+        card.classList.add('sr7-reveal');
+        card.style.transitionDelay = Math.min(i * 0.08, 0.6) + 's';
+      });
+      document.querySelectorAll('.sr7-reveal:not(.is-visible)').forEach(function(el) {
+        var rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight) el.classList.add('is-visible');
+      });
+    }, 700);
+  });
+  </script>
+  <!-- SR7 cover filter sweep -->
+  <script>
+  (function() {
+    function sweepFilters() {
+      if (!window.REVERB_SR7) return;
+      document.querySelectorAll('img[data-genre], [data-genre] img').forEach(function(img) {
+        var genre = (img.dataset.genre || img.closest('[data-genre]')?.dataset.genre || '');
+        REVERB_SR7.applyFilter(img, genre);
+      });
+      // Also hit any img inside a cover/art wrapper whose parent has a genre text node
+      document.querySelectorAll('.cover-wrap img, .album-art img, .album-art-wrap img, .review-cover img').forEach(function(img) {
+        if (!img.closest('[class*="cover-filter"]')) {
+          var card = img.closest('[data-genre]') || img.closest('.review-card') || img.closest('article');
+          var genre = card?.dataset.genre || card?.querySelector('.card-genre, .genre-tag')?.textContent || '';
+          if (genre) REVERB_SR7.applyFilter(img, genre);
+        }
+      });
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(sweepFilters, 800);
+      setTimeout(sweepFilters, 2500);
+    });
+  })();
+  </script>
+</body>
+</html>
