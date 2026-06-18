@@ -382,7 +382,12 @@ async function hydrateReview() {
   const authorEl = document.querySelector('.review-meta-author');
   if (authorEl) authorEl.textContent = r.author_name || 'Staff';
   const dateEl = document.querySelector('.review-meta-date');
-  if (dateEl && r.published_date) dateEl.textContent = new Date(r.published_date).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  if (dateEl && r.published_date) {
+    // Parse date as local (not UTC) to avoid off-by-one timezone errors
+    const [y,m,d] = r.published_date.split('T')[0].split('-').map(Number);
+    const localDate = new Date(y, m-1, d);
+    dateEl.textContent = localDate.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  }
   const labelEl = document.querySelector('.review-meta-label');
   if (labelEl) labelEl.textContent = `${r.label || ''} · ${r.release_year || ''}`;
 
