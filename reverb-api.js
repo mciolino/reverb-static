@@ -339,9 +339,27 @@ async function hydrateReview() {
   const r = data.review;
   if (!r) return;
 
-  document.title = `${r.artist} — ${r.album} | REVERB`;
+  const pageTitle = `${r.artist} — ${r.album} | REVERB`;
+  const pageDesc = r.summary || `A REVERB review of ${r.album} by ${r.artist}.`;
+  const pageUrl = `https://reverb-music-five.vercel.app/review.html?id=${r.id}`;
+  document.title = pageTitle;
+
+  // Dynamic SEO meta injection
+  const setMeta = (sel, attr, val) => { const el = document.querySelector(sel); if (el && val) el.setAttribute(attr, val); };
+  const setLink = (sel, attr, val) => { const el = document.querySelector(sel); if (el && val) el.setAttribute(attr, val); };
+  setMeta('meta[name="description"]', 'content', pageDesc);
+  setMeta('meta[property="og:title"]', 'content', pageTitle);
+  setMeta('meta[property="og:description"]', 'content', pageDesc);
+  setMeta('meta[property="og:url"]', 'content', pageUrl);
+  setMeta('meta[name="twitter:title"]', 'content', pageTitle);
+  setMeta('meta[name="twitter:description"]', 'content', pageDesc);
+  setLink('link[rel="canonical"]', 'href', pageUrl);
 
   const img = getCover(r);
+  if (img) {
+    setMeta('meta[property="og:image"]', 'content', img);
+    setMeta('meta[name="twitter:image"]', 'content', img);
+  }
 
   // Hero image
   const heroImg = document.querySelector('.review-hero-img');
