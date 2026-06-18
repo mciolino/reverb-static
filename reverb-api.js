@@ -358,6 +358,7 @@ async function hydrateReview() {
   set('.review-album-title', r.album);
   set('.review-headline', r.title || '');
   set('.review-breadcrumb .review-genre-crumb', r.genre || '');
+  set('.review-breadcrumb .review-artist-crumb', r.artist || '');
 
   // Meta
   const authorEl = document.querySelector('.review-meta-author');
