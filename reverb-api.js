@@ -449,11 +449,61 @@ async function hydrateReview() {
           loading="lazy">
         </iframe>`;
       spotifySection.style.display = '';
+
+  // YouTube embed
+  if (r.youtube_id) {
+    const ytSection = document.querySelector('.youtube-embed');
+    if (ytSection) {
+      ytSection.innerHTML = '<div class="youtube-embed-label">Watch</div>' +
+        '<iframe width="100%" height="360" ' +
+        'src="https://www.youtube.com/embed/' + r.youtube_id + '" ' +
+        'title="' + (r.artist || '') + ' — ' + (r.album || '') + '" ' +
+        'frameborder="0" ' +
+        'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ' +
+        'allowfullscreen loading="lazy"></iframe>';
+      ytSection.style.display = '';
+    }
+  }
     }
   }
 
   // Tracklist + sidebar meta
+  // Sidebar Spotify link
+  const spotifyBtn = document.getElementById('sidebarSpotifyBtn');
+  if (spotifyBtn && r.spotify_album_id) {
+    spotifyBtn.href = 'https://open.spotify.com/album/' + r.spotify_album_id;
+  } else if (spotifyBtn && !r.spotify_album_id) {
+    spotifyBtn.style.display = 'none';
+  }
+
+  // Sidebar YouTube link
+  const ytSidebarBtn = document.getElementById('sidebarYoutubeBtn');
+  if (ytSidebarBtn && r.youtube_id) {
+    ytSidebarBtn.href = 'https://www.youtube.com/watch?v=' + r.youtube_id;
+  } else if (ytSidebarBtn && !r.youtube_id) {
+    ytSidebarBtn.style.display = 'none';
+  }
   renderTracklist(r);
+
+  // Dynamic related reviews (same genre, excluding current)
+  if (data.related && data.related.length) {
+    const relatedEl = document.querySelector('.sidebar-related');
+    if (relatedEl) {
+      relatedEl.innerHTML = data.related.slice(0,3).map(rel => {
+        const img = getCover(rel) || '';
+        const esc = s => String(s||'').replace(/[<>&"]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
+        return `<a class="related-card" href="review.html?id=${rel.id}">
+          <img class="related-img" src="${img}" alt="${esc(rel.artist)}" loading="lazy">
+          <div>
+            <div class="related-genre">${esc(rel.genre)}</div>
+            <div class="related-artist">${esc(rel.artist)}</div>
+            <div class="related-album">${esc(rel.album)}</div>
+            <div class="related-score">${rel.rating} &#9733;</div>
+          </div>
+        </a>`;
+      }).join('');
+    }
+  }
 
   // Interactive star rating
   initStarRating(r);
@@ -734,6 +784,9 @@ function injectSharedStyles() {
     .result-card:hover { transform: translateY(-3px); }
 
     /* ── Spotify embed ── */
+    .youtube-embed { margin: 32px 0; }
+    .youtube-embed-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
+    .youtube-embed iframe { border-radius: 8px; width: 100%; aspect-ratio: 16/9; border: none; }
     .spotify-embed { margin: 32px 0; }
 
     /* ── Score bar animation ── */
