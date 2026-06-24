@@ -519,9 +519,111 @@
       .article-text figure img, .article-text .article-figimg { max-height: 240px; }
       .article-text h2, .article-text .article-h2 { font-size: 1.25rem; }
     }
+
+    /* ── READING PROGRESS BAR ── */
+    .reading-progress {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+      background: var(--accent); z-index: 200;
+      transition: width 0.1s ease-out;
+    }
+
+    /* ── DROP CAP ── */
+    .article-text > p:first-child::first-letter {
+      font-family: var(--font-display);
+      font-size: 3.5em; font-weight: 900;
+      float: left; line-height: 0.85;
+      margin: 6px 10px 0 0;
+      color: var(--accent);
+    }
+
+    /* ── ARTICLE BODY IMPROVEMENTS ── */
+    .article-text { 
+      font-size: 18px; line-height: 1.85;
+      max-width: 680px;
+    }
+    .article-text p { margin-bottom: 28px; }
+    
+    /* Score block polish */
+    .article-score-block {
+      border-radius: 4px;
+      background: var(--surface);
+    }
+    .score-panel { padding: 32px 36px; }
+    .score-panel-num { font-size: 56px; }
+
+    /* Lede refinement */
+    .article-lede {
+      font-size: 20px; line-height: 1.6;
+      padding-left: 28px;
+      margin-bottom: 48px;
+      max-width: 680px;
+    }
+
+    /* Section heading underline accent */
+    .article-text h2, .article-text .article-h2 {
+      position: relative;
+      padding-bottom: 12px;
+    }
+    .article-text h2::after, .article-text .article-h2::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 40px; height: 2px; background: var(--accent);
+    }
+
+    /* Sidebar polish */
+    .sidebar-album-art {
+      border-radius: 4px; overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .sidebar-info-row { transition: background 0.15s; padding: 12px 8px; }
+    .sidebar-info-row:hover { background: var(--surface); border-radius: 4px; }
+    .sidebar-info { border-radius: 4px; overflow: hidden; }
+
+    /* Tracklist hover refinement */
+    a.track { border-radius: 4px; transition: background 0.15s; }
+    a.track:hover { background: rgba(232,54,58,0.06); }
+
+    /* Related cards polish */
+    .related-card {
+      padding: 16px 8px; border-radius: 4px;
+      transition: background 0.15s;
+    }
+    .related-card:hover { background: var(--surface); }
+
+    /* Article tags refinement */
+    .article-tag {
+      border-radius: 20px; padding: 6px 16px;
+      transition: all 0.2s;
+    }
+
+    /* Share buttons refinement */
+    .share-btn, .like-btn {
+      border-radius: 20px; transition: all 0.2s;
+    }
+
+    /* Comment section polish */
+    .comment { padding: 28px 0; }
+    .comment-avatar {
+      background: var(--surface-mid);
+      border: 1px solid var(--border);
+    }
+    .comment-input-area { border-radius: 4px; }
+
+    /* Spotify/YouTube embed spacing */
+    .spotify-embed iframe { border-radius: 8px; }
+    .youtube-embed { margin: 40px 0; }
+    .youtube-embed iframe { border-radius: 8px; }
+
+    /* Pull-quote refinement */
+    .article-pullquote p {
+      font-size: 22px; line-height: 1.45;
+    }
+
   </style>
 </head>
 <body>
+
+  <!-- READING PROGRESS -->
+  <div class="reading-progress" id="readingProgress"></div>
 
   <!-- NAV -->
   <nav>
@@ -868,5 +970,18 @@
   </script>
 
   <script src="reverb-api.js"></script>
+
+  <script>
+    // Reading progress bar
+    window.addEventListener('scroll', function() {
+      var h = document.documentElement;
+      var scroll = h.scrollTop || document.body.scrollTop;
+      var height = h.scrollHeight - h.clientHeight;
+      var progress = (scroll / height) * 100;
+      var bar = document.getElementById('readingProgress');
+      if (bar) bar.style.width = progress + '%';
+    }, { passive: true });
+  </script>
+
 </body>
 </html>

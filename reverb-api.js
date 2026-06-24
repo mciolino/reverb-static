@@ -449,6 +449,8 @@ async function hydrateReview() {
           loading="lazy">
         </iframe>`;
       spotifySection.style.display = '';
+    }
+  }
 
   // YouTube embed
   if (r.youtube_id) {
@@ -462,8 +464,6 @@ async function hydrateReview() {
         'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ' +
         'allowfullscreen loading="lazy"></iframe>';
       ytSection.style.display = '';
-    }
-  }
     }
   }
 
@@ -483,6 +483,28 @@ async function hydrateReview() {
   } else if (ytSidebarBtn && !r.youtube_id) {
     ytSidebarBtn.style.display = 'none';
   }
+
+  // Update sidebar metadata fields
+  const sidebarFields = { 'Artist': r.artist, 'Album': r.album, 'Label': r.label,
+    'Released': r.release_year ? String(r.release_year) : '',
+    'Genre': r.genre || '' };
+  document.querySelectorAll('.sidebar-info-row').forEach(row => {
+    const lbl = row.querySelector('.sidebar-info-label');
+    const val = row.querySelector('.sidebar-info-value');
+    if (!lbl || !val) return;
+    const key = lbl.textContent.trim();
+    if (sidebarFields[key] !== undefined && sidebarFields[key] !== '') {
+      val.textContent = sidebarFields[key];
+    }
+  });
+
+  // Update sidebar album art
+  const sidebarArt = document.querySelector('.sidebar-album-art img');
+  if (sidebarArt && img) {
+    sidebarArt.src = img;
+    sidebarArt.alt = `${r.artist} — ${r.album}`;
+  }
+
   renderTracklist(r);
 
   // Dynamic related reviews (same genre, excluding current)
