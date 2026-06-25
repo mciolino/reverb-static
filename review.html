@@ -619,6 +619,161 @@
     }
 
   </style>
+
+  <!-- REVERB × SR7 Motion Layer -->
+  <style id="reverb-sr7-css">
+/* ============================================================
+   REVERB × Slider Revolution 7 — Native Motion Layer
+   Extracted from revslider/public/ — adapted for static deploy
+   ============================================================ */
+
+/* ── 1. SR7 KEYFRAMES ──────────────────────────────────────── */
+@keyframes sr7-ani-mouse{0%{opacity:1;top:29%}15%{opacity:1;top:70%}50%{opacity:0;top:70%}100%{opacity:0;top:29%}}
+@keyframes tp-rotateplane{0%{transform:perspective(120px) rotateX(0deg) rotateY(0deg)}50%{transform:perspective(120px) rotateX(-180.1deg) rotateY(0deg)}100%{transform:perspective(120px) rotateX(-180deg) rotateY(-179.9deg)}}
+@keyframes tp-fade-in{0%{opacity:0}20%{opacity:0}100%{opacity:1}}
+@keyframes tp-rotate{100%{transform:rotate(360deg)}}
+@keyframes sr--anim--rotate{0%{transform:rotate(0deg)}50%{transform:rotate(180deg)}100%{transform:rotate(360deg)}}
+@keyframes sr-pop{0%{transform:scale(0.7);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes sr-elastic-pop{0%{transform:scale(0.7)}60%{transform:scale(1.1)}80%{transform:scale(0.95)}100%{transform:scale(1)}}
+@keyframes shimmer{from{background-position:200% 0}to{background-position:0% 0}}
+@keyframes tp-scaleout{0%{transform:scale(0)}100%{transform:scale(1);opacity:0}}
+@keyframes tp-bouncedelay{0%,80%,100%{transform:scale(0)}40%{transform:scale(1)}}
+@keyframes tp-bounce{0%,100%{transform:scale(0)}50%{transform:scale(1)}}
+@keyframes rs-revealer-6{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes rs-revealer-8{0%{transform:scale(0,0);opacity:.5}100%{transform:scale(1,1);opacity:0}}
+@keyframes rs-revealer-9{0%,100%{transform:scale(0)}50%{transform:scale(1)}}
+@keyframes rs-revealer-10{0%,100%,40%{transform:scaleY(.4)}20%{transform:scaleY(1)}}
+@keyframes rs-revealer-11{0%,100%,70%{transform:scale3D(1,1,1)}35%{transform:scale3D(0,0,1)}}
+@keyframes rs-revealer-12{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+@keyframes rs-revealer-13{0%,100%{transform:translate(0)}25%{transform:translate(160%)}50%{transform:translate(160%,160%)}75%{transform:translate(0,160%)}}
+@keyframes rs-revealer-15{25%{transform:translateX(30px) rotate(-90deg) scale(.5)}50%{transform:translateX(30px) translateY(30px) rotate(-179deg)}75%{transform:translateX(0) translateY(30px) rotate(-270deg) scale(.5)}100%{transform:rotate(-360deg)}}
+
+/* ── 2. SR7 PRELOADER SKINS (REVERB-themed) ────────────────── */
+/* tp-bouncedelay: 3-dot bounce (used for data loading) */
+.reverb-loader { display:flex; gap:6px; align-items:center; justify-content:center; padding:24px; }
+.reverb-loader span {
+  width:10px; height:10px; border-radius:50%;
+  background: #E8363A;
+  display:inline-block;
+  animation: tp-bouncedelay 1.4s infinite ease-in-out both;
+}
+.reverb-loader span:nth-child(1){animation-delay:-0.32s}
+.reverb-loader span:nth-child(2){animation-delay:-0.16s}
+
+/* tp-rotateplane: spinning square (score loading) */
+.reverb-score-loader {
+  width:20px; height:20px;
+  background: #F5C518;
+  animation: tp-rotateplane 1.2s infinite ease-in-out;
+  border-radius:2px;
+  display:inline-block;
+}
+
+/* shimmer: skeleton loading on cards */
+.reverb-shimmer {
+  background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* ── 3. SR7 INSTAGRAM-STYLE PHOTO FILTERS ──────────────────── */
+/* Applied to album cover art via .cover-filter-{name} */
+.cover-filter-inkwell  { filter:sepia(.3) contrast(1.1) brightness(1.1) grayscale(1) }
+.cover-filter-moon     { filter:grayscale(1) contrast(1.1) brightness(1.1) }
+.cover-filter-lofi     { filter:saturate(1.1) contrast(1.5) }
+.cover-filter-clarendon{ filter:contrast(1.2) saturate(1.35) }
+.cover-filter-toaster  { filter:contrast(1.5) brightness(.9) }
+.cover-filter-mayfair  { filter:contrast(1.1) saturate(1.1) }
+.cover-filter-reyes    { filter:sepia(.22) brightness(1.1) contrast(.85) saturate(.75) }
+.cover-filter-walden   { filter:brightness(1.1) hue-rotate(-10deg) sepia(.3) saturate(1.6) }
+.cover-filter-nashville{ filter:sepia(.2) contrast(1.2) brightness(1.05) saturate(1.2) }
+.cover-filter-lark     { filter:contrast(.9) }
+.cover-filter-willow   { filter:grayscale(.5) contrast(.95) brightness(.9) }
+.cover-filter-rise     { filter:brightness(1.05) sepia(.2) contrast(.9) saturate(.9) }
+.cover-filter-slumber  { filter:saturate(.66) brightness(1.05) }
+.cover-filter-brooklyn { filter:contrast(.9) brightness(1.1) }
+.cover-filter-hudson   { filter:brightness(1.2) contrast(.9) saturate(1.1) }
+.cover-filter-aden     { filter:hue-rotate(-20deg) contrast(.9) saturate(.85) brightness(1.2) }
+
+/* Transition on filter change */
+[class*="cover-filter-"] { transition: filter 0.4s ease; }
+
+/* ── 4. SR7 ENTRY ANIMATIONS (utility classes) ─────────────── */
+/* Slide-in from directions */
+.sr7-enter-up    { animation: sr7-enter-up 0.6s cubic-bezier(.16,1,.3,1) both }
+.sr7-enter-down  { animation: sr7-enter-down 0.6s cubic-bezier(.16,1,.3,1) both }
+.sr7-enter-left  { animation: sr7-enter-left 0.6s cubic-bezier(.16,1,.3,1) both }
+.sr7-enter-right { animation: sr7-enter-right 0.6s cubic-bezier(.16,1,.3,1) both }
+.sr7-pop         { animation: sr-pop 0.4s cubic-bezier(.16,1,.3,1) both }
+.sr7-elastic-pop { animation: sr-elastic-pop 0.5s cubic-bezier(.16,1,.3,1) both }
+.sr7-fade-in     { animation: tp-fade-in 0.5s ease both }
+
+@keyframes sr7-enter-up    { from{transform:translateY(30px);opacity:0} to{transform:none;opacity:1} }
+@keyframes sr7-enter-down  { from{transform:translateY(-30px);opacity:0} to{transform:none;opacity:1} }
+@keyframes sr7-enter-left  { from{transform:translateX(40px);opacity:0} to{transform:none;opacity:1} }
+@keyframes sr7-enter-right { from{transform:translateX(-40px);opacity:0} to{transform:none;opacity:1} }
+
+/* Stagger delays */
+.sr7-delay-1 { animation-delay:.1s }
+.sr7-delay-2 { animation-delay:.2s }
+.sr7-delay-3 { animation-delay:.3s }
+.sr7-delay-4 { animation-delay:.4s }
+.sr7-delay-5 { animation-delay:.5s }
+.sr7-delay-6 { animation-delay:.6s }
+
+/* ── 5. SCORE CHIP — elastic pop on load ──────────────────── */
+.score-chip, .score-badge, [class*="rating"] {
+  animation: sr-elastic-pop 0.5s cubic-bezier(.16,1,.3,1) both;
+  animation-delay: 0.3s;
+}
+
+/* ── 6. HERO SLIDE WIPE TRANSITIONS (rs-revealer style) ─────── */
+/* Overlay that wipes out between hero slides */
+.hero-wipe {
+  position:absolute; inset:0; z-index:10; pointer-events:none;
+  background: #0A0A0A;
+  transform-origin: left;
+}
+.hero-wipe.wipe-enter  { animation: hero-wipe-in  0.7s cubic-bezier(.77,0,.18,1) forwards }
+.hero-wipe.wipe-exit   { animation: hero-wipe-out 0.7s cubic-bezier(.77,0,.18,1) forwards }
+
+@keyframes hero-wipe-in  { from{transform:scaleX(0)} to{transform:scaleX(1)} }
+@keyframes hero-wipe-out { from{transform:scaleX(1)} to{transform:scaleX(0); transform-origin:right} }
+
+/* ── 7. MOOD FILMSTRIP — rs-revealer hover pulse ────────────── */
+.mood-card:hover .mood-score {
+  animation: sr-elastic-pop 0.35s cubic-bezier(.16,1,.3,1);
+}
+
+/* ── 8. SCROLL-REVEAL (IntersectionObserver hook) ───────────── */
+.sr7-reveal {
+  opacity:0; transform:translateY(24px);
+  transition: opacity 0.6s cubic-bezier(.16,1,.3,1), transform 0.6s cubic-bezier(.16,1,.3,1);
+}
+.sr7-reveal.is-visible {
+  opacity:1; transform:none;
+}
+
+/* ── 9. REVERB LOADING SCREEN (tp-bouncedelay branded) ──────── */
+#reverb-loading-screen {
+  position:fixed; inset:0; z-index:9999;
+  background:#0A0A0A;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:20px;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+#reverb-loading-screen.hidden { opacity:0; visibility:hidden; pointer-events:none; }
+#reverb-loading-screen .reverb-loader span { background:#E8363A; width:14px; height:14px; }
+#reverb-loading-screen .load-logo {
+  font-family:'Playfair Display', serif;
+  font-size:2rem; font-weight:700; letter-spacing:0.15em;
+  color:#fff;
+}
+#reverb-loading-screen .load-logo span { color:#E8363A; }
+
+  </style>
 </head>
 <body>
 
@@ -981,6 +1136,302 @@
       var bar = document.getElementById('readingProgress');
       if (bar) bar.style.width = progress + '%';
     }, { passive: true });
+  </script>
+
+
+  <script>
+(function(){
+  var DATA_API='https://shopify-copy-f62a1de4.base44.app/functions/reverbData';
+  var _idx=null,_open=false;
+  function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function ensureIdx(){
+    if(_idx)return Promise.resolve(_idx);
+    return fetch(DATA_API+'?endpoint=browse&limit=50').then(function(r){return r.json();}).then(function(d){_idx=d.reviews||[];return _idx;}).catch(function(){_idx=[];return _idx;});
+  }
+  function hi(s,q){
+    if(!q)return esc(s);
+    return esc(s).replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi'),'<mark style="background:rgba(232,54,58,.35);color:#fff;border-radius:2px">$1</mark>');
+  }
+  window.reverbSearch=function(q){
+    var inp=document.getElementById('reverbSearchInput');
+    var res=document.getElementById('reverbSearchResults');
+    var hints=document.getElementById('reverbSearchHints');
+    if(inp&&q&&inp.value!==q)inp.value=q;
+    q=((q||(inp&&inp.value)||'').trim()).toLowerCase();
+    if(!res)return;
+    if(!q){res.innerHTML='';if(hints)hints.style.display='';return;}
+    if(hints)hints.style.display='none';
+    res.innerHTML='<div style="padding:28px;text-align:center;color:#5A5A5A;font-family:Inter,sans-serif;font-size:.85rem">Searching\u2026</div>';
+    ensureIdx().then(function(idx){
+      var hits=idx.filter(function(r){
+        var hay=[r.artist,r.album,r.title,r.genre].concat(r.mood_tags||[]).concat(r.tags||[]).join(' ').toLowerCase();
+        if(q==='best new')return r.is_best_new_music;
+        if(q==='9')return(r.rating||0)>=9;
+        return hay.indexOf(q)>=0;
+      }).slice(0,10);
+      if(!hits.length){res.innerHTML='<div style="padding:40px 28px;text-align:center;color:#5A5A5A;font-family:Inter,sans-serif;font-size:.9rem">No results for &ldquo;<strong style=\'color:#A0A0A0\'>'+esc(q)+'</strong>&rdquo;</div>';return;}
+      res.innerHTML=hits.map(function(r){
+        var score=Number(r.rating||0).toFixed(1);
+        var bnm=r.is_best_new_music?'<span style="font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:#E8363A;color:#fff;padding:2px 6px;border-radius:2px;flex-shrink:0">BNM</span>':'';
+        return '<a href="/review?id='+esc(r.id)+'" style="display:flex;align-items:center;gap:14px;padding:14px 28px;border-bottom:1px solid #1A1A1A;text-decoration:none;transition:background .12s" onmouseover="this.style.background=\'#1A1A1A\'" onmouseout="this.style.background=\'\'">'
+          +'<img src="'+esc(r.cover_image||'')+'" alt="'+esc(r.album)+'" style="width:44px;height:44px;object-fit:cover;border-radius:3px;flex-shrink:0;background:#222" loading="lazy" onerror="this.style.opacity=.15" decoding="async">'
+          +'<div style="flex:1;min-width:0">'
+            +'<div style="font-size:.88rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+hi(r.artist||'',q)+' \u2014 '+hi(r.album||r.title||'',q)+'</div>'
+            +'<div style="font-size:.75rem;color:#6B6B6B;margin-top:3px;font-family:Inter,sans-serif">'+esc(r.genre||'')+(r.is_best_new_music?' \xb7 Best New Music':'')+'</div>'
+          +'</div>'
+          +'<span style="font-family:\'DM Mono\',monospace;font-size:1rem;font-weight:700;color:#F5C518;flex-shrink:0">'+score+'</span>'
+          +bnm+'</a>';
+      }).join('');
+    });
+  };
+  window.openReverbSearch=function(){
+    var o=document.getElementById('reverbSearchOverlay');
+    if(!o)return;
+    o.style.display='flex';_open=true;document.body.style.overflow='hidden';
+    setTimeout(function(){var i=document.getElementById('reverbSearchInput');if(i){i.focus();i.select();}},60);
+    ensureIdx();
+  };
+  window.closeReverbSearch=function(){
+    var o=document.getElementById('reverbSearchOverlay');
+    if(!o)return;
+    o.style.display='none';_open=false;document.body.style.overflow='';
+    var r=document.getElementById('reverbSearchResults');
+    var h=document.getElementById('reverbSearchHints');
+    var i=document.getElementById('reverbSearchInput');
+    if(r)r.innerHTML='';if(h)h.style.display='';if(i)i.value='';
+  };
+  function boot(){
+    var o=document.getElementById('reverbSearchOverlay');
+    if(!o)return;
+    o.addEventListener('click',function(e){if(e.target===o)window.closeReverbSearch();});
+    var eb=document.getElementById('reverbSearchEsc');
+    if(eb)eb.addEventListener('click',window.closeReverbSearch);
+    var inp=document.getElementById('reverbSearchInput');
+    if(inp){
+      inp.addEventListener('input',function(){window.reverbSearch(this.value);});
+      inp.addEventListener('keydown',function(e){
+        if(e.key==='Escape')window.closeReverbSearch();
+        if(e.key==='Enter'){var f=document.querySelector('#reverbSearchResults a');if(f){window.closeReverbSearch();location.href=f.href;}}
+      });
+    }
+    document.querySelectorAll('[data-search-trigger],[data-reverb-search],[data-search-trigger]').forEach(function(el){
+      var fresh=el.cloneNode(true);
+      if(el.parentNode)el.parentNode.replaceChild(fresh,el);
+      fresh.addEventListener('click',function(e){e.preventDefault();window.openReverbSearch();});
+    });
+    document.addEventListener('keydown',function(e){
+      if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();_open?window.closeReverbSearch():window.openReverbSearch();}
+      if(e.key==='Escape'&&_open)window.closeReverbSearch();
+    });
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',boot);}else{boot();}
+})();
+</script>
+
+  <!-- REVERB × SR7 Motion System -->
+  <script>
+/* ============================================================
+   REVERB × SR7 — Motion System JS
+   Scroll-reveal + filter cycling + loading screen
+   ============================================================ */
+(function() {
+  'use strict';
+
+  /* ── 1. Loading screen ──────────────────────────────────── */
+  function initLoadingScreen() {
+    const screen = document.getElementById('reverb-loading-screen');
+    if (!screen) return;
+    window.addEventListener('load', () => {
+      setTimeout(() => screen.classList.add('hidden'), 400);
+    });
+    // Safety fallback
+    setTimeout(() => screen && screen.classList.add('hidden'), 2500);
+  }
+
+  /* ── 2. Scroll-reveal (IntersectionObserver) ────────────── */
+  function initScrollReveal() {
+    const els = document.querySelectorAll('.sr7-reveal');
+    if (!els.length) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(el => io.observe(el));
+  }
+
+  /* ── 3. Album cover filter cycling ─────────────────────── */
+  // Applies a genre-appropriate SR7 filter to each album cover
+  const GENRE_FILTERS = {
+    'hip-hop':    'cover-filter-lofi',
+    'rap':        'cover-filter-lofi',
+    'electronic': 'cover-filter-clarendon',
+    'dance':      'cover-filter-walden',
+    'indie':      'cover-filter-lark',
+    'indie rock': 'cover-filter-lark',
+    'alternative':'cover-filter-reyes',
+    'folk':       'cover-filter-inkwell',
+    'classical':  'cover-filter-moon',
+    'r&b':        'cover-filter-slumber',
+    'soul':       'cover-filter-slumber',
+    'pop':        'cover-filter-nashville',
+    'country':    'cover-filter-rise',
+    'punk':       'cover-filter-toaster',
+    'metal':      'cover-filter-toaster',
+    'jazz':       'cover-filter-mayfair',
+    'default':    'cover-filter-clarendon'
+  };
+
+  function applyGenreFilter(imgEl, genre) {
+    const key = (genre || '').toLowerCase();
+    const filter = GENRE_FILTERS[key] || GENRE_FILTERS['default'];
+    // Apply to parent wrapper so ::after pseudo works
+    const wrap = imgEl.closest('.album-art-wrap, .cover-wrap, .mood-img-wrap, .hero-cover-wrap') || imgEl.parentElement;
+    if (wrap) {
+      wrap.classList.add(filter);
+      wrap.dataset.srFilter = filter;
+    }
+  }
+
+  function initCoverFilters() {
+    // Hook into hydrated review cards
+    document.querySelectorAll('[data-genre]').forEach(card => {
+      const img = card.querySelector('img');
+      if (img) applyGenreFilter(img, card.dataset.genre);
+    });
+    // Also hook mood filmstrip items
+    document.querySelectorAll('.mood-card[data-genre] img').forEach(img => {
+      applyGenreFilter(img, img.closest('[data-genre]').dataset.genre);
+    });
+  }
+
+  /* ── 4. Hero wipe transition (between slides) ───────────── */
+  window.REVERB_SR7 = {
+    wipe: function(container) {
+      if (!container) return;
+      const wipe = document.createElement('div');
+      wipe.className = 'hero-wipe';
+      container.style.position = 'relative';
+      container.appendChild(wipe);
+      wipe.classList.add('wipe-enter');
+      setTimeout(() => {
+        wipe.classList.remove('wipe-enter');
+        wipe.classList.add('wipe-exit');
+        setTimeout(() => wipe.remove(), 700);
+      }, 700);
+    },
+
+    // Apply filter to any img by genre
+    applyFilter: applyGenreFilter,
+
+    // Shimmer placeholder on any element
+    shimmer: function(el) {
+      if (!el) return;
+      el.classList.add('reverb-shimmer');
+      return { done: () => el.classList.remove('reverb-shimmer') };
+    }
+  };
+
+  /* ── 5. Score chips — elastic pop on intersect ──────────── */
+  function initScorePop() {
+    const chips = document.querySelectorAll('.score-display, .rating-badge, .community-score, .score-chip');
+    if (!chips.length) return;
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.animation = 'none';
+          requestAnimationFrame(() => {
+            e.target.style.animation = '';
+            e.target.classList.add('sr7-elastic-pop');
+          });
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    chips.forEach(c => io.observe(c));
+  }
+
+  /* ── 6. Stagger sr7-reveal children inside sections ────── */
+  function initStaggeredSections() {
+    document.querySelectorAll('[data-sr7-stagger]').forEach(section => {
+      const children = section.children;
+      Array.from(children).forEach((child, i) => {
+        child.classList.add('sr7-reveal');
+        child.style.transitionDelay = `${i * 0.08}s`;
+      });
+    });
+    // Re-run scroll reveal to pick up new elements
+    initScrollReveal();
+  }
+
+  /* ── Boot ───────────────────────────────────────────────── */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+
+  function boot() {
+    initLoadingScreen();
+    initScrollReveal();
+    initCoverFilters();
+    initScorePop();
+    initStaggeredSections();
+    // Re-apply after hydration (data arrives async)
+    setTimeout(initCoverFilters, 1200);
+    setTimeout(initCoverFilters, 3000);
+  }
+})();
+
+  </script>
+
+
+  <!-- SR7 motion: review page hooks -->
+  <script>
+  (function() {
+    function applySR7ToReview() {
+      // Apply cover filters to sidebar album art
+      var coverImg = document.querySelector('.sidebar-cover img, .review-cover img, .cover-art img, .sidebar img');
+      if (coverImg && window.REVERB_SR7) {
+        // Determine genre from the page
+        var genreEl = document.querySelector('.sidebar .meta-value, .meta-value');
+        var genre = '';
+        if (genreEl) genre = genreEl.textContent.trim();
+        REVERB_SR7.applyFilter(coverImg, genre);
+      }
+
+      // Add sr7-reveal to article paragraphs and section headings
+      document.querySelectorAll('.article-text p, .article-text h2, .review-body p, .review-body h2').forEach(function(el, i) {
+        el.classList.add('sr7-reveal');
+        el.style.transitionDelay = (i * 0.06) + 's';
+      });
+
+      // Add elastic pop to score displays
+      document.querySelectorAll('.score-display, .rating-badge, .critic-score, .community-score, .score-chip').forEach(function(el) {
+        el.classList.add('sr7-elastic-pop');
+      });
+
+      // Add shimmer to any skeleton placeholders
+      document.querySelectorAll('.skeleton, .loading-placeholder').forEach(function(el) {
+        el.classList.add('reverb-shimmer');
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(applySR7ToReview, 500);
+        setTimeout(applySR7ToReview, 1500);
+        setTimeout(applySR7ToReview, 3000);
+      });
+    } else {
+      setTimeout(applySR7ToReview, 500);
+      setTimeout(applySR7ToReview, 1500);
+      setTimeout(applySR7ToReview, 3000);
+    }
+  })();
   </script>
 
 </body>
