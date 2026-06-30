@@ -129,18 +129,23 @@ async function hydrateHomepage() {
     set('.hero-genre', hero.genre || '');
     set('.hero-title', hero.album);
     set('.hero-summary', hero.summary || '');
-    setHref('.hero-cta', `review.html?id=${hero.id}`);
+    setHref('.hero-cta', `/review?id=${hero.id}`);
     set('.hero-byline strong', hero.author_name || 'Staff');
 
     const criticEl = document.querySelector('.score-num.critic');
     const communityEl = document.querySelector('.score-num.community');
     if (criticEl) {
-      criticEl.style.color = scoreColor(hero.rating);
-      animateScore(criticEl, hero.rating);
+      if (hero.rating == null || hero.rating === 0) {
+        criticEl.textContent = 'NR';
+        criticEl.style.color = 'var(--muted,#555)';
+      } else {
+        criticEl.style.color = scoreColor(hero.rating);
+        animateScore(criticEl, hero.rating);
+      }
     }
     if (communityEl && hero.community_score) {
       communityEl.style.color = scoreColor(hero.community_score);
-      animateScore(communityEl, hero.community_score.toFixed(1));
+      animateScore(communityEl, Number(hero.community_score||0).toFixed(1));
     }
 
     const badge = document.querySelector('.hero-badge');
@@ -162,12 +167,12 @@ async function hydrateHomepage() {
       const bg = img ? `background-image:url(${img})` : coverBg(r).includes('url') ? `background-image:${coverBg(r)}` : `background:${coverBg(r)}`;
       return `
       <article class="review-card reveal" style="--delay:${i * 60}ms" data-genre="${r.genre || ''}" data-id="${r.id}">
-        <a href="review.html?id=${r.id}" class="card-link" aria-label="${r.artist} — ${r.album}">
+        <a href="/review?id=${r.id}" class="card-link" aria-label="${r.artist} — ${r.album}">
           <div class="card-image">
             <div class="card-cover" style="${bg};background-size:cover;background-position:center;"></div>
             <div class="card-scores">
               <div class="card-score critic" style="color:${scoreColor(r.rating)}">${r.rating}</div>
-              <div class="card-score community">${r.community_score?.toFixed ? r.community_score.toFixed(1) : r.community_score}</div>
+              <div class="card-score community">${r.community_score?.toFixed ? Number(r.community_score||0).toFixed(1) : r.community_score}</div>
             </div>
             ${r.is_best_new_music ? '<div class="card-bnm"><span class="bnm-badge">★ BNM</span></div>' : ''}
           </div>
@@ -213,7 +218,7 @@ async function hydrateHomepage() {
     topList.innerHTML = top_of_year.map((r, i) => {
       const img = getCover(r);
       return `
-      <a href="review.html?id=${r.id}" class="top-item reveal" style="--delay:${i * 50}ms">
+      <a href="/review?id=${r.id}" class="top-item reveal" style="--delay:${i * 50}ms">
         <span class="top-rank">${String(i+1).padStart(2,'0')}</span>
         <div class="top-cover" style="${img ? `background-image:url(${img})` : coverBg(r).includes('url') ? `background-image:${coverBg(r)}` : `background:${coverBg(r)}`};background-size:cover;background-position:center;"></div>
         <div class="top-info">
@@ -257,7 +262,7 @@ function renderBrowseResults(reviews) {
         const bgStyle = img ? `background-image:url(${img})` : `background:${coverBg(r)}`;
         return `
         <article class="result-card reveal" style="--delay:${(i%12)*40}ms" data-genre="${r.genre||''}" data-score="${r.rating}">
-          <a href="review.html?id=${r.id}" style="text-decoration:none;color:inherit;display:block;">
+          <a href="/review?id=${r.id}" style="text-decoration:none;color:inherit;display:block;">
             <div class="result-cover" style="${bgStyle};background-size:cover;background-position:center;">
               <div class="result-score-overlay">
                 <div class="result-score critic-score" style="color:${scoreColor(r.rating)}">${r.rating}</div>
@@ -273,7 +278,7 @@ function renderBrowseResults(reviews) {
                 <span class="result-critic-val" style="color:${scoreColor(r.rating)}">${r.rating}</span>
                 <span class="result-sep">·</span>
                 <span class="result-label">Fan</span>
-                <span class="result-comm-val">${r.community_score?.toFixed ? r.community_score.toFixed(1) : r.community_score}</span>
+                <span class="result-comm-val">${r.community_score?.toFixed ? Number(r.community_score||0).toFixed(1) : r.community_score}</span>
               </div>
             </div>
           </a>
@@ -290,7 +295,7 @@ function renderBrowseResults(reviews) {
       listView.innerHTML = reviews.map((r, i) => {
         const img = getCover(r);
         return `
-        <a href="review.html?id=${r.id}" class="list-item reveal" style="--delay:${(i%20)*30}ms" data-genre="${r.genre||''}" data-score="${r.rating}">
+        <a href="/review?id=${r.id}" class="list-item reveal" style="--delay:${(i%20)*30}ms" data-genre="${r.genre||''}" data-score="${r.rating}">
           <div class="list-num">${String(i+1).padStart(2,'0')}</div>
           <div class="list-cover" style="${img ? `background-image:url(${img})` : `background:${coverBg(r)}`};background-size:cover;background-position:center;"></div>
           <div class="list-meta">
@@ -301,7 +306,7 @@ function renderBrowseResults(reviews) {
           <div class="list-scores">
             <div class="list-score-val" style="color:${scoreColor(r.rating)}">${r.rating}</div>
             <div class="list-score-label">CRITIC</div>
-            <div class="list-score-val community" style="color:#4A9EFF;margin-top:8px">${r.community_score?.toFixed ? r.community_score.toFixed(1) : r.community_score}</div>
+            <div class="list-score-val community" style="color:#4A9EFF;margin-top:8px">${r.community_score?.toFixed ? Number(r.community_score||0).toFixed(1) : r.community_score}</div>
             <div class="list-score-label">FAN</div>
           </div>
         </a>`;
@@ -337,11 +342,16 @@ async function hydrateReview() {
   catch(e) { console.warn('Review API error:', e); return; }
 
   const r = data.review;
-  if (!r) return;
+  if (!r) {
+    document.title = 'Review Not Found — REVERB';
+    const bodyEl = document.querySelector('.review-body');
+    if (bodyEl) bodyEl.innerHTML = '<div style="padding:80px 48px;text-align:center;"><h2 style="font-family:var(--font-display);font-size:2rem;">Review not found</h2><p style="color:var(--text-muted);margin:16px 0 32px;">We couldn\'t find that review. It may have been moved.</p><a href="/browse" style="color:var(--accent)">Browse all reviews →</a></div>';
+    return;
+  }
 
   const pageTitle = `${r.artist} — ${r.album} | REVERB`;
   const pageDesc = r.summary || `A REVERB review of ${r.album} by ${r.artist}.`;
-  const pageUrl = `https://reverb-music-five.vercel.app/review.html?id=${r.id}`;
+  const pageUrl = `https://reverb-music-five.vercel.app/review?id=${r.id}`;
   document.title = pageTitle;
 
   // Dynamic SEO meta injection
@@ -376,6 +386,8 @@ async function hydrateReview() {
   set('.review-album-title', r.album);
   set('.review-headline', r.title || '');
   set('.review-breadcrumb .review-genre-crumb', r.genre || '');
+  const genreCrumb = document.querySelector('.review-breadcrumb .review-genre-crumb');
+  if (genreCrumb && r.genre) genreCrumb.href = '/browse?genre=' + encodeURIComponent(r.genre);
   set('.review-breadcrumb .review-artist-crumb', r.artist || '');
 
   // Meta
@@ -402,12 +414,21 @@ async function hydrateReview() {
   // Scores with animation
   const criticEl = document.querySelector('.score-panel-num.critic');
   if (criticEl) {
-    criticEl.style.color = scoreColor(r.rating);
-    animateScore(criticEl, r.rating);
+    if (r.rating == null || r.rating === 0) {
+      criticEl.textContent = 'NR';
+      criticEl.style.color = 'var(--muted,#555)';
+    } else {
+      criticEl.style.color = scoreColor(r.rating);
+      animateScore(criticEl, r.rating);
+    }
   }
   const criticBar = document.querySelector('.score-bar-fill.critic');
   if (criticBar) {
-    setTimeout(() => { criticBar.style.transition = 'width 1s cubic-bezier(.4,0,.2,1)'; criticBar.style.width = `${parseFloat(r.rating)*10}%`; }, 200);
+    if (r.rating != null && r.rating !== 0) {
+      setTimeout(() => { criticBar.style.transition = 'width 1s cubic-bezier(.4,0,.2,1)'; criticBar.style.width = `${parseFloat(r.rating)*10}%`; }, 200);
+    } else {
+      criticBar.style.width = '0%';
+    }
   }
   const criticSub = document.querySelector('.score-panel .score-panel-sub');
   if (criticSub) criticSub.textContent = `Editorial rating by ${r.author_name || 'Staff'}`;
@@ -415,7 +436,7 @@ async function hydrateReview() {
   const commEl = document.querySelector('.score-panel-num.community');
   if (commEl && r.community_score != null) {
     commEl.style.color = '#4A9EFF';
-    animateScore(commEl, r.community_score.toFixed ? r.community_score.toFixed(1) : r.community_score);
+    animateScore(commEl, r.community_score.toFixed ? Number(r.community_score||0).toFixed(1) : r.community_score);
   }
   const commBar = document.querySelector('.score-bar-fill.community');
   if (commBar) {
@@ -426,14 +447,54 @@ async function hydrateReview() {
 
   // Article content
   const ledeEl = document.querySelector('.article-lede');
-  if (ledeEl) ledeEl.textContent = r.summary || '';
+  if (ledeEl) { const raw = r.summary || ''; ledeEl.innerHTML = raw.replace(/<[^>]+>/g, ''); }
   const bodyEl = document.querySelector('.article-text');
-  if (bodyEl && r.body) bodyEl.innerHTML = r.body;
+  if (bodyEl && r.body) {
+    let bodyHtml = r.body;
+    // Make inline YouTube iframes responsive
+    bodyHtml = bodyHtml.replace(
+      /<iframe([^>]+?)youtube\.com\/embed([^>]*?)>/gi,
+      (m, pre, post) => {
+        // Remove hardcoded width/height attrs
+        let attrs = (pre + post).replace(/\s+width="[^"]*"/gi, '').replace(/\s+height="[^"]*"/gi, '');
+        return '<iframe' + attrs + ' class="yt-responsive-iframe" style="width:100%;aspect-ratio:16/9;height:auto;border:none;border-radius:8px;display:block;margin:32px 0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>';
+      }
+    );
+    // Make inline images responsive
+    bodyHtml = bodyHtml.replace(
+      /<img([^>]+?)>/gi,
+      (m, attrs) => {
+        if (attrs.includes('style=')) {
+          attrs = attrs.replace(/style="([^"]*)"/, (sm, s) => `style="${s};max-width:100%;height:auto;border-radius:8px;display:block;margin:24px auto"`);
+        } else {
+          attrs += ' style="max-width:100%;height:auto;border-radius:8px;display:block;margin:24px auto"';
+        }
+        return '<img' + attrs + '>';
+      }
+    );
+    bodyEl.innerHTML = bodyHtml;
+  }
 
   // Tags
   const tagsEl = document.querySelector('.article-tags');
   if (tagsEl && r.tags?.length) {
     tagsEl.innerHTML = r.tags.map(t => `<span class="article-tag">${t}</span>`).join('');
+  }
+
+  // Wire like button with real likes_count from DB
+  const likeBtn = document.getElementById('likeBtn');
+  if (likeBtn && r.likes_count != null) {
+    const count = r.likes_count || 0;
+    likeBtn.textContent = '\u2665 ' + count.toLocaleString() + ' Likes';
+    likeBtn.dataset.count = count;
+    likeBtn.dataset.liked = 'false';
+    likeBtn.onclick = function() {
+      const wasLiked = likeBtn.dataset.liked === 'true';
+      likeBtn.dataset.liked = wasLiked ? 'false' : 'true';
+      const base = parseInt(likeBtn.dataset.count) || 0;
+      likeBtn.textContent = '\u2665 ' + (wasLiked ? base : base + 1).toLocaleString() + ' Likes';
+      likeBtn.classList.toggle('liked', !wasLiked);
+    };
   }
 
   // Spotify embed
@@ -443,7 +504,7 @@ async function hydrateReview() {
       spotifySection.innerHTML = `
         <iframe style="border-radius:8px" 
           src="https://open.spotify.com/embed/album/${r.spotify_album_id}?utm_source=generator&theme=0" 
-          width="100%" height="152" frameborder="0" 
+          width="100%" height="352" frameborder="0" 
           allowfullscreen="" 
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
           loading="lazy">
@@ -457,8 +518,8 @@ async function hydrateReview() {
     const ytSection = document.querySelector('.youtube-embed');
     if (ytSection) {
       ytSection.innerHTML = '<div class="youtube-embed-label">Watch</div>' +
-        '<iframe width="100%" height="360" ' +
-        'src="https://www.youtube.com/embed/' + r.youtube_id + '" ' +
+        '<iframe class="yt-responsive-iframe" width="100%" ' +
+        'src="https://www.youtube.com/embed/' + r.youtube_id + '?rel=0" ' +
         'title="' + (r.artist || '') + ' — ' + (r.album || '') + '" ' +
         'frameborder="0" ' +
         'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ' +
@@ -514,7 +575,7 @@ async function hydrateReview() {
       relatedEl.innerHTML = data.related.slice(0,3).map(rel => {
         const img = getCover(rel) || '';
         const esc = s => String(s||'').replace(/[<>&"]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
-        return `<a class="related-card" href="review.html?id=${rel.id}">
+        return `<a class="related-card" href="/review?id=${rel.id}">
           <img class="related-img" src="${img}" alt="${esc(rel.artist)}" loading="lazy">
           <div>
             <div class="related-genre">${esc(rel.genre)}</div>
@@ -525,7 +586,14 @@ async function hydrateReview() {
         </a>`;
       }).join('');
     }
+  } else if (relatedEl) {
+    relatedEl.innerHTML = '<a class="related-card" href="/browse" style="justify-content:center;padding:20px;text-align:center;"><div style="color:var(--text-muted);font-size:13px">Browse more reviews →</div></a>';
   }
+
+  // Increment reads count (fire and forget)
+  try {
+    reverbFetch({ endpoint: 'increment_read', id: r.id }).catch(() => {});
+  } catch(e) {}
 
   // Interactive star rating
   initStarRating(r);
@@ -551,7 +619,12 @@ function renderTracklist(r) {
     return m + ':' + String(s).padStart(2, '0');
   }
 
-  if (!tracks || !tracks.length) return;
+  if (!tracks || !tracks.length) {
+    const sidebar = tracklistEl ? tracklistEl.closest('.sidebar-section') || tracklistEl.parentElement : null;
+    if (sidebar) sidebar.style.display = 'none';
+    else if (tracklistEl) tracklistEl.style.display = 'none';
+    return;
+  }
 
   const totalSecs = tracks.reduce((sum, t) => sum + parseDuration(t.duration), 0);
 
