@@ -1,4 +1,22 @@
 {
+  "buildCommand": "",
+  "outputDirectory": ".",
+  "installCommand": "echo skip",
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Permissions-Policy",
+          "value": "autoplay=*, fullscreen=*, picture-in-picture=*, clipboard-write=*"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
+      ]
+    }
+  ],
   "rewrites": [
     {
       "source": "/",
