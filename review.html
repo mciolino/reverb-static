@@ -618,6 +618,115 @@
       font-size: 22px; line-height: 1.45;
     }
 
+  
+  /* ── Spotify embed (full player) ─────────────────────── */
+  .spotify-embed {
+    margin: 40px 0;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .spotify-embed iframe {
+    display: block;
+    border-radius: 12px;
+  }
+
+  /* ── YouTube embed ─────────────────────────────────────── */
+  .youtube-embed {
+    margin: 44px 0;
+  }
+  .youtube-embed-label {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .youtube-embed iframe {
+    width: 100%;
+    aspect-ratio: 16/9;
+    height: auto;
+    min-height: 280px;
+    border-radius: 8px;
+    display: block;
+  }
+
+  /* ── Inline article images (not in figure wrapper) ─────── */
+  .article-text img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+    margin: 32px auto;
+  }
+
+  /* ── Inline article iframes (YouTube in body) ──────────── */
+  .article-text iframe {
+    width: 100%;
+    aspect-ratio: 16/9;
+    height: auto;
+    min-height: 260px;
+    border-radius: 8px;
+    display: block;
+    margin: 32px 0;
+  }
+
+  /* ── Article links ──────────────────────────────────────── */
+  .article-text a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    transition: color 0.15s;
+  }
+  .article-text a:hover {
+    color: var(--text);
+  }
+
+  /* ── article-text paragraph spacing ────────────────────── */
+  .article-text p {
+    margin-bottom: 1.5em;
+  }
+  .article-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ── Long-form section: figure caption full-bleed ──────── */
+  .article-figure {
+    margin: 40px -24px;
+  }
+  @media (max-width: 768px) {
+    .article-figure {
+      margin: 32px 0;
+    }
+  }
+
+  
+  /* ── YouTube responsive (JS-injected iframe) ─────────── */
+  .yt-responsive-iframe {
+    width: 100%;
+    aspect-ratio: 16/9;
+    height: auto;
+    min-height: 260px;
+    border-radius: 8px;
+    display: block;
+  }
+
+
+    /* ── EMBED STATES ── */
+    .embed-loading {
+      padding: 48px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-family: var(--font-ui);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .spotify-embed iframe { display: block; width: 100%; border: none; border-radius: 8px; }
+    .youtube-embed iframe { display: block; width: 100%; border: none; border-radius: 8px; }
+    .yt-responsive-iframe { aspect-ratio: 16/9; height: auto !important; min-height: 200px; }
   </style>
 
   <!-- REVERB × SR7 Motion Layer -->
@@ -782,16 +891,17 @@
 
   <!-- NAV -->
   <nav>
-    <a href="index.html" class="nav-logo">REVERB<span>.</span></a>
+    <a href="/" class="nav-logo">REVERB<span>.</span></a>
     <ul class="nav-links">
-      <li><a href="#">New</a></li>
-      <li><a href="#">Reviews</a></li>
-      <li><a href="#">Browse</a></li>
-      <li><a href="#">Lists</a></li>
-      <li><a href="#">Community</a></li>
+      <li><a href="/new">New</a></li>
+      <li><a href="/browse">Reviews</a></li>
+      <li><a href="/browse">Browse</a></li>
+      <li><a href="/browse?view=lists">Lists</a></li>
+      <li><a href="/community">Community</a></li>
     </ul>
     <div class="nav-right">
-      <a href="#" class="nav-signin">Sign In</a>
+      <button class="nav-search" aria-label="Search" type="button">&#8984;K</button>
+      <a href="/profile" class="nav-signin">Sign In</a>
     </div>
   </nav>
 
@@ -801,9 +911,9 @@
     <div class="review-hero-overlay"></div>
     <div class="review-hero-content">
       <div class="review-breadcrumb">
-        <a href="index.html">Home</a>
+        <a href="/">Home</a>
         <span class="review-breadcrumb-sep">›</span>
-        <a href="#">Reviews</a>
+        <a href="/browse">Reviews</a>
         <span class="review-breadcrumb-sep">›</span>
         <a href="#" class="review-genre-crumb">—</a>
         <span class="review-breadcrumb-sep">›</span>
@@ -868,11 +978,11 @@
       <p class="article-lede"> </p>
 
       <!-- BODY -->
-      <div class="article-text"></div> & SHARE -->
+      <div class="article-text"></div>
 
       <!-- SPOTIFY EMBED -->
-      <div class="spotify-embed" style="display:none"></div>
-      <div class="youtube-embed" style="display:none"></div>
+      <div class="spotify-embed"><div class="embed-loading">Loading player…</div></div>
+      <div class="youtube-embed"><div class="embed-loading">Loading video…</div></div>
 
       <div class="article-tags">
         <span class="article-tag">Experimental</span>
@@ -1029,7 +1139,7 @@
 
       <div class="sidebar-section-title">You Might Also Like</div>
       <div class="sidebar-related">
-        <a class="related-card" href="review.html?id=6a2fa073942706375ccb2db0">
+        <a class="related-card" href="/review?id=6a2fa073942706375ccb2db0">
           <img class="related-img" src="https://images.unsplash.com/photo-1571330735066-03aaa9429d89?w=200&q=80" alt="" loading="lazy">
           <div>
             <div class="related-genre">Hip-Hop</div>
@@ -1038,7 +1148,7 @@
             <div class="related-score">9.0 &#9733;</div>
           </div>
         </a>
-        <a class="related-card" href="review.html?id=6a2fa073942706375ccb2daf">
+        <a class="related-card" href="/review?id=6a2fa073942706375ccb2daf">
           <img class="related-img" src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200&q=80" alt="" loading="lazy">
           <div>
             <div class="related-genre">R&B</div>
@@ -1047,7 +1157,7 @@
             <div class="related-score">9.0 &#9733;</div>
           </div>
         </a>
-        <a class="related-card" href="review.html?id=6a2fa073942706375ccb2db1">
+        <a class="related-card" href="/review?id=6a2fa073942706375ccb2db1">
           <img class="related-img" src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=200&q=80" alt="" loading="lazy">
           <div>
             <div class="related-genre">Alternative</div>
@@ -1084,19 +1194,25 @@
     let liked = false;
     likeBtn.addEventListener('click', () => {
       liked = !liked;
-      likeBtn.textContent = liked ? '♥ 848 Likes' : '♥ 847 Likes';
+      const cur = parseInt(likeBtn.textContent.replace(/[^0-9]/g,'')) || 0;
+      likeBtn.textContent = liked ? '♥ ' + (cur+1) + ' Likes' : '♥ ' + (cur) + ' Likes';
       likeBtn.classList.toggle('liked', liked);
     });
 
-    // Copy link
+    // Share buttons
     document.querySelectorAll('.share-btn').forEach(btn => {
-      if (btn.textContent === 'Copy Link') {
-        btn.addEventListener('click', () => {
-          navigator.clipboard.writeText(window.location.href);
-          btn.textContent = 'Copied!';
-          setTimeout(() => btn.textContent = 'Copy Link', 2000);
-        });
-      }
+      btn.addEventListener('click', () => {
+        const label = btn.textContent.trim();
+        if (label === 'Copy Link') {
+          navigator.clipboard.writeText(window.location.href).then(() => {
+            btn.textContent = 'Copied!';
+            setTimeout(() => btn.textContent = 'Copy Link', 2000);
+          });
+        } else if (label === 'Twitter/X' || label.includes('Twitter')) {
+          const text = encodeURIComponent(document.title + ' — ' + window.location.href);
+          window.open('https://x.com/intent/tweet?text=' + text, '_blank', 'width=600,height=400');
+        }
+      });
     });
   </script>
 
