@@ -342,6 +342,7 @@ async function hydrateReview() {
   catch(e) { console.warn('Review API error:', e); return; }
 
   const r = data.review;
+  if (r) window._currentReview = r;
   if (!r) {
     document.title = 'Review Not Found — REVERB';
     const bodyEl = document.querySelector('.review-body');
@@ -912,18 +913,284 @@ function injectMobileBurger() {
 // ═══════════════════════════════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════════════════════════════
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// REVERB ENHANCEMENTS v3 — Reading UX, Radar, BNM Strip
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// ── Reading Progress Bar ─────────────────────────────────────────────────────
+function initReadingProgress() {
+  if (document.getElementById('reverb-progress')) return;
+  const bar = document.createElement('div');
+  bar.id = 'reverb-progress';
+  bar.style.cssText = 'position:fixed;top:0;left:0;height:3px;width:0%;background:#E8363A;z-index:9999;transition:width 0.1s linear;pointer-events:none;';
+  document.body.prepend(bar);
+  window.addEventListener('scroll', () => {
+    const doc = document.documentElement;
+    const scrolled = doc.scrollTop || document.body.scrollTop;
+    const total = doc.scrollHeight - doc.clientHeight;
+    bar.style.width = total > 0 ? `${(scrolled / total) * 100}%` : '0%';
+  }, { passive: true });
+}
+
+// ── Scroll-to-Top Button ─────────────────────────────────────────────────────
+function initScrollToTop() {
+  if (document.getElementById('reverb-scroll-top')) return;
+  const btn = document.createElement('button');
+  btn.id = 'reverb-scroll-top';
+  btn.innerHTML = '↑';
+  btn.setAttribute('aria-label', 'Back to top');
+  btn.style.cssText = 'position:fixed;bottom:28px;right:28px;width:44px;height:44px;border-radius:2px;background:#E8363A;color:#fff;border:none;cursor:pointer;font-size:18px;font-weight:700;font-family:Inter,sans-serif;opacity:0;transform:translateY(10px);transition:opacity 0.25s,transform 0.25s;z-index:500;display:flex;align-items:center;justify-content:center;line-height:1;';
+  document.body.appendChild(btn);
+  const toggle = () => {
+    const show = (window.scrollY || document.documentElement.scrollTop) > 600;
+    btn.style.opacity = show ? '1' : '0';
+    btn.style.transform = show ? 'translateY(0)' : 'translateY(10px)';
+    btn.style.pointerEvents = show ? '' : 'none';
+  };
+  window.addEventListener('scroll', toggle, { passive: true });
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+}
+
+// ── Article Enhancement Styles (review pages) ────────────────────────────────
+function injectArticleEnhancements() {
+  if (document.getElementById('reverb-article-v3')) return;
+  const s = document.createElement('style');
+  s.id = 'reverb-article-v3';
+  s.textContent = `
+    /* Drop cap */
+    .article-text > p:first-of-type::first-letter {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 4.4em; font-weight: 900;
+      float: left; line-height: 0.78;
+      margin: 0.05em 0.12em 0 0;
+      color: #E8363A;
+    }
+    /* Pullquote / blockquote upgrade */
+    .article-text blockquote {
+      margin: 36px 0 !important;
+      padding: 20px 28px !important;
+      border-left: 4px solid #E8363A !important;
+      background: rgba(232,54,58,0.04) !important;
+      border-right: none !important;
+    }
+    .article-text blockquote p {
+      font-family: 'Playfair Display', Georgia, serif !important;
+      font-style: italic !important;
+      font-size: 20px !important;
+      line-height: 1.55 !important;
+      color: #E8E8E3 !important;
+      margin: 0 !important;
+    }
+    /* Related reviews */
+    .reverb-related { padding: 48px 0 0; border-top: 1px solid #1A1A1A; margin-top: 48px; }
+    .reverb-related-heading { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #E8363A; margin-bottom: 20px; }
+    .reverb-related-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    @media(max-width:640px) { .reverb-related-grid { grid-template-columns: 1fr; } }
+    .reverb-related-card { display:flex; gap:12px; text-decoration:none; color:inherit; padding:12px 0; border-bottom:1px solid #1A1A1A; transition:opacity 0.2s; }
+    .reverb-related-card:hover { opacity: 0.7; }
+    .reverb-related-cover { width:52px; height:52px; flex-shrink:0; background-size:cover; background-position:center; border-radius:2px; }
+    .reverb-related-artist { font-size:10px; color:#E8363A; font-weight:700; text-transform:uppercase; letter-spacing:.06em; }
+    .reverb-related-album { font-size:13px; font-weight:700; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .reverb-related-score { font-family:'DM Mono',monospace; font-size:15px; font-weight:700; margin-top:4px; }
+    /* BNM Strip */
+    .bnm-strip-scroll { display:flex; gap:12px; overflow-x:auto; scrollbar-width:none; -ms-overflow-style:none; padding-bottom:4px; }
+    .bnm-strip-scroll::-webkit-scrollbar { display:none; }
+    .bnm-strip-item { flex:0 0 172px; text-decoration:none; color:inherit; transition:opacity 0.2s; }
+    .bnm-strip-item:hover { opacity:0.8; }
+    .bnm-strip-cover { width:172px; height:172px; background-size:cover; background-position:center; border-radius:2px; position:relative; }
+    .bnm-strip-badge { position:absolute; top:8px; left:8px; background:#1DB954; color:#fff; font-size:9px; font-weight:700; letter-spacing:.1em; padding:3px 7px; border-radius:2px; }
+    .bnm-strip-score { position:absolute; bottom:8px; right:8px; font-family:'DM Mono',monospace; font-weight:700; font-size:19px; }
+    .bnm-strip-info { padding:8px 0 0; }
+    .bnm-strip-artist { font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#A0A0A0; }
+    .bnm-strip-album { font-size:13px; font-weight:700; margin-top:2px; }
+    /* Radar */
+    .radar-cols { display:grid; grid-template-columns:repeat(3,1fr); gap:40px; }
+    @media(max-width:900px) { .radar-cols { grid-template-columns:1fr; gap:24px; } }
+    .radar-col-title { font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#5A5A5A; padding-bottom:12px; border-bottom:1px solid #1A1A1A; margin-bottom:16px; }
+    .radar-artist-item { display:flex; align-items:flex-start; gap:10px; padding:12px 0; border-bottom:1px solid rgba(42,42,42,0.6); }
+    .radar-artist-num { font-family:'DM Mono',monospace; font-size:11px; color:#333; width:20px; flex-shrink:0; margin-top:2px; }
+    .radar-artist-meta { flex:1; }
+    .radar-artist-name { font-weight:700; font-size:14px; }
+    .radar-artist-genre { font-size:11px; color:#5A5A5A; margin-top:2px; }
+    .radar-artist-blurb { font-size:12px; color:#888; margin-top:4px; line-height:1.4; }
+    .radar-momentum { font-family:'DM Mono',monospace; font-size:15px; font-weight:700; color:#F5C518; flex-shrink:0; }
+    .radar-release-item { padding:12px 0; border-bottom:1px solid rgba(42,42,42,0.6); }
+    .radar-release-artist { font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#E8363A; }
+    .radar-release-title { font-weight:700; font-size:14px; margin-top:3px; }
+    .radar-release-meta { font-size:11px; color:#5A5A5A; margin-top:3px; }
+    .radar-release-hype { font-family:'DM Mono',monospace; font-size:12px; color:#4A9EFF; font-weight:700; margin-top:5px; display:inline-block; }
+    .radar-genre-item { padding:12px 0; border-bottom:1px solid rgba(42,42,42,0.6); }
+    .radar-genre-name { font-weight:700; font-size:14px; }
+    .radar-genre-traj { display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:700; margin-top:4px; }
+    .traj-rising { color:#1DB954; } .traj-peaking { color:#F5C518; } .traj-declining { color:#E8363A; } .traj-emerging { color:#4A9EFF; } .traj-stable { color:#A0A0A0; }
+    .radar-genre-score { font-family:'DM Mono',monospace; font-size:13px; color:#F5C518; margin-top:4px; }
+    .radar-genre-opp { font-size:12px; color:#A0A0A0; margin-top:4px; line-height:1.4; }
+    .radar-dot { display:inline-block; width:6px; height:6px; border-radius:50%; background:#1DB954; margin-right:6px; animation:radar-pulse 2s ease-in-out infinite; }
+    @keyframes radar-pulse { 0%,100%{opacity:1} 50%{opacity:0.25} }
+  `;
+  document.head.appendChild(s);
+}
+
+// ── Share Row ─────────────────────────────────────────────────────────────────
+function injectShareRow(review) {
+  if (!review || document.querySelector('.reverb-share-row')) return;
+  const tagsEl = document.querySelector('.article-tags');
+  if (!tagsEl) return;
+  const url = encodeURIComponent(window.location.href);
+  const text = encodeURIComponent(`${review.artist} — ${review.album} · ${review.rating}/10 on REVERB`);
+  const row = document.createElement('div');
+  row.className = 'reverb-share-row';
+  row.style.cssText = 'display:flex;align-items:center;gap:10px;padding:20px 0;border-top:1px solid #1A1A1A;margin-top:32px;';
+  row.innerHTML = `
+    <span style="font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#5A5A5A;margin-right:6px;">Share</span>
+    <a href="https://twitter.com/intent/tweet?text=${text}&url=${url}" target="_blank" rel="noopener"
+      style="display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:#111;border:1px solid #2A2A2A;color:#A0A0A0;font-size:12px;font-weight:600;font-family:Inter,sans-serif;border-radius:2px;text-decoration:none;transition:all .2s;"
+      onmouseover="this.style.color='#fff';this.style.borderColor='#555'" onmouseout="this.style.color='#A0A0A0';this.style.borderColor='#2A2A2A'">
+      𝕏 Post
+    </a>
+    <button onclick="navigator.clipboard.writeText(window.location.href).then(()=>{this.textContent='✓ Copied';this.style.color='#1DB954';this.style.borderColor='#1DB954';setTimeout(()=>{this.textContent='Copy Link';this.style.color='#A0A0A0';this.style.borderColor='#2A2A2A';},2000);})"
+      style="display:inline-flex;align-items:center;padding:7px 14px;background:#111;border:1px solid #2A2A2A;color:#A0A0A0;font-size:12px;font-weight:600;font-family:Inter,sans-serif;border-radius:2px;cursor:pointer;transition:all .2s;"
+      onmouseover="this.style.color='#fff';this.style.borderColor='#555'" onmouseout="this.style.color='#A0A0A0';this.style.borderColor='#2A2A2A'">
+      Copy Link
+    </button>
+  `;
+  tagsEl.after(row);
+}
+
+// ── Related Reviews ───────────────────────────────────────────────────────────
+async function injectRelatedReviews(currentReview) {
+  if (!currentReview || document.querySelector('.reverb-related')) return;
+  try {
+    const data = await reverbFetch({ endpoint: 'browse', limit: 50 });
+    const all = (data.reviews || []).filter(r => r.id !== currentReview.id);
+    const sameGenre = all.filter(r => r.genre === currentReview.genre);
+    const pool = sameGenre.length >= 3 ? sameGenre : all;
+    const related = [...pool].sort(() => Math.random() - 0.5).slice(0, 3);
+    if (!related.length) return;
+    const articleEl = document.querySelector('.article-text');
+    if (!articleEl) return;
+    let container = articleEl.closest('.content-col, .article-section, main') || articleEl.parentElement;
+    const section = document.createElement('section');
+    section.className = 'reverb-related';
+    section.innerHTML = `
+      <div class="reverb-related-heading">More from REVERB</div>
+      <div class="reverb-related-grid">
+        ${related.map(r => {
+          const img = getCover(r);
+          const bg = img ? `background-image:url(${img})` : `background:${coverBg(r)}`;
+          return `<a href="/review.html?id=${r.id}" class="reverb-related-card">
+            <div class="reverb-related-cover" style="${bg};background-size:cover;background-position:center;"></div>
+            <div style="flex:1;min-width:0;">
+              <div class="reverb-related-artist">${r.artist}</div>
+              <div class="reverb-related-album">${r.album}</div>
+              <div class="reverb-related-score" style="color:${scoreColor(r.rating)}">${r.rating}</div>
+            </div>
+          </a>`;
+        }).join('')}
+      </div>`;
+    container.appendChild(section);
+  } catch(e) { /* silent */ }
+}
+
+// ── BNM Strip Hydration ───────────────────────────────────────────────────────
+async function hydrateBNMStrip() {
+  const strip = document.querySelector('.bnm-strip-scroll');
+  if (!strip) return;
+  try {
+    const data = await reverbFetch({ endpoint: 'browse', limit: 50 });
+    const bnm = (data.reviews || []).filter(r => r.is_best_new_music).slice(0, 10);
+    if (!bnm.length) return;
+    strip.innerHTML = bnm.map(r => {
+      const img = getCover(r);
+      const bg = img ? `background-image:url(${img})` : `background:${coverBg(r)}`;
+      return `<a href="/review.html?id=${r.id}" class="bnm-strip-item">
+        <div class="bnm-strip-cover" style="${bg};background-size:cover;background-position:center;">
+          <span class="bnm-strip-badge">★ BNM</span>
+          <span class="bnm-strip-score" style="color:${scoreColor(r.rating)}">${r.rating}</span>
+        </div>
+        <div class="bnm-strip-info">
+          <div class="bnm-strip-artist">${r.artist}</div>
+          <div class="bnm-strip-album">${r.album}</div>
+        </div>
+      </a>`;
+    }).join('');
+  } catch(e) { /* silent */ }
+}
+
+// ── Radar Section Hydration ───────────────────────────────────────────────────
+async function hydrateRadar() {
+  const artistsCol = document.querySelector('.radar-col-artists');
+  const releasesCol = document.querySelector('.radar-col-releases');
+  const genresCol = document.querySelector('.radar-col-genres');
+  if (!artistsCol && !releasesCol && !genresCol) return;
+  try {
+    const data = await reverbFetch({ endpoint: 'radar' });
+    const { emerging_artists = [], upcoming_releases = [], genre_forecasts = [] } = data;
+
+    if (artistsCol && emerging_artists.length) {
+      artistsCol.innerHTML = emerging_artists.slice(0,5).map((a,i) => `
+        <div class="radar-artist-item reveal" style="--delay:${i*60}ms">
+          <span class="radar-artist-num">${String(i+1).padStart(2,'0')}</span>
+          <div class="radar-artist-meta">
+            <div class="radar-artist-name">${a.name}</div>
+            <div class="radar-artist-genre">${a.genre}${a.location ? ' · '+a.location : ''}</div>
+            <div class="radar-artist-blurb">${(a.blurb||'').slice(0,85)}${(a.blurb||'').length>85?'…':''}</div>
+          </div>
+          <div class="radar-momentum">${a.momentum_score?.toFixed?.(1)||'—'}</div>
+        </div>`).join('');
+      initScrollReveal();
+    }
+
+    if (releasesCol && upcoming_releases.length) {
+      releasesCol.innerHTML = upcoming_releases.slice(0,5).map(r => `
+        <div class="radar-release-item reveal">
+          <div class="radar-release-artist">${r.artist}</div>
+          <div class="radar-release-title">${r.title||'TBA'}</div>
+          <div class="radar-release-meta">${[r.genre,r.release_date,r.label].filter(Boolean).join(' · ')}</div>
+          <div class="radar-release-hype">Hype ${r.hype_score||'?'}/10</div>
+        </div>`).join('');
+      initScrollReveal();
+    }
+
+    if (genresCol && genre_forecasts.length) {
+      const icons = { rising:'↑', peaking:'◆', declining:'↓', emerging:'✦', stable:'→' };
+      genresCol.innerHTML = genre_forecasts.slice(0,5).map(g => `
+        <div class="radar-genre-item reveal">
+          <div class="radar-genre-name">${g.genre}</div>
+          <div class="radar-genre-traj"><span class="traj-${g.trajectory||'stable'}">${icons[g.trajectory]||'→'} ${g.trajectory||'stable'}</span></div>
+          <div class="radar-genre-score">${g.current_score?.toFixed?.(1)||'—'} / 10</div>
+          <div class="radar-genre-opp">${(g.editorial_opportunity||'').slice(0,80)}${(g.editorial_opportunity||'').length>80?'…':''}</div>
+        </div>`).join('');
+      initScrollReveal();
+    }
+  } catch(e) { console.warn('Radar error:', e); }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   injectSharedStyles();
   injectMobileBurger();
   initMobileNav();
   initScrollReveal();
+  initScrollToTop();
 
   const path = location.pathname;
   if (path.endsWith('index.html') || path === '/' || path.endsWith('/reverb/') || path.endsWith('/reverb')) {
     hydrateHomepage();
+    hydrateBNMStrip();
+    hydrateRadar();
   } else if (path.includes('browse')) {
     hydrateBrowse();
   } else if (path.includes('review')) {
-    hydrateReview();
+    injectArticleEnhancements();
+    initReadingProgress();
+    hydrateReview().then(() => {
+      setTimeout(() => {
+        if (window._currentReview) {
+          injectShareRow(window._currentReview);
+          injectRelatedReviews(window._currentReview);
+        }
+      }, 400);
+    });
   }
 });
